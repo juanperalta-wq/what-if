@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 09_Tarapaca_Decision_ConFlota
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Belisario Su\xE1rez"
+  dialogueText: "El General Buend\xEDa solicita consejo estrat\xE9gico. Tenemos la
+    moral en lo m\xE1s alto, pero la cantimplora vac\xEDa. \xBFCu\xE1l es el siguiente
+    paso de este ej\xE9rcito, {PLAYER_NAME}?"
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts:
+  - "Enterremos los ca\xF1ones Krupp y ordenemos la retirada general hacia Arica
+    cruzando el desierto."
+  - Aprovechemos la inercia del triunfo y ataquemos por sorpresa el puerto de Pisagua
+    para robar suministros.

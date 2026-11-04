@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: FINAL_02_PazArmada
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "LA PAZ ARMADA. \xA1Una victoria t\xE1ctica sin precedentes! El ataque
+    en la camanchaca inutiliz\xF3 los ca\xF1ones enemigos. Sumado al hecho de que
+    el Per\xFA a\xFAn conserva la fragata Independencia en el mar, el alto mando
+    rival, incapaz de avanzar hacia Lima, se vio obligado a solicitar un armisticio
+    inmediato. La guerra termin\xF3 mediante un tenso tratado diplom\xE1tico."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

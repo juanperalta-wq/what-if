@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 06_Tarapaca_Intro_ConFlota
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "27 de noviembre de 1879. Fondo de la quebrada de Tarapac\xE1. El
+    ej\xE9rcito peruano, exhausto tras la derrota en San Francisco, fue sorprendido.
+    Sin embargo, en un acto de hero\xEDsmo, la infanter\xEDa peruana escal\xF3 las
+    laderas y contraatac\xF3 ferozmente."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

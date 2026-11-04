@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 08_Tarapaca_Bolognesi_ConFlota
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Francisco Bolognesi
+  dialogueText: "Ganamos la batalla, coronel C\xE1ceres, pero la guerra es log\xEDstica.
+    No tenemos mulas para transportar esos pesados ca\xF1ones. Nuestros hombres no
+    han comido en 48 horas, las municiones escasean y los pozos de agua en este desierto
+    est\xE1n secos."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

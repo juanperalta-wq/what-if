@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 05B_Salva_Independencia
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "Las bengalas rojas del Hu\xE1scar iluminaron el cielo diurno. El
+    capit\xE1n Moore, a rega\xF1adientes, abort\xF3 la embestida a escasos metros
+    de los arrecifes. El Per\xFA conserva su fragata blindada. La guerra en el mar
+    ser\xE1 m\xE1s equilibrada de lo que dictan los libros."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

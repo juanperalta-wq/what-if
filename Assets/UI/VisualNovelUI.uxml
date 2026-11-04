@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="VisualNovelStyles.uss" />
+    <ui:VisualElement name="RootScreen" class="root-screen">
+        <ui:VisualElement name="CharacterContainer" class="character-container" />
+        <ui:VisualElement name="ChoicesContainer" class="choices-container">
+            <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
+            <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DialoguePanel" class="dialogue-panel">
+            <ui:Label name="SpeakerNameText" class="speaker-name" text="Interlocutor" />
+            <ui:Label name="DialogueText" class="dialogue-text" text="..." />
+            <ui:VisualElement name="NextIndicator" class="next-indicator" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

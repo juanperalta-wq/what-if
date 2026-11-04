@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: FINAL_01_Historico
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "EL CURSO CONOCIDO. Al salir el sol, la artiller\xEDa destroz\xF3
+    las l\xEDneas aliadas. El frente se rompi\xF3 tras horas de sangrienta carnicer\xEDa.
+    Bolivia se retir\xF3 de la guerra y la ca\xEDda de Tacna dej\xF3 a Arica aislada.
+    La historia sigui\xF3 su doloroso e inmutable curso oficial. Has preservado la
+    l\xEDnea temporal, pero el precio fue alt\xEDsimo."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

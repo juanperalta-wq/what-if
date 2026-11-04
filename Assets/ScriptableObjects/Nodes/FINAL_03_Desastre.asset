@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: FINAL_03_Desastre
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "EL DESASTRE PREMATURO. Jugar a ser Dios con la historia exige saber
+    de log\xEDstica militar. Tu imprudencia conden\xF3 al ej\xE9rcito de Tarapac\xE1
+    a morir de sed y agotamiento en el desierto. La batalla de Tacna nunca ocurri\xF3
+    porque no qued\xF3 nadie para defenderla. Has destruido el pa\xEDs meses antes
+    de lo que dictaba la historia original."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts: []

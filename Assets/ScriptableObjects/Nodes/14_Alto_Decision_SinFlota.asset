@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 14_Alto_Decision_SinFlota
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Francisco Bolognesi
+  dialogueText: "La tropa est\xE1 nerviosa. Un ataque nocturno en el desierto requiere
+    una coordinaci\xF3n que quiz\xE1s no tenemos. Si nos descubren en la marcha,
+    ser\xE1 una masacre. Estratega {PLAYER_NAME}, \xBFqu\xE9 ordenamos?"
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: 0}
+  nextNodes: []
+  choiceTexts:
+  - "Es demasiado riesgoso. Permanezcamos en nuestras trincheras, guardemos munici\xF3n
+    y resistamos el asalto frontal."
+  - "Avancen al amparo de la camanchaca. \xA1Tomaremos su artiller\xEDa por sorpresa
+    esta misma noche!"

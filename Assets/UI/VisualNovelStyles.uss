@@ -1,0 +1,131 @@
+.root-screen {
+    flex-grow: 1;
+    background-color: rgb(14, 19, 24);
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+}
+
+/* Retrato del interlocutor: centrado y apoyado sobre la caja de diálogo. */
+.character-container {
+    position: absolute;
+    left: 22%;
+    right: 22%;
+    top: 4%;
+    bottom: 30%;
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Momento Decisivo: capa centrada que atenúa el escenario. */
+.choices-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(4, 7, 10, 0.62);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Botones grandes, centrados y con acento militar. */
+.choice-button {
+    width: 62%;
+    min-width: 460px;
+    max-width: 920px;
+    min-height: 88px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background-color: rgba(28, 39, 48, 0.97);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: rgb(240, 234, 218);
+    font-size: 21px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    transition-property: background-color, border-color, scale;
+    transition-duration: 0.12s;
+}
+
+.choice-button:hover {
+    background-color: rgb(52, 70, 84);
+    border-left-color: rgb(224, 190, 110);
+    border-right-color: rgb(224, 190, 110);
+    border-top-color: rgb(224, 190, 110);
+    border-bottom-color: rgb(224, 190, 110);
+}
+
+.choice-button:active {
+    scale: 0.985;
+    background-color: rgb(66, 86, 100);
+}
+
+/* Caja de diálogo: tercio inferior, fondo oscuro semitransparente. */
+.dialogue-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30%;
+    background-color: rgba(8, 12, 16, 0.93);
+    border-top-width: 2px;
+    border-top-color: rgb(176, 141, 62);
+    padding-left: 52px;
+    padding-right: 52px;
+    padding-top: 26px;
+    padding-bottom: 34px;
+    flex-direction: column;
+}
+
+.speaker-name {
+    font-size: 27px;
+    color: rgb(214, 178, 94);
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.dialogue-text {
+    flex-grow: 1;
+    font-size: 22px;
+    color: rgb(232, 228, 216);
+    white-space: normal;
+    letter-spacing: 0.3px;
+}
+
+/* Pequeño triángulo parpadeante en la esquina inferior derecha. */
+.next-indicator {
+    position: absolute;
+    right: 38px;
+    bottom: 24px;
+    width: 0;
+    height: 0;
+    border-left-width: 9px;
+    border-right-width: 9px;
+    border-top-width: 13px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: rgb(214, 178, 94);
+}
