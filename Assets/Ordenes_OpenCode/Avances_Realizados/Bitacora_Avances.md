@@ -945,13 +945,23 @@ Los 28 `.asset` habían quedado serializados en disco con `nextNodes: []`, aunqu
 - `[ContextMenu("Validate Links")]` en `StoryNode.cs` para validar un asset individual.
 - `GameManager.EndStory()` ahora registra `LogError` si la ruta termina en un nodo que no empieza por `FINAL_`.
 
-**Verificación pendiente:**
+**Verificación en Unity (MCP reconectado):**
 
-- El MCP de Unity no estaba disponible en esta sesión (`Unknown tool 'unityMCP.execute_code'`), por lo que no se pudo entrar a Play Mode desde el agente.
-- Al enfocar Unity, el Editor reimporta los `.asset` corregidos y compila los scripts nuevos. La validación automática debe reportar `Grafo OK`.
-- Prueba manual requerida: pulsar Play y avanzar con clics desde `01_Iquique_Intro` hasta `04_Iquique_Decision`; la partida no debe terminar.
+- Compilación limpia tras reimportar los `.asset` corregidos y los scripts nuevos.
+- `Tools → ¿Y si...? Perú → Validar enlaces del grafo` → `Grafo OK: 28 nodos (3 finales, 20 lineales, 5 decisiones).`
+- `Tools → ¿Y si...? Perú → Reparar enlaces del grafo` → `Enlaces reaplicados en 28 nodos.` y validación OK (idempotente).
+- Play Mode con clics reales sobre `RootScreen`:
+  - Secuencia observada: `01_Iquique_Intro → 02_Iquique_Grau → 03_Iquique_Reporte → 04_Iquique_Decision` en 7 clics.
+  - En `04` aparecen los botones A/B con sus textos completos.
+  - `{PLAYER_NAME}` se resolvió como `Ramírez` en `02_Iquique_Grau`.
+  - Elegir A lleva a `05A_Pierde_Independencia`; avanzar lleva a `06_Tarapaca_Intro_SinFlota`.
+- Las 6 rutas representativas se recorrieron en Play Mode:
+  - A-A-A, A-A-B, B-A-A → `FINAL_01_Historico`
+  - A-B-*, B-B-* → `FINAL_03_Desastre`
+  - B-A-B → `FINAL_02_PazArmada`
+- Consola sin errores ni advertencias. Escena guardada.
 
-**Estado al cierre:** grafo reparado y validado en disco; falta la confirmación en Play Mode.
+**Estado al cierre:** incidencia resuelta; flujo lineal y las 28 variantes operativas en Play Mode.
 
 ---
 
