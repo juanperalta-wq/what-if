@@ -18,7 +18,9 @@ MonoBehaviour:
     ser\xE1 una masacre. Estratega {PLAYER_NAME}, \xBFqu\xE9 ordenamos?"
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 5c10ccee32d645c4b80e8c8fad271372, type: 2}
+  - {fileID: 11400000, guid: dc12aa0fafa9df247b10d26b6d72600c, type: 2}
   choiceTexts:
   - "Es demasiado riesgoso. Permanezcamos en nuestras trincheras, guardemos munici\xF3n
     y resistamos el asalto frontal."

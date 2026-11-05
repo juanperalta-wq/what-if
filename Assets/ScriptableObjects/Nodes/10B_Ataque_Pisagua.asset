@@ -19,5 +19,6 @@ MonoBehaviour:
     sobrevivientes peruanos."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: a260f4d6d126f624ea75ca5b42ec6182, type: 2}
   choiceTexts: []

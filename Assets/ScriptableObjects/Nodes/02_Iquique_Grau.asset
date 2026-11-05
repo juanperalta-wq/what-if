@@ -19,5 +19,6 @@ MonoBehaviour:
     \xBFcu\xE1l es el reporte del resto de la escuadra?"
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 1cf929154bf7bad43ae1ea913d20b5c4, type: 2}
   choiceTexts: []

@@ -19,5 +19,6 @@ MonoBehaviour:
     submarinos de Punta Gruesa."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: defb5073c2d6e334ea4f37e822c07937, type: 2}
   choiceTexts: []

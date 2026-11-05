@@ -18,5 +18,6 @@ MonoBehaviour:
     y decisiva de toda la campa\xF1a del sur."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 39cd611a38992b240940f7bb91243d6e, type: 2}
   choiceTexts: []

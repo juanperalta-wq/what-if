@@ -19,5 +19,6 @@ MonoBehaviour:
     salga el sol."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 536124450c5c8db429a43b12f107325a, type: 2}
   choiceTexts: []

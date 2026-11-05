@@ -19,7 +19,9 @@ MonoBehaviour:
     conf\xEDo en su criterio t\xE1ctico. \xBFQu\xE9 hacemos?"
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 59c9038811f89bd4591a2da1a5645765, type: 2}
+  - {fileID: 11400000, guid: f30209b7ecf84f144bd49a1de941cdc1, type: 2}
   choiceTexts:
   - "El Capit\xE1n Moore conoce su nave. Debemos confiar en su maniobra y terminar
     el rescate aqu\xED."

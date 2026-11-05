@@ -19,5 +19,6 @@ MonoBehaviour:
     enemigas para siempre."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: eb445209396ba1a46b614360f493dd46, type: 2}
   choiceTexts: []

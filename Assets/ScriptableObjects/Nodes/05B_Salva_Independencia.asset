@@ -19,5 +19,6 @@ MonoBehaviour:
     ser\xE1 m\xE1s equilibrada de lo que dictan los libros."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 3688a5db35d042045a5d02bfb3dc2df7, type: 2}
   choiceTexts: []

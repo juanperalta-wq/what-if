@@ -18,5 +18,6 @@ MonoBehaviour:
     silencio e iniciar un ataque de bayonetas antes de que emplaces sus ca\xF1ones."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 4075cb1ddb9f4934b9bc3c11d612320f, type: 2}
   choiceTexts: []

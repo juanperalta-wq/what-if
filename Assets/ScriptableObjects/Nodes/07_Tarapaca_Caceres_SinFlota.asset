@@ -18,5 +18,6 @@ MonoBehaviour:
     al enemigo. \xA1Incluso les hemos capturado ocho modernos ca\xF1ones Krupp!"
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 41375068189a08849a40143a4110a083, type: 2}
   choiceTexts: []

@@ -19,5 +19,6 @@ MonoBehaviour:
     est\xE1n secos."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 3b41934c57d53e14bb683513dc041fc9, type: 2}
   choiceTexts: []

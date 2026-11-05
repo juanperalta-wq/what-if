@@ -19,5 +19,6 @@ MonoBehaviour:
     laderas y contraatac\xF3 ferozmente."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: 9b3f666e34a60f64d9ec2197c0428b74, type: 2}
   choiceTexts: []

@@ -92,4 +92,53 @@ public class StoryNode : ScriptableObject
         if (choiceTexts.Count > 2)
             choiceTexts.RemoveRange(2, choiceTexts.Count - 2);
     }
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// Valida que este nodo tenga un enlace coherente con su tipo.
+    /// Se ejecuta desde el menú contextual del Inspector del asset:
+    /// clic derecho sobre el encabezado del ScriptableObject → "Validate Links".
+    /// </summary>
+    [ContextMenu("Validate Links")]
+    private void ValidateLinks()
+    {
+        int count = nextNodes != null ? nextNodes.Count : 0;
+        bool isFinal = name.StartsWith("FINAL_");
+
+        if (count == 0)
+        {
+            if (isFinal)
+                Debug.Log($"[StoryNode] '{name}' es un final válido (0 salidas).", this);
+            else
+                Debug.LogWarning($"[StoryNode] '{name}' no es un nodo final pero no tiene 'nextNodes'.", this);
+            return;
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            if (nextNodes[i] == null)
+                Debug.LogError($"[StoryNode] '{name}' tiene una referencia nula en nextNodes[{i}].", this);
+        }
+
+        if (count == 1)
+        {
+            if (choiceTexts != null && choiceTexts.Count > 0)
+                Debug.LogWarning($"[StoryNode] '{name}' es lineal (1 salida) pero tiene textos de opción.", this);
+            else
+                Debug.Log($"[StoryNode] '{name}' lineal → '{nextNodes[0].name}'. OK.", this);
+        }
+        else if (count == 2)
+        {
+            int texts = choiceTexts != null ? choiceTexts.Count : 0;
+            if (texts != 2)
+                Debug.LogWarning($"[StoryNode] '{name}' tiene 2 salidas pero {texts} textos de opción.", this);
+            else
+                Debug.Log($"[StoryNode] '{name}' decisión A → '{nextNodes[0].name}', B → '{nextNodes[1].name}'. OK.", this);
+        }
+        else
+        {
+            Debug.LogError($"[StoryNode] '{name}' tiene {count} salidas; el máximo permitido es 2.", this);
+        }
+    }
+#endif
 }

@@ -18,5 +18,6 @@ MonoBehaviour:
     poderoso en un solo d\xEDa, otorgando al enemigo la supremac\xEDa naval definitiva."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: c892312466c440a419b315821d84a9ca, type: 2}
   choiceTexts: []

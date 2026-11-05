@@ -18,7 +18,9 @@ MonoBehaviour:
     paso de este ej\xE9rcito, {PLAYER_NAME}?"
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: c6612e7711969dd449a05c6096c557d5, type: 2}
+  - {fileID: 11400000, guid: 879cbaf7bcf75004caeccb24f5aef06f, type: 2}
   choiceTexts:
   - "Enterremos los ca\xF1ones Krupp y ordenemos la retirada general hacia Arica
     cruzando el desierto."

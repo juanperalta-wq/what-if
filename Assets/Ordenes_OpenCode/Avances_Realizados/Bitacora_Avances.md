@@ -9,7 +9,7 @@
 - **Género:** Novela visual / aventura de historia alternativa
 - **Plataforma objetivo:** PC / Mac / WebGL
 - **Estado actual:** Prototipo base jugable con grafo narrativo y UI Toolkit
-- **Última actualización:** 2026-11-04
+- **Última actualización:** 2026-11-05
 
 ---
 
@@ -746,6 +746,7 @@ GameManager.Instance.StartGame();
 | `Assets/Scripts/Narrative/StoryNode.cs` | Modelo de nodo narrativo |
 | `Assets/Scripts/Managers/GameManager.cs` | Control del grafo y estado de partida |
 | `Assets/Scripts/Managers/UIManager.cs` | Puente entre grafo y UI Toolkit |
+| `Assets/Editor/StoryGraphValidator.cs` | Validador y reparador del grafo desde el menú `Tools` |
 | `Assets/ScriptableObjects/Nodes/01_Iquique_Intro.asset` | Introducción del Combate de Iquique |
 | `Assets/ScriptableObjects/Nodes/02_Iquique_Grau.asset` | Miguel Grau ordena el rescate de náufragos |
 | `Assets/ScriptableObjects/Nodes/03_Iquique_Reporte.asset` | Reporte de la persecución de la Covadonga |
@@ -912,6 +913,48 @@ B-B-* -> FINAL_03_Desastre
 
 ---
 
+### 2026-11-05 — Día 4: incidencia crítica de enlaces y validador de grafo
+
+**Objetivo:** corregir el fin de ruta prematuro en `01_Iquique_Intro` y blindar el grafo contra pérdidas de `nextNodes`.
+
+**Incidencia:**
+
+En Play Mode la partida terminaba en la primera pantalla con:
+
+```text
+[GameManager] Fin de ruta alcanzado: 01_Iquique_Intro
+```
+
+**Causa raíz:**
+
+Los 28 `.asset` habían quedado serializados en disco con `nextNodes: []`, aunque en memoria el grafo se había validado correctamente en la sesión anterior. Los `choiceTexts` sí se conservaron. Al recargar el dominio, Unity reimportó los assets desde disco y perdió todas las salidas.
+
+**Corrección aplicada:**
+
+- Reescritura de `nextNodes` en los 25 nodos que tienen salidas, usando los GUID reales de cada `.meta` (formato `{fileID: 11400000, guid: ..., type: 2}`).
+- Los 3 finales se mantuvieron con `nextNodes: []`.
+- Verificación estática del YAML: 28 nodos, 3 finales, 20 lineales, 5 decisiones, 0 GUIDs duplicados, 0 referencias huérfanas.
+- Simulación de las 8 rutas sobre el YAML: se mantiene A-A-B → `FINAL_01_Historico` y solo B-A-B → `FINAL_02_PazArmada`.
+
+**Herramientas añadidas:**
+
+- `Assets/Editor/StoryGraphValidator.cs`
+  - `Tools → ¿Y si...? Perú → Validar enlaces del grafo`
+  - `Tools → ¿Y si...? Perú → Reparar enlaces del grafo`
+  - Validación silenciosa al cargar el Editor (solo reporta problemas).
+- `[ContextMenu("Validate Links")]` en `StoryNode.cs` para validar un asset individual.
+- `GameManager.EndStory()` ahora registra `LogError` si la ruta termina en un nodo que no empieza por `FINAL_`.
+
+**Verificación pendiente:**
+
+- El MCP de Unity no estaba disponible en esta sesión (`Unknown tool 'unityMCP.execute_code'`), por lo que no se pudo entrar a Play Mode desde el agente.
+- Al enfocar Unity, el Editor reimporta los `.asset` corregidos y compila los scripts nuevos. La validación automática debe reportar `Grafo OK`.
+- Prueba manual requerida: pulsar Play y avanzar con clics desde `01_Iquique_Intro` hasta `04_Iquique_Decision`; la partida no debe terminar.
+
+**Estado al cierre:** grafo reparado y validado en disco; falta la confirmación en Play Mode.
+
+---
+
 ### Plantilla para nuevas entradas
 
 Copiar al final del archivo y completar:
@@ -1045,7 +1088,22 @@ Verificar:
 - `DialogueText` con el texto completo o parcial según el typewriter.
 - `NextIndicator` visible al terminar el texto.
 
-### 15.4 Herramientas MCP usadas en este proyecto
+### 15.4 Validar y reparar el grafo narrativo
+
+El proyecto incluye un validador de Editor que revisa los 28 nodos:
+
+```text
+Tools → ¿Y si...? Perú → Validar enlaces del grafo
+Tools → ¿Y si...? Perú → Reparar enlaces del grafo
+```
+
+- **Validar** recorre `Assets/ScriptableObjects/Nodes`, comprueba que cada nodo no final tenga al menos una salida, que los finales tengan 0, que no haya referencias nulas y que las decisiones tengan exactamente 2 textos.
+- **Reparar** reaplica el grafo esperado definido en `StoryGraphValidator.ExpectedLinks`. Es idempotente y sirve para recuperar los enlaces si se pierden al reserializar.
+- Al cargar el Editor, una validación silenciosa escribe en consola **solo si encuentra problemas**.
+
+Además, cada asset individual tiene `Validate Links` en su menú contextual de Inspector, y `GameManager.EndStory()` registra un `LogError` si una ruta termina en un nodo que no empieza por `FINAL_`.
+
+### 15.5 Herramientas MCP usadas en este proyecto
 
 | Herramienta | Uso |
 |---|---|

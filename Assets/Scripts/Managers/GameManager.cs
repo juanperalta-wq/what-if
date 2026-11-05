@@ -170,7 +170,16 @@ public class GameManager : MonoBehaviour
 
     private void EndStory()
     {
-        Debug.Log($"[GameManager] Fin de ruta alcanzado: {CurrentNode.name}");
+        bool isFinalNode = CurrentNode != null && CurrentNode.name.StartsWith("FINAL_");
+
+        if (isFinalNode)
+            Debug.Log($"[GameManager] Fin de ruta alcanzado: {CurrentNode.name}");
+        else
+            Debug.LogError(
+                $"[GameManager] Ruta terminada en un nodo que no es final: " +
+                $"'{CurrentNode?.name}'. Revisa 'nextNodes' con " +
+                "Tools → ¿Y si...? Perú → Validar enlaces del grafo.");
+
         OnStoryEnded?.Invoke(CurrentNode);
     }
 }

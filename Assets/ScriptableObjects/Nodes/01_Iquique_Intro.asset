@@ -18,5 +18,6 @@ MonoBehaviour:
     ha utilizado su espol\xF3n de proa para hundir a la corbeta chilena Esmeralda."
   characterSprite: {fileID: 0}
   backgroundSprite: {fileID: 0}
-  nextNodes: []
+  nextNodes:
+  - {fileID: 11400000, guid: bf1dd488abd52024898ffeb6684b1126, type: 2}
   choiceTexts: []
