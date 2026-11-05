@@ -19,6 +19,11 @@ MonoBehaviour:
     La historia sigui\xF3 su doloroso e inmutable curso oficial. Has preservado la
     l\xEDnea temporal, pero el precio fue alt\xEDsimo."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: -2652209381796279769, guid: be0f3401b50f37243aaf7d91014b8d7b, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: 3327108387176955669, guid: a79079695b124044591d9b1725d60d96, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes: []
   choiceTexts: []

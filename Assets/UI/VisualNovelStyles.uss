@@ -5,17 +5,25 @@
     overflow: hidden;
 }
 
-/* Retrato del interlocutor: centrado y apoyado sobre la caja de diálogo. */
+/* Retrato del interlocutor: apoyado a un costado, nunca en el centro. */
 .character-container {
     position: absolute;
-    left: 22%;
-    right: 22%;
     top: 4%;
     bottom: 30%;
+    width: 38%;
     display: none;
-    align-items: center;
-    justify-content: flex-end;
+    opacity: 0;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.character-left {
+    left: 3%;
+    right: auto;
+}
+
+.character-right {
+    right: 3%;
+    left: auto;
 }
 
 /* Momento Decisivo: capa centrada que atenúa el escenario. */
@@ -113,6 +121,46 @@
     color: rgb(232, 228, 216);
     white-space: normal;
     letter-spacing: 0.3px;
+}
+
+/* Banderas de la campaña: esquina superior izquierda. */
+.flag-strip {
+    position: absolute;
+    top: 22px;
+    left: 26px;
+    flex-direction: row;
+    display: none;
+}
+
+.flag-image {
+    width: 54px;
+    height: 36px;
+    margin-right: 10px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(214, 178, 94, 0.55);
+    border-right-color: rgba(214, 178, 94, 0.55);
+    border-top-color: rgba(214, 178, 94, 0.55);
+    border-bottom-color: rgba(214, 178, 94, 0.55);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Contador de FPS: esquina superior derecha. */
+.fps-text {
+    position: absolute;
+    top: 20px;
+    right: 26px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 18px;
+    color: rgb(214, 178, 94);
+    background-color: rgba(8, 12, 16, 0.62);
+    -unity-font-style: bold;
+    letter-spacing: 1px;
 }
 
 /* Pequeño triángulo parpadeante en la esquina inferior derecha. */

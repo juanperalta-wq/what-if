@@ -17,8 +17,12 @@ MonoBehaviour:
     Prat ha ca\xEDdo con honor en nuestra cubierta y su nave se hunde. Recojan a
     los n\xE1ufragos, la guerra no nos quita la humanidad. Estratega {PLAYER_NAME},
     \xBFcu\xE1l es el reporte del resto de la escuadra?"
-  characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: -326679476388971597, guid: 5367e201e42c74546b4b807e6813d23d, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 1cf929154bf7bad43ae1ea913d20b5c4, type: 2}
   choiceTexts: []

@@ -19,6 +19,10 @@ MonoBehaviour:
     rival, incapaz de avanzar hacia Lima, se vio obligado a solicitar un armisticio
     inmediato. La guerra termin\xF3 mediante un tenso tratado diplom\xE1tico."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: 1125995946907177531, guid: 0a85bccd8c1495f499c6fa6f96ccf811, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes: []
   choiceTexts: []

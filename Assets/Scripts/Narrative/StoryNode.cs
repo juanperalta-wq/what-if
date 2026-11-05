@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Lado de la pantalla donde se apoya el retrato del interlocutor.</summary>
+public enum CharacterSide
+{
+    Izquierda = 0,
+    Derecha = 1
+}
+
 /// <summary>
 /// Nodo de la novela visual "¿Y si...? Perú".
 /// Representa una caja de diálogo y, opcionalmente, una bifurcación binaria.
@@ -31,6 +38,13 @@ public class StoryNode : ScriptableObject
 
     [Tooltip("Fondo del escenario histórico. Puede quedar vacío.")]
     public Sprite backgroundSprite;
+
+    [Header("Puesta en escena")]
+    [Tooltip("Lado de la pantalla donde aparece el retrato. El centro no se usa.")]
+    public CharacterSide characterSide = CharacterSide.Izquierda;
+
+    [Tooltip("Banderas visibles en la esquina superior izquierda (máximo 3).")]
+    public List<Sprite> flagSprites = new List<Sprite>();
 
     [Header("Grafo de decisiones")]
     [Tooltip("0 = final; 1 = avance automático; 2 = decisión binaria.")]
@@ -84,6 +98,12 @@ public class StoryNode : ScriptableObject
 
         if (choiceTexts == null)
             choiceTexts = new List<string>();
+
+        if (flagSprites == null)
+            flagSprites = new List<Sprite>();
+
+        if (flagSprites.Count > 3)
+            flagSprites.RemoveRange(3, flagSprites.Count - 3);
 
         // La regla de oro del GDD: exactamente 2 opciones como máximo.
         if (nextNodes.Count > 2)

@@ -16,8 +16,13 @@ MonoBehaviour:
   dialogueText: "La tropa est\xE1 nerviosa. Un ataque nocturno en el desierto requiere
     una coordinaci\xF3n que quiz\xE1s no tenemos. Si nos descubren en la marcha,
     ser\xE1 una masacre. Estratega {PLAYER_NAME}, \xBFqu\xE9 ordenamos?"
-  characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  characterSprite: {fileID: 8659602654253924799, guid: 41f20a7fa0e58dc4da16d667fe2e7e78, type: 3}
+  backgroundSprite: {fileID: 1125995946907177531, guid: 0a85bccd8c1495f499c6fa6f96ccf811, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: 3327108387176955669, guid: a79079695b124044591d9b1725d60d96, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 5c10ccee32d645c4b80e8c8fad271372, type: 2}
   - {fileID: 11400000, guid: dc12aa0fafa9df247b10d26b6d72600c, type: 2}

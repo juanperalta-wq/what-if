@@ -18,7 +18,11 @@ MonoBehaviour:
     Se dirigen hacia el sur, pegados a la costa, directo a los peligrosos arrecifes
     submarinos de Punta Gruesa."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: -8133628048760076440, guid: e3cbc1356b3bcc3448d335629819e460, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: defb5073c2d6e334ea4f37e822c07937, type: 2}
   choiceTexts: []

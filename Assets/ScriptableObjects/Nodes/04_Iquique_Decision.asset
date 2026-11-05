@@ -17,8 +17,12 @@ MonoBehaviour:
     Nuestra fragata pesa m\xE1s de 2000 toneladas, si Moore se acerca demasiado a
     la costa, encallar\xE1 y perderemos la mitad de nuestro poder naval. {PLAYER_NAME},
     conf\xEDo en su criterio t\xE1ctico. \xBFQu\xE9 hacemos?"
-  characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: -326679476388971597, guid: 5367e201e42c74546b4b807e6813d23d, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 59c9038811f89bd4591a2da1a5645765, type: 2}
   - {fileID: 11400000, guid: f30209b7ecf84f144bd49a1de941cdc1, type: 2}

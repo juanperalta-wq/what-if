@@ -965,6 +965,86 @@ Los 28 `.asset` habían quedado serializados en disco con `nextNodes: []`, aunqu
 
 ---
 
+### 2026-11-05 — Día 5: integración de arte, retratos laterales con fade-in y contador FPS
+
+**Objetivo:**
+
+Integrar los fondos, banderas y retratos ya presentes en `Assets/Sprites` en los 28 nodos, mostrar a los personajes con un fundido de opacidad en los laterales (nunca centrados) y añadir un contador de FPS en la esquina superior derecha.
+
+**Realizado:**
+
+- `StoryNode.cs`
+  - Nuevo enum global `CharacterSide { Izquierda = 0, Derecha = 1 }`.
+  - Nuevos campos serializados: `characterSide` y `List<Sprite> flagSprites`.
+  - `OnValidate()` inicializa `flagSprites` si es nulo y recorta a un máximo de 3 banderas.
+- `UIManager.cs`
+  - `ShowNode(StoryNode, speaker, text)` como ruta principal; `ShowDialogue(...)` se conserva como compatibilidad.
+  - `ShowCharacter(...)` posiciona el retrato, ajusta la clase lateral y arranca `FadeInCharacter()` (0.55 s, `SmoothStep`, tiempo no escalado).
+  - `ApplyCharacterSide(...)` alterna `character-left` / `character-right`.
+  - `ApplyFlags(...)` pinta hasta 3 banderas en la franja superior izquierda.
+  - `UpdateFps()` actualiza cada 0.2 s el texto de FPS con suavizado; se ejecuta desde `Update()`.
+- `GameManager.GoToNode()` ahora llama a `UIManager.ShowNode(node, ...)`.
+- `VisualNovelUI.uxml`
+  - `FlagStrip` con `FlagImageA/B/C`.
+  - `FpsText` (esquina superior derecha).
+- `VisualNovelStyles.uss`
+  - `.character-left` / `.character-right` (3 % del borde, ancho 38 %).
+  - `.flag-strip`, `.flag-image` (54 × 36 px con borde dorado).
+  - `.fps-text` (dorado sobre fondo semitransparente).
+- Asignación programática de arte a los 28 nodos con `execute_code` + `AssetDatabase.LoadAllAssetsAtPath`:
+  - **28/28** nodos con fondo.
+  - **8** nodos con retrato: Grau (2), Cáceres (2), Bolognesi (4); 4 a la izquierda y 4 a la derecha.
+  - **28/28** nodos con banderas: Perú + Chile en Iquique/Tarapacá; Perú + Bolivia + Chile en Alto de la Alianza y `FINAL_01`; Perú + Chile en `FINAL_02` y `FINAL_03`.
+
+**Mapa de fondos aplicado:**
+
+| Nodos | Fondo |
+|---|---|
+| 01, 02, 04 | `Combate_naval_en_la_bahia_de_Iquique-3` |
+| 03 | `Huascar_en_la_costa_de_Atacama-1` |
+| 05A, 05B | `Batalla_naval_frente_a_Punta_Angamos-4` |
+| 06, 07, 09 (ambas líneas) | `Quebrada_de_Tarapaca_entre_humo_y_palmeras-7` |
+| 08, 10B | `Columna_exhausta_en_el_desierto_de_Atacama-6` |
+| 10A (ambas líneas) | `Ruta_polvorienta_hacia_Tacna-5` |
+| 11, 12, 13, 14 (ambas líneas) | `Meseta_de_Alto_de_la_Alianza-11` |
+| FINAL_01 | `Morro_de_Arica_puerto_y_baterias-9` |
+| FINAL_02 | `Meseta_de_Alto_de_la_Alianza-11` |
+| FINAL_03 | `Columna_exhausta_en_el_desierto_de_Atacama-6` |
+
+**Retratos aplicados:**
+
+| Nodo(s) | Personaje | Lado |
+|---|---|---|
+| 02, 04 | Miguel Grau | Izquierda |
+| 07 (ambas líneas) | Andrés Avelino Cáceres | Derecha |
+| 08 (ambas líneas) | Francisco Bolognesi | Izquierda |
+| 14 (ambas líneas) | Francisco Bolognesi | Derecha |
+
+**Verificación en Play Mode:**
+
+- `02_Iquique_Grau`: fondo de Iquique, Grau a la izquierda, banderas Perú/Chile y FPS visible.
+- `07_Tarapaca_Caceres_ConFlota`: fondo de Tarapacá, Cáceres a la derecha, banderas Perú/Chile.
+- `14_Alto_Decision_ConFlota`: fondo del Alto, Bolognesi a la derecha y tres banderas (Perú, Bolivia, Chile).
+- Capturas guardadas en `Assets/Screenshots/` (`screenshot-20261105-171134.png`, `...171312.png`, `...171338.png`).
+- Consola sin errores ni advertencias tras la recompilación.
+
+**Incidencias y soluciones:**
+
+- El aviso `The referenced script (Unknown) on this Behaviour is missing!` apareció una vez durante la recarga de dominio; se limpió la consola, no volvió a reproducirse y la escena no contiene componentes con script faltante.
+- El Play Mode se detuvo durante una pausa manual de verificación; se reinició sin errores y las capturas se repitieron con `Time.timeScale = 0` para congelar la escena sin perder el render.
+- No existen retratos para el Oficial de Señales, Belisario Suárez, Campero ni Montero; esos nodos se apoyan en fondo + banderas.
+
+**Pendientes para el siguiente día:**
+
+- Retratos propios para Oficial de Señales, Belisario Suárez, Campero y Montero (o decisión de diseño de dejarlos sin retrato).
+- Menú principal, ingreso de nombre, pantalla de resumen de final y fade to black.
+- Guardado JSON, pausa, ajustes, códice y audio.
+- Configurar Build Settings y pruebas automatizadas.
+
+**Estado al cierre:** arte integrado en los 28 nodos, retratos laterales con fade-in, banderas por campaña y contador FPS operativos; compilación limpia y Play Mode verificado.
+
+---
+
 ### Plantilla para nuevas entradas
 
 Copiar al final del archivo y completar:

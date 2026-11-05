@@ -16,8 +16,12 @@ MonoBehaviour:
   dialogueText: "\xA1Una victoria impensable, {PLAYER_NAME}! Tras nueve horas de
     fuego cruzado, el batall\xF3n Zepita y nuestros valientes han hecho retroceder
     al enemigo. \xA1Incluso les hemos capturado ocho modernos ca\xF1ones Krupp!"
-  characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: -7888271434362648788, guid: c6e22d00b88330145a80e457f2ff0e57, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 258d2539e6fb0854884e00d3238c69b5, type: 2}
   choiceTexts: []

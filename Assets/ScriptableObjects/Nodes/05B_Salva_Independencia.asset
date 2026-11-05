@@ -18,7 +18,11 @@ MonoBehaviour:
     de los arrecifes. El Per\xFA conserva su fragata blindada. La guerra en el mar
     ser\xE1 m\xE1s equilibrada de lo que dictan los libros."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: 4803970343926494307, guid: 62af68b16cf2c904ab4f49e2260095d0, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 3688a5db35d042045a5d02bfb3dc2df7, type: 2}
   choiceTexts: []

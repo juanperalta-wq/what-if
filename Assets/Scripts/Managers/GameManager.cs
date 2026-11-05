@@ -87,11 +87,10 @@ public class GameManager : MonoBehaviour
 
         if (uiManager != null)
         {
-            uiManager.ShowDialogue(
+            uiManager.ShowNode(
+                node,
                 node.ResolveSpeaker(PlayerName),
-                node.ResolveDialogue(PlayerName),
-                node.characterSprite,
-                node.backgroundSprite);
+                node.ResolveDialogue(PlayerName));
         }
 
         OnNodeChanged?.Invoke(node);

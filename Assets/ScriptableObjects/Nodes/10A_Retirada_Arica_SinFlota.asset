@@ -18,7 +18,11 @@ MonoBehaviour:
     provincia de Tarapac\xE1 y sus ricos yacimientos de salitre quedaron en manos
     enemigas para siempre."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: 6680213247088798936, guid: 1a820d87d1de07a45a3f1e23b2952882, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 728d1533b12f5784a8c6a6819b288fef, type: 2}
   choiceTexts: []

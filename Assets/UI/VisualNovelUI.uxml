@@ -6,6 +6,12 @@
             <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
             <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
         </ui:VisualElement>
+        <ui:VisualElement name="FlagStrip" class="flag-strip">
+            <ui:VisualElement name="FlagImageA" class="flag-image" />
+            <ui:VisualElement name="FlagImageB" class="flag-image" />
+            <ui:VisualElement name="FlagImageC" class="flag-image" />
+        </ui:VisualElement>
+        <ui:Label name="FpsText" class="fps-text" text="-- FPS" />
         <ui:VisualElement name="DialoguePanel" class="dialogue-panel">
             <ui:Label name="SpeakerNameText" class="speaker-name" text="Interlocutor" />
             <ui:Label name="DialogueText" class="dialogue-text" text="..." />

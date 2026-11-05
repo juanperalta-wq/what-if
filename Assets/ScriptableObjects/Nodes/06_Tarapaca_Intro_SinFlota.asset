@@ -18,7 +18,11 @@ MonoBehaviour:
     Sin embargo, en un acto de hero\xEDsmo, la infanter\xEDa peruana escal\xF3 las
     laderas y contraatac\xF3 ferozmente."
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: -7888271434362648788, guid: c6e22d00b88330145a80e457f2ff0e57, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 9b3f666e34a60f64d9ec2197c0428b74, type: 2}
   choiceTexts: []

@@ -17,8 +17,12 @@ MonoBehaviour:
     No tenemos mulas para transportar esos pesados ca\xF1ones. Nuestros hombres no
     han comido en 48 horas, las municiones escasean y los pozos de agua en este desierto
     est\xE1n secos."
-  characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  characterSprite: {fileID: 8659602654253924799, guid: 41f20a7fa0e58dc4da16d667fe2e7e78, type: 3}
+  backgroundSprite: {fileID: -5256418473622557830, guid: 9f70e7729722a7b45a0436024f8f03e8, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: 3b41934c57d53e14bb683513dc041fc9, type: 2}
   choiceTexts: []

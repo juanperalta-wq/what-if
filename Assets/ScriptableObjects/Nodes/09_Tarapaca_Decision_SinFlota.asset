@@ -17,7 +17,11 @@ MonoBehaviour:
     moral en lo m\xE1s alto, pero la cantimplora vac\xEDa. \xBFCu\xE1l es el siguiente
     paso de este ej\xE9rcito, {PLAYER_NAME}?"
   characterSprite: {fileID: 0}
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: -7888271434362648788, guid: c6e22d00b88330145a80e457f2ff0e57, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
   nextNodes:
   - {fileID: 11400000, guid: c6612e7711969dd449a05c6096c557d5, type: 2}
   - {fileID: 11400000, guid: 879cbaf7bcf75004caeccb24f5aef06f, type: 2}
