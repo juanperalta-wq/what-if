@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainInicio.unity
+    guid: ca66560430f549d4c97f9f1bc973e27b
+  - enabled: 1
     path: Assets/Scenes/What_If_Peru.unity
     guid: 9709d9a6923d836498008d89145b4806
   m_configObjects:

@@ -1,0 +1,68 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIInicio/IntroUIStyle.uss?fileID=7433441132597879392&amp;guid=1760629a8ae377145a291b6da170432f&amp;type=3#IntroUIStyle"/>
+
+    <!-- CONTENEDOR RAÍZ -->
+    <ui:VisualElement name="RootContainer" class="root-container">
+
+        <!-- ============ TÍTULO / MENÚ PRINCIPAL ============ -->
+        <ui:VisualElement name="MainMenuView" class="screen-view">
+            <ui:Label name="GameEyebrow" text="Guerra del Pacífico · 1879" class="eyebrow-text"/>
+            <ui:Label name="GameTitle" text="¿Y si...?" class="game-title"/>
+            <ui:Label name="GameSubtitle" text="PERÚ" class="game-subtitle"/>
+            <ui:VisualElement name="TitleDivider" class="title-divider"/>
+            <ui:Label name="TaglineText" text="Una novela visual de historia alternativa" class="tagline-text"/>
+
+            <ui:VisualElement class="button-column">
+                <ui:Button name="StartButton" text="Iniciar Campaña" class="menu-button"/>
+                <ui:Button name="OptionsButton" text="Opciones" class="menu-button secondary"/>
+                <ui:Button name="ExitButton" text="Salir" class="menu-button secondary"/>
+            </ui:VisualElement>
+
+            <ui:Label name="VersionText" text="v0.1 · Prototipo" class="version-text"/>
+        </ui:VisualElement>
+
+        <!-- ============ INGRESO DE NOMBRE ============ -->
+        <ui:VisualElement name="NameInputView" class="screen-view">
+            <ui:Label text="Identifíquese, Estratega" class="panel-title"/>
+            <ui:Label name="NameHintText" text="¿Cómo desea que lo llamen los generales?" class="panel-hint"/>
+            <ui:TextField name="PlayerNameField" label="Nombre del Viajero" class="name-field" max-length="24"/>
+            <ui:VisualElement class="button-column">
+                <ui:Button name="ConfirmNameButton" text="Confirmar Identidad" class="menu-button"/>
+                <ui:Button name="BackFromNameButton" text="Volver" class="menu-button secondary"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ============ OPCIONES ============ -->
+        <ui:VisualElement name="OptionsView" class="screen-view">
+            <ui:Label text="Configuraciones" class="panel-title"/>
+
+            <ui:VisualElement class="options-container">
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Volumen de Música" class="option-label"/>
+                    <ui:Slider name="MusicSlider" low-value="0" high-value="1" value="0.8" class="option-slider"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Volumen de SFX" class="option-label"/>
+                    <ui:Slider name="SfxSlider" low-value="0" high-value="1" value="0.8" class="option-slider"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Velocidad del Texto" class="option-label"/>
+                    <ui:Slider name="TextSpeedSlider" low-value="0.01" high-value="0.1" value="0.05" class="option-slider"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Pantalla Completa" class="option-label"/>
+                    <ui:Toggle name="FullscreenToggle" value="true" class="option-toggle"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Button name="BackFromOptionsButton" text="Volver al Menú" class="menu-button"/>
+        </ui:VisualElement>
+
+        <!-- ============ ANIMACIÓN DE SALTO TEMPORAL ============ -->
+        <ui:VisualElement name="IntroAnimationView" class="intro-view">
+            <ui:Label name="IntroChronoText" text="SINCRONIZANDO RELOJ TEMPORAL" class="intro-chrono"/>
+            <ui:Label name="IntroText" text="1879..." class="intro-text"/>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

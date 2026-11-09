@@ -8,8 +8,8 @@
 - **Motor:** Unity 6.3 — `6000.3.23f1`
 - **Género:** Novela visual / aventura de historia alternativa
 - **Plataforma objetivo:** PC / Mac / WebGL
-- **Estado actual:** Prototipo base jugable con grafo narrativo y UI Toolkit
-- **Última actualización:** 2026-11-05
+- **Estado actual:** Prototipo base jugable con grafo narrativo, UI Toolkit y pantalla de inicio (menú + ingreso de nombre + opciones)
+- **Última actualización:** 2026-11-09
 
 ---
 
@@ -662,17 +662,17 @@ Se tomaron capturas de verificación en `Assets/Screenshots` y luego se eliminar
 
 ### 11.1 Pendientes funcionales
 
-1. **Pantalla de menú / título** (Start, Load, Options, Exit).
-2. **Ingreso del nombre del jugador** antes de iniciar la historia. `SetPlayerName` ya está listo.
-3. **Pantalla de resumen de final** con la “Línea Temporal Creada”.
+1. ~~**Pantalla de menú / título** (Start, Load, Options, Exit).~~ → Resuelto (Día 6): pantalla `MainInicio` con menú, ingreso de nombre, opciones y salto temporal.
+2. ~~**Ingreso del nombre del jugador** antes de iniciar la historia.~~ → Resuelto (Día 6): `GameSessionManager` transporta el nombre y `GameManager.SetPlayerName` lo aplica.
+3. **Pantalla de resumen de final** con la "Línea Temporal Creada".
 4. **Sistema de guardado/carga JSON** para explorar ramas.
 5. **Transiciones Fade to Black** entre escenas/niveles.
 6. **Menú de pausa** con guardar, cargar y opciones.
-7. **Ajustes de velocidad de texto, volumen y pantalla completa**.
+7. ~~**Ajustes de velocidad de texto, volumen y pantalla completa**.~~ → Parcial (Día 6): la UI de opciones existe y guarda los valores en `GameSessionManager`, pero el juego aún no los consume.
 8. **Códice de finales / medallas**.
 9. **Audio** (música y SFX).
 10. **Arte**: retratos y fondos para los 28 nodos (pueden reutilizarse entre variantes).
-11. **Build Settings**: agregar `What_If_Peru` a la lista de escenas.
+11. ~~**Build Settings**: agregar `What_If_Peru` a la lista de escenas.~~ → Resuelto (Día 6): `MainInicio` (0) y `What_If_Peru` (1).
 12. **Tests automatizados** de rutas y UI.
 
 ### 11.2 Limitaciones técnicas conocidas
@@ -1042,6 +1042,66 @@ Integrar los fondos, banderas y retratos ya presentes en `Assets/Sprites` en los
 - Configurar Build Settings y pruebas automatizadas.
 
 **Estado al cierre:** arte integrado en los 28 nodos, retratos laterales con fade-in, banderas por campaña y contador FPS operativos; compilación limpia y Play Mode verificado.
+
+---
+
+### 2026-11-09 — Día 6: pantalla de inicio (menú + ingreso de nombre + opciones)
+
+**Objetivo:** construir la pantalla de inicio que el GDD pedía como flujo previo al juego (título → ingreso de nombre → salto temporal → nivel 1) y conectarla con la escena `What_If_Peru`.
+
+**Realizado:**
+
+- Creación de la carpeta `Assets/UI/UIInicio` con los assets de UI Toolkit:
+  - `IntroUI.uxml` — árbol visual con 4 vistas: `MainMenuView` (título), `NameInputView`, `OptionsView` e `IntroAnimationView` (salto temporal).
+  - `IntroUIStyle.uss` — estilos con el mismo tema oscuro + dorado militar (`rgb(214,178,94)`) que `VisualNovelStyles.uss`, para coherencia visual con el juego.
+- Creación de `GameSessionManager.cs` (Singleton persistente `DontDestroyOnLoad`) como puente entre escenas: transporta `playerName`, `musicVolume`, `sfxVolume`, `textSpeed` y `fullscreen`. Recuerda el nombre del jugador mediante `PlayerPrefs`.
+- Creación de `IntroUIController.cs`:
+  - Gestiona el cambio entre las 4 vistas mediante `ShowView()`.
+  - Al confirmar el nombre, guarda las preferencias y dispara la animación de salto temporal (parpadeo del cronómetro y del año "1879...").
+  - Carga la escena `What_If_Peru` al terminar la transición.
+  - El botón "Salir" funciona también en el Editor (`EditorApplication.isPlaying = false`).
+- Modificación de `GameManager.cs`: en `Awake()` lee el nombre desde `GameSessionManager.Instance` y lo aplica con `SetPlayerName()`, de modo que `{PLAYER_NAME}` se resuelve con el nombre real ingresado.
+- Creación de la escena `MainInicio` con: `Main Camera`, `GameSessionManager`, `UI_Controller` (UIDocument + IntroUIController) y `EventSystem`.
+- Configuración de la escena `MainInicio`:
+  - `UIDocument.visualTreeAsset = IntroUI.uxml`.
+  - `UIDocument.panelSettings = VisualNovelPanelSettings.asset` (escala 1920×1080 coherente con el juego).
+  - `EventSystem` con `EventSystem` + `InputSystemUIInputModule` (`AssignDefaultActions()`), idéntico al de `What_If_Peru`.
+- Build Settings: `MainInicio` en índice 0 y `What_If_Peru` en índice 1 (el juego arranca por el menú).
+
+**Archivos modificados/creados:**
+
+- `Assets/UI/UIInicio/IntroUI.uxml` — nuevo.
+- `Assets/UI/UIInicio/IntroUIStyle.uss` — nuevo.
+- `Assets/UI/UIInicio/IntroUIController.cs` — nuevo.
+- `Assets/UI/UIInicio/GameSessionManager.cs` — nuevo.
+- `Assets/Scripts/Managers/GameManager.cs` — lectura del nombre desde `GameSessionManager`.
+- `Assets/Scenes/MainInicio.unity` — nueva escena de inicio.
+- Build Settings — `MainInicio` (0) y `What_If_Peru` (1).
+- `Assets/Ordenes_OpenCode/Avances_Realizados/Bitacora_Avances.md` — esta entrada.
+
+**Decisiones tomadas:**
+
+- Se usó un `GameSessionManager` persistente (en lugar de hacer `DontDestroyOnLoad` al `GameManager` existente) para no romper el arranque directo de `What_If_Peru` en pruebas: si se carga sin pasar por el menú, `GameManager` usa el respaldo "Estratega".
+- El nombre se recuerda con `PlayerPrefs` como conveniencia de UX; no es un sistema de guardado de partida (sigue pendiente el JSON).
+- El estilo de la UI de inicio se alineó al tema oscuro + dorado del juego en lugar del "documento sepia" que sugería el GDD, para mantener coherencia visual con `VisualNovelStyles.uss`.
+- Se eliminó el botón "Cargar Partida" por no existir todavía el sistema de guardado; queda como pendiente.
+
+**Incidencias y soluciones:**
+
+- `Button.clicked` no admite el operador null-conditional (`?.clicked += ...`) y lanzaba `CS0079`. Se resolvió obteniendo cada botón con `root.Q<Button>()`, verificando `null` y suscribiendo con `if (...) button.clicked += ...`.
+- La escena `MainInicio` no tenía `EventSystem`; sin él, los botones de UI Toolkit no recibían clics con el nuevo Input System. Se creó con `InputSystemUIInputModule` + `AssignDefaultActions()`.
+- Al mover archivos `.uxml`/`.uss` por sistema de archivos, Unity generó advertencias de `.meta` huérfanos. Se recrearon los archivos con `write` para que Unity regenere `.meta` limpios.
+
+**Pendientes para el siguiente día:**
+
+- Pantalla de resumen de final con la "Línea Temporal Creada".
+- Sistema de guardado/carga JSON (y habilitar el botón "Cargar Partida").
+- Transiciones Fade to Black genéricas entre escenas.
+- Menú de pausa.
+- Aplicar las preferencias (volumen/velocidad) al juego: actualmente se guardan en `GameSessionManager` pero el `UIManager`/audio aún no las consume.
+- Códice de finales / medallas y audio.
+
+**Estado al cierre:** pantalla de inicio operativa (menú, ingreso de nombre, opciones y salto temporal) conectada a `What_If_Peru` con el nombre del jugador inyectado; compilación limpia y consola sin errores.
 
 ---
 

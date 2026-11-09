@@ -1,0 +1,230 @@
+/* ============================================================
+   ¿Y si...? Perú — UI de Inicio
+   Tema: oscuro + acentos dorados militares (coherente con el juego).
+   ============================================================ */
+
+.root-container {
+    flex-grow: 1;
+    background-color: rgb(10, 14, 18);
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Pantallas (paneles centrados) --- */
+.screen-view {
+    width: 640px;
+    min-width: 560px;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 60px 44px 60px;
+    background-color: rgba(18, 25, 32, 0.92);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(176, 141, 62, 0.45);
+    border-right-color: rgba(176, 141, 62, 0.45);
+    border-top-color: rgba(176, 141, 62, 0.45);
+    border-bottom-color: rgba(176, 141, 62, 0.45);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/* --- Tipografía del título --- */
+.eyebrow-text {
+    font-size: 15px;
+    color: rgb(214, 178, 94);
+    letter-spacing: 3px;
+    -unity-text-align: middle-center;
+    margin-bottom: 10px;
+}
+
+.game-title {
+    font-size: 64px;
+    -unity-font-style: bold;
+    color: rgb(240, 234, 218);
+    -unity-text-align: middle-center;
+    letter-spacing: 2px;
+}
+
+.game-subtitle {
+    font-size: 52px;
+    -unity-font-style: bold;
+    color: rgb(214, 178, 94);
+    letter-spacing: 14px;
+    -unity-text-align: middle-center;
+    margin-top: -6px;
+}
+
+.title-divider {
+    width: 320px;
+    height: 2px;
+    background-color: rgb(176, 141, 62);
+    margin-top: 22px;
+    margin-bottom: 18px;
+}
+
+.tagline-text {
+    font-size: 17px;
+    color: rgb(170, 172, 175);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+    margin-bottom: 38px;
+}
+
+/* --- Panel secundario (nombre / opciones) --- */
+.panel-title {
+    font-size: 34px;
+    -unity-font-style: bold;
+    color: rgb(214, 178, 94);
+    -unity-text-align: middle-center;
+    margin-bottom: 14px;
+}
+
+.panel-hint {
+    font-size: 16px;
+    color: rgb(170, 172, 175);
+    -unity-text-align: middle-center;
+    margin-bottom: 26px;
+}
+
+/* --- Columna de botones --- */
+.button-column {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- Botones --- */
+.menu-button {
+    width: 320px;
+    min-height: 54px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background-color: rgb(46, 60, 72);
+    color: rgb(240, 234, 218);
+    font-size: 20px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition-property: background-color, border-color;
+    transition-duration: 0.12s;
+}
+
+.menu-button:hover {
+    background-color: rgb(64, 82, 96);
+    border-left-color: rgb(224, 190, 110);
+    border-right-color: rgb(224, 190, 110);
+    border-top-color: rgb(224, 190, 110);
+    border-bottom-color: rgb(224, 190, 110);
+}
+
+.menu-button:active {
+    background-color: rgb(32, 43, 53);
+}
+
+.menu-button.secondary {
+    background-color: rgba(28, 39, 48, 0.9);
+    border-left-color: rgba(176, 141, 62, 0.55);
+    border-right-color: rgba(176, 141, 62, 0.55);
+    border-top-color: rgba(176, 141, 62, 0.55);
+    border-bottom-color: rgba(176, 141, 62, 0.55);
+    color: rgb(214, 178, 94);
+}
+
+.menu-button.secondary:hover {
+    background-color: rgb(52, 70, 84);
+    border-left-color: rgb(224, 190, 110);
+    border-right-color: rgb(224, 190, 110);
+    border-top-color: rgb(224, 190, 110);
+    border-bottom-color: rgb(224, 190, 110);
+    color: rgb(240, 234, 218);
+}
+
+.version-text {
+    font-size: 13px;
+    color: rgb(120, 124, 128);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+
+/* --- Campo de nombre --- */
+.name-field {
+    width: 340px;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.name-field .unity-text-field__label {
+    color: rgb(214, 178, 94);
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/* --- Opciones --- */
+.options-container {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.option-row {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.option-label {
+    font-size: 17px;
+    color: rgb(232, 228, 216);
+}
+
+.option-slider {
+    width: 220px;
+}
+
+.option-toggle {
+    margin-left: 20px;
+}
+
+/* --- Animación de salto temporal --- */
+.intro-view {
+    flex-grow: 1;
+    background-color: rgb(4, 6, 8);
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-chrono {
+    font-size: 22px;
+    color: rgb(214, 178, 94);
+    letter-spacing: 5px;
+    -unity-text-align: middle-center;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-size: 72px;
+    -unity-font-style: bold;
+    color: rgb(240, 234, 218);
+    letter-spacing: 8px;
+    -unity-text-align: middle-center;
+}

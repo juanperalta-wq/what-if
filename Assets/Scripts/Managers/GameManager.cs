@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
+        // Recibe el nombre del jugador transportado desde la escena de inicio.
+        if (GameSessionManager.Instance != null)
+            SetPlayerName(GameSessionManager.Instance.playerName);
+
         if (uiManager == null)
             uiManager = FindFirstObjectByType<UIManager>();
 
