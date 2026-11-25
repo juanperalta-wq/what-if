@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 27_Desastre_Caida_Inmediata_Lima
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Nicol\xE1s de Pi\xE9rola"
+  dialogueText: "Sin l\xEDneas exteriores de contenci\xF3n en Lur\xEDn ni en los
+    caminos del sur, la capital queda rodeada en cuarenta y ocho horas y se rinde
+    sin capacidad de organizar resistencia en los Andes."
+  characterSprite: {fileID: 9164251873766945469, guid: 84719f3f93b012a4fb3401762cbaaf25, type: 3}
+  backgroundSprite: {fileID: 4879802868434693690, guid: 02d96c75c0e92a348ba0fd7b8bd539ef, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 8805aa347526c434d8faf196ed26d268, type: 2}
+  choiceTexts: []

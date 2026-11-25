@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 14_Desastre_Sed_Atacama
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Belisario Su\xE1rez"
+  dialogueText: "Perdidas entre las dunas de Atacama sin agua ni municiones, las
+    divisiones aliadas son rodeadas por la caballer\xEDa enemiga antes siquiera de
+    poder formar l\xEDnea de batalla."
+  characterSprite: {fileID: 1190833278451815063, guid: 75ab31a54948eed409523f28f0ead963, type: 3}
+  backgroundSprite: {fileID: -5256418473622557830, guid: 9f70e7729722a7b45a0436024f8f03e8, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 8805aa347526c434d8faf196ed26d268, type: 2}
+  choiceTexts: []

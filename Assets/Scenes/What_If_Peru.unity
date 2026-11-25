@@ -993,6 +993,7 @@ MonoBehaviour:
   charactersPerSecond: 45
   useTypewriter: 1
   indicatorPulseSpeed: 2.2
+  characterFadeDuration: 0.55
 --- !u!114 &1021790215
 MonoBehaviour:
   m_ObjectHideFlags: 0

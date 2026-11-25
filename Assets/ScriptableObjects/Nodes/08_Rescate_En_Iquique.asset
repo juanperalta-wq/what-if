@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 08_Rescate_En_Iquique
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Arturo Prat
+  dialogueText: "Regresamos a la bah\xEDa de Iquique el 21 de mayo de 1879. Con el
+    recuerdo del valeroso abordaje de Arturo Prat a\xFAn fresco en cubierta, Grau
+    ordena rescatar a los n\xE1ufragos de la Esmeralda, mientras hacia el sur la
+    fragata peruana Independencia persigue a la goleta Covadonga muy cerca de los
+    arrecifes."
+  characterSprite: {fileID: 979253466054647450, guid: 42f9159176ce7b04fac63af56e671d45, type: 3}
+  backgroundSprite: {fileID: -326679476388971597, guid: 5367e201e42c74546b4b807e6813d23d, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 179d32896b14e7b4c958ae28726336ce, type: 2}
+  - {fileID: 11400000, guid: 3e75ab3be4b29744faf767c03b22b7f0, type: 2}
+  - {fileID: 11400000, guid: dbfd5ffa6797d0e43b78f21b245ba02c, type: 2}
+  choiceTexts:
+  - Completar el rescate humanitario en Iquique y navegar luego hacia el sur, donde
+    la Independencia encalla en los bajos de Punta Gruesa.
+  - "Ignorar los arrecifes y lanzar al propio Hu\xE1scar a toda m\xE1quina sobre
+    las rocas costeras para rematar a la Covadonga."
+  - "Enviar se\xF1ales urgentes de bandera para frenar a la Independencia antes de
+    los arrecifes, salvando intacta la fragata blindada."

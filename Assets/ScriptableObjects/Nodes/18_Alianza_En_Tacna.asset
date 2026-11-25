@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 18_Alianza_En_Tacna
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narciso Campero
+  dialogueText: Mayo de 1880. En la ruta polvorienta hacia Tacna y la meseta del
+    Intiorko, el presidente boliviano Narciso Campero y el contralmirante peruano
+    Lizardo Montero planifican la defensa ante el avance de 19,000 soldados chilenos.
+  characterSprite: {fileID: -5274107797518332665, guid: 12d4ff1b2e1e20940a2286d1ee6b801f, type: 3}
+  backgroundSprite: {fileID: 6680213247088798936, guid: 1a820d87d1de07a45a3f1e23b2952882, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: 3327108387176955669, guid: a79079695b124044591d9b1725d60d96, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 3c0e6b1d36261be4895666ed634c4a36, type: 2}
+  - {fileID: 11400000, guid: b75f317308790b348b8f3b8e3fb38807, type: 2}
+  - {fileID: 11400000, guid: 57b8a7b68612db94f94db1b14f90e419, type: 2}
+  choiceTexts:
+  - Presentar batalla frontal en la meseta del Alto de la Alianza confiando en la
+    resistencia de las trincheras.
+  - "Coordinar una defensa escalonada junto con la guarnici\xF3n de Arica de Bolognesi
+    para atrapar la retaguardia enemiga."
+  - "Dividir el ej\xE9rcito aliado enviando la mitad sin artiller\xEDa hacia la costa
+    abierta."

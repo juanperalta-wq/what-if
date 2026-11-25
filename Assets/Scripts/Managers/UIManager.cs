@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     private VisualElement nextIndicator;
     private Button btnChoiceA;
     private Button btnChoiceB;
+    private Button btnChoiceC;
 
     private VisualElement flagStrip;
     private VisualElement flagImageA;
@@ -52,8 +53,7 @@ public class UIManager : MonoBehaviour
     private float smoothedFps = 60f;
     private float fpsTimer;
 
-    private Action choiceACallback;
-    private Action choiceBCallback;
+    private Action<int> choiceCallback;
 
     public bool ChoicesVisible => choicesVisible;
     public bool IsTyping => isTyping;
@@ -90,6 +90,12 @@ public class UIManager : MonoBehaviour
             btnChoiceB.UnregisterCallback<ClickEvent>(StopClickPropagation);
         }
 
+        if (btnChoiceC != null)
+        {
+            btnChoiceC.clicked -= HandleChoiceCClicked;
+            btnChoiceC.UnregisterCallback<ClickEvent>(StopClickPropagation);
+        }
+
         StopTyping();
         StopCharacterFade();
     }
@@ -121,6 +127,7 @@ public class UIManager : MonoBehaviour
         nextIndicator = root.Q<VisualElement>("NextIndicator");
         btnChoiceA = root.Q<Button>("BtnChoiceA");
         btnChoiceB = root.Q<Button>("BtnChoiceB");
+        btnChoiceC = root.Q<Button>("BtnChoiceC");
         flagStrip = root.Q<VisualElement>("FlagStrip");
         flagImageA = root.Q<VisualElement>("FlagImageA");
         flagImageB = root.Q<VisualElement>("FlagImageB");
@@ -129,13 +136,13 @@ public class UIManager : MonoBehaviour
 
         if (rootScreen == null || characterContainer == null || choicesContainer == null ||
             dialoguePanel == null || speakerNameText == null || dialogueText == null ||
-            nextIndicator == null || btnChoiceA == null || btnChoiceB == null ||
+            nextIndicator == null || btnChoiceA == null || btnChoiceB == null || btnChoiceC == null ||
             flagStrip == null || flagImageA == null || flagImageB == null ||
             flagImageC == null || fpsText == null)
         {
             Debug.LogError("[UIManager] El UXML no contiene todos los elementos esperados. " +
                            "Revisa VisualNovelUI.uxml (RootScreen, CharacterContainer, ChoicesContainer, " +
-                           "DialoguePanel, SpeakerNameText, DialogueText, NextIndicator, BtnChoiceA, BtnChoiceB, " +
+                           "DialoguePanel, SpeakerNameText, DialogueText, NextIndicator, BtnChoiceA/B/C, " +
                            "FlagStrip, FlagImageA/B/C, FpsText).");
             return;
         }
@@ -143,6 +150,7 @@ public class UIManager : MonoBehaviour
         rootScreen.RegisterCallback<ClickEvent>(OnRootScreenClicked);
         btnChoiceA.RegisterCallback<ClickEvent>(StopClickPropagation);
         btnChoiceB.RegisterCallback<ClickEvent>(StopClickPropagation);
+        btnChoiceC.RegisterCallback<ClickEvent>(StopClickPropagation);
 
         HideChoices();
         ApplyFlags(null);
@@ -303,31 +311,64 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Muestra los dos botones de decisión y oculta temporalmente la caja de
-    /// diálogo, tal como pide el GDD para los Momentos Decisivos.
+    /// Sobrecarga de compatibilidad para decisiones de dos opciones.
     /// </summary>
     public void ShowChoices(string choiceA, string choiceB, Action onChoiceA, Action onChoiceB)
+    {
+        ShowChoices(
+            new List<string> { choiceA, choiceB },
+            index =>
+            {
+                if (index == 0)
+                    onChoiceA?.Invoke();
+                else if (index == 1)
+                    onChoiceB?.Invoke();
+            });
+    }
+
+    /// <summary>
+    /// Muestra de una a tres opciones y oculta temporalmente la caja de
+    /// diálogo, tal como pide el GDD para los Momentos Decisivos.
+    /// </summary>
+    public void ShowChoices(IReadOnlyList<string> choiceTexts, Action<int> onChoice)
     {
         if (!initialized)
             Initialize();
 
-        if (!initialized)
+        if (!initialized || choiceTexts == null || choiceTexts.Count == 0)
             return;
 
         if (isTyping)
             CompleteTyping();
 
-        btnChoiceA.text = string.IsNullOrEmpty(choiceA) ? "Opción A" : choiceA;
-        btnChoiceB.text = string.IsNullOrEmpty(choiceB) ? "Opción B" : choiceB;
+        Button[] buttons = { btnChoiceA, btnChoiceB, btnChoiceC };
+        string[] fallbacks = { "Opción A", "Opción B", "Opción C" };
+        int count = Mathf.Clamp(choiceTexts.Count, 1, buttons.Length);
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            Button button = buttons[i];
+            if (button == null)
+                continue;
+
+            bool visible = i < count;
+            button.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+
+            if (visible)
+            {
+                string text = choiceTexts[i];
+                button.text = string.IsNullOrEmpty(text) ? fallbacks[i] : text;
+            }
+        }
+
+        choiceCallback = onChoice;
 
         btnChoiceA.clicked -= HandleChoiceAClicked;
         btnChoiceB.clicked -= HandleChoiceBClicked;
-
-        choiceACallback = onChoiceA;
-        choiceBCallback = onChoiceB;
-
+        btnChoiceC.clicked -= HandleChoiceCClicked;
         btnChoiceA.clicked += HandleChoiceAClicked;
         btnChoiceB.clicked += HandleChoiceBClicked;
+        btnChoiceC.clicked += HandleChoiceCClicked;
 
         choicesContainer.style.display = DisplayStyle.Flex;
         dialoguePanel.style.display = DisplayStyle.None;
@@ -346,6 +387,7 @@ public class UIManager : MonoBehaviour
         choicesContainer.style.display = DisplayStyle.None;
         dialoguePanel.style.display = DisplayStyle.Flex;
         choicesVisible = false;
+        choiceCallback = null;
     }
 
     private void OnRootScreenClicked(ClickEvent evt)
@@ -365,22 +407,26 @@ public class UIManager : MonoBehaviour
 
     private void HandleChoiceAClicked()
     {
-        Action callback = choiceACallback;
-        choiceACallback = null;
-        choiceBCallback = null;
-
-        HideChoices();
-        callback?.Invoke();
+        HandleChoiceClicked(0);
     }
 
     private void HandleChoiceBClicked()
     {
-        Action callback = choiceBCallback;
-        choiceACallback = null;
-        choiceBCallback = null;
+        HandleChoiceClicked(1);
+    }
+
+    private void HandleChoiceCClicked()
+    {
+        HandleChoiceClicked(2);
+    }
+
+    private void HandleChoiceClicked(int index)
+    {
+        Action<int> callback = choiceCallback;
+        choiceCallback = null;
 
         HideChoices();
-        callback?.Invoke();
+        callback?.Invoke(index);
     }
 
     private static void StopClickPropagation(ClickEvent evt)

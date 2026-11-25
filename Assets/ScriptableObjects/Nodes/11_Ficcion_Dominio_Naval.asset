@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 11_Ficcion_Dominio_Naval
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Miguel Grau
+  dialogueText: "Conservando su capacidad ofensiva en el mar, Miguel Grau intercepta
+    los convoyes chilenos frente a Atacama y asegura el abastecimiento mar\xEDtimo
+    para el ej\xE9rcito aliado en Tarapac\xE1."
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: -8133628048760076440, guid: e3cbc1356b3bcc3448d335629819e460, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 9f90107f76f6dd34c8f6fdde8fd2b619, type: 2}
+  choiceTexts: []

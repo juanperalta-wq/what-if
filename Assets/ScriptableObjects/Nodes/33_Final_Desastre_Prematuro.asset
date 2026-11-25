@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 33_Final_Desastre_Prematuro
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "FINAL 1 \u2014 DESASTRE PREMATURO: Las decisiones precipitadas y
+    la falta de coordinaci\xF3n estrat\xE9gica provocaron un colapso temprano antes
+    de consolidar la defensa nacional. Sin escuadra ni l\xEDneas de resistencia organizadas,
+    el conflicto termina de forma catastr\xF3fica con la p\xE9rdida inmediata de
+    toda capacidad de negociaci\xF3n. (Fin de la partida)."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: -8529293601590809536, guid: f346b7e4d3aefed43b5664fb75ae1155, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 4f8c994e1fd30ba45a3162c15c144387, type: 2}
+  choiceTexts:
+  - "Reiniciar la historia desde la Bah\xEDa de Iquique (21 de mayo de 1879)."

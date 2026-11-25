@@ -5,6 +5,7 @@
         <ui:VisualElement name="ChoicesContainer" class="choices-container">
             <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
             <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
+            <ui:Button name="BtnChoiceC" class="choice-button" text="Opción C" />
         </ui:VisualElement>
         <ui:VisualElement name="FlagStrip" class="flag-strip">
             <ui:VisualElement name="FlagImageA" class="flag-image" />

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 26_Defensas_Rumbo_A_Lima
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Andr\xE9s Avelino C\xE1ceres"
+  dialogueText: "Enero de 1881. Miles de ciudadanos lime\xF1os y soldados de l\xEDnea
+    cavan trincheras en los caminos y defensas rumbo a Lima, prepar\xE1ndose para
+    contener el avance enemigo."
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: 4879802868434693690, guid: 02d96c75c0e92a348ba0fd7b8bd539ef, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 23037b038f5895c45a7533481694ef5d, type: 2}
+  choiceTexts: []

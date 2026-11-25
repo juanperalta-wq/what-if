@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 34_Final_Ficticio
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "FINAL 2 \u2014 FICTICIO (EL ARMISTICIO DEL PAC\xCDFICO): Gracias
+    a la previsi\xF3n diplom\xE1tica, la preservaci\xF3n del poder naval y una defensa
+    coordinada entre aliados, el Per\xFA y Bolivia logran frenar la invasi\xF3n.
+    El armisticio firmado establece un acuerdo comercial compartido sobre el salitre
+    y preserva la integridad territorial de Tarapac\xE1, Tacna y Arica. (Fin de la
+    partida)."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: -8133628048760076440, guid: e3cbc1356b3bcc3448d335629819e460, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 4f8c994e1fd30ba45a3162c15c144387, type: 2}
+  choiceTexts:
+  - "Reiniciar la historia desde la Bah\xEDa de Iquique (21 de mayo de 1879)."

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 29_San_Juan_Y_Chorrillos
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Andr\xE9s Avelino C\xE1ceres"
+  dialogueText: "13 de enero de 1881. En las colinas de San Juan y Chorrillos se
+    libra una sangrienta jornada. Las tropas de C\xE1ceres resisten encarnizadamente
+    en el Morro Solar, pero la superioridad num\xE9rica chilena rompe la primera
+    l\xEDnea defensiva."
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: 1920022919306211387, guid: 0eeb58ea21efcd84889327cbf2260308, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 9588c44781324104d8cbb55e6b623644, type: 2}
+  choiceTexts: []

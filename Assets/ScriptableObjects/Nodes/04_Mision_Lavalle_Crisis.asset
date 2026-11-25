@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 04_Mision_Lavalle_Crisis
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "An\xEDbal Pinto"
+  dialogueText: "Marzo de 1879. El diplom\xE1tico peruano Jos\xE9 Antonio de Lavalle
+    intenta mediar entre Bolivia y Chile para evitar la guerra, pero el presidente
+    chileno An\xEDbal Pinto ya conoce la existencia del Tratado Secreto de 1873 y
+    exige que el Per\xFA declare su neutralidad inmediata bajo amenaza de guerra."
+  characterSprite: {fileID: 6868331257772977747, guid: c7fe2fe9e29e9694482cb9e11c227666, type: 3}
+  backgroundSprite: {fileID: -7607182983991150035, guid: 8abf598947cc9be4993e74e2470c2c61, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 08e3d30e127a70f498431062eac1e450, type: 2}
+  - {fileID: 11400000, guid: 4cae67570d4d2fb438f55acdcb6e1f34, type: 2}
+  - {fileID: 11400000, guid: b0a743cf3fd07cd4bb55bb2b3d0927d3, type: 2}
+  choiceTexts:
+  - Romper abruptamente las negociaciones y declarar la guerra sin haber alistado
+    las calderas de la escuadra en el Callao.
+  - "Firmar un protocolo temporal de tregua en Santiago para ganar semanas vitales
+    y modernizar la artiller\xEDa del Hu\xE1scar."
+  - "Rechazar el ultim\xE1tum de neutralidad en defensa de la alianza con Bolivia,
+    desencadenando la declaratoria de guerra del 5 de abril de 1879."

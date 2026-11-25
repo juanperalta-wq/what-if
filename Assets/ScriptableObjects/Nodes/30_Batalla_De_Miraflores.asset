@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 30_Batalla_De_Miraflores
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Andr\xE9s Avelino C\xE1ceres"
+  dialogueText: "15 de enero de 1881. En los reductos de Miraflores, en medio del
+    humo y el silencio previo al choque final, C\xE1ceres lidera un contraataque
+    que hace retroceder al ala izquierda chilena, pero carece de refuerzos oportunos."
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: -8529293601590809536, guid: f346b7e4d3aefed43b5664fb75ae1155, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 018c4d75035b57f4c96bcebef5793942, type: 2}
+  - {fileID: 11400000, guid: 423f0be3c8e10994fb17ceaf75fb5cf8, type: 2}
+  choiceTexts:
+  - "Tras resultar gravemente herido y caer Lima, internarse en los Andes para iniciar
+    la heroica Campa\xF1a de la Bre\xF1a."
+  - "Recibir a tiempo las reservas intactas de Pi\xE9rola en Miraflores para sellar
+    la brecha y rechazar el asalto final sobre la capital."

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Grafo narrativo")]
-    [Tooltip("Primer nodo de la historia (Combate de Iquique).")]
+    [Tooltip("Primer nodo de la historia (21 de mayo de 1879, Bahía de Iquique).")]
     [SerializeField] private StoryNode startingNode;
 
     [Header("Jugador")]
@@ -98,6 +99,14 @@ public class GameManager : MonoBehaviour
         }
 
         OnNodeChanged?.Invoke(node);
+
+        // Los finales del rework muestran la pantalla de cierre con la opción
+        // de reiniciar, pero la ruta ya se considera terminada.
+        if (node.IsFinalNode)
+        {
+            Debug.Log($"[GameManager] Final alcanzado: {node.name}");
+            OnStoryEnded?.Invoke(node);
+        }
     }
 
     /// <summary>
@@ -129,7 +138,7 @@ public class GameManager : MonoBehaviour
         EndStory();
     }
 
-    /// <summary>Recibe la selección del jugador: 0 = Opción A, 1 = Opción B.</summary>
+    /// <summary>Recibe la selección del jugador: 0 = A, 1 = B, 2 = C.</summary>
     public void SelectChoice(int index)
     {
         if (CurrentNode == null || !CurrentNode.HasChoices)
@@ -155,25 +164,26 @@ public class GameManager : MonoBehaviour
     private void PresentChoices()
     {
         StoryNode node = CurrentNode;
+        int count = Mathf.Clamp(node.nextNodes.Count, 1, StoryNode.MaxChoices);
 
-        string optionA = node.choiceTexts != null && node.choiceTexts.Count > 0
-            ? StoryNode.ResolveTokens(node.choiceTexts[0], PlayerName)
-            : "Opción A";
+        string[] fallbacks = { "Opción A", "Opción B", "Opción C" };
+        var texts = new List<string>(count);
 
-        string optionB = node.choiceTexts != null && node.choiceTexts.Count > 1
-            ? StoryNode.ResolveTokens(node.choiceTexts[1], PlayerName)
-            : "Opción B";
+        for (int i = 0; i < count; i++)
+        {
+            string raw = node.choiceTexts != null && i < node.choiceTexts.Count
+                ? node.choiceTexts[i]
+                : fallbacks[i];
 
-        uiManager.ShowChoices(
-            optionA,
-            optionB,
-            () => SelectChoice(0),
-            () => SelectChoice(1));
+            texts.Add(StoryNode.ResolveTokens(raw, PlayerName));
+        }
+
+        uiManager.ShowChoices(texts, SelectChoice);
     }
 
     private void EndStory()
     {
-        bool isFinalNode = CurrentNode != null && CurrentNode.name.StartsWith("FINAL_");
+        bool isFinalNode = CurrentNode != null && CurrentNode.IsFinalNode;
 
         if (isFinalNode)
             Debug.Log($"[GameManager] Fin de ruta alcanzado: {CurrentNode.name}");

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 28_Ficcion_Sorpresa_Lurin
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Andr\xE9s Avelino C\xE1ceres"
+  dialogueText: "Aprovechando la niebla costera, las divisiones de Andr\xE9s Avelino
+    C\xE1ceres caen sobre la cabeza de playa en Lur\xEDn y capturan los parques de
+    municiones enemigos, desbaratando el asedio sobre Lima."
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: 2221402701985807562, guid: 4e161256b105bc84289a7d52c37e7222, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 8e17cf0185eef0f4d95651a2d790fb58, type: 2}
+  choiceTexts: []

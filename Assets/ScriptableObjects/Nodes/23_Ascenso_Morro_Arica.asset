@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 23_Ascenso_Morro_Arica
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Francisco Bolognesi
+  dialogueText: "7 de junio de 1880. Al amanecer, las columnas chilenas inician el
+    ascenso al Morro de Arica. En cincuenta y cinco minutos de combate cuerpo a cuerpo
+    en la cima, Francisco Bolognesi cumple su juramento hasta el \xFAltimo aliento.
+    Arica cae en la gloria."
+  characterSprite: {fileID: 8659602654253924799, guid: 41f20a7fa0e58dc4da16d667fe2e7e78, type: 3}
+  backgroundSprite: {fileID: -297882678095056474, guid: 5a4773ea12594d74cb50a87e9454e267, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: b8cb43b4a3c0c484f9741a51cfc1e744, type: 2}
+  choiceTexts: []

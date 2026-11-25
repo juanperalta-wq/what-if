@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 12_Angamos_Desenlace
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Miguel Grau
+  dialogueText: "8 de octubre de 1879, Punta Angamos. Rodeado por los blindados Cochrane
+    y Blanco Encalada, el almirante Miguel Grau cae heroicamente tras el impacto
+    de un proyectil perforante en su torre de mando. El Hu\xE1scar es capturado y
+    Chile obtiene el dominio absoluto del mar."
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: 4803970343926494307, guid: 62af68b16cf2c904ab4f49e2260095d0, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 53699f3ee05c52c4393364c75960df62, type: 2}
+  choiceTexts: []

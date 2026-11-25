@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 15_Ficcion_Tenaza_Tarapaca
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Belisario Su\xE1rez"
+  dialogueText: "La maniobra coordinada entre peruanos y bolivianos sorprende al
+    ej\xE9rcito expedicionario chileno en Tarapac\xE1. Belisario Su\xE1rez y C\xE1ceres
+    consolidan la defensa del departamento salitrero."
+  characterSprite: {fileID: 1190833278451815063, guid: 75ab31a54948eed409523f28f0ead963, type: 3}
+  backgroundSprite: {fileID: -7888271434362648788, guid: c6e22d00b88330145a80e457f2ff0e57, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: da51e7f7d070e444ebbb876bda9a4c3d, type: 2}
+  choiceTexts: []

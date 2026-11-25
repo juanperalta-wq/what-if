@@ -8,27 +8,30 @@
 - **Motor:** Unity 6.3 — `6000.3.23f1`
 - **Género:** Novela visual / aventura de historia alternativa
 - **Plataforma objetivo:** PC / Mac / WebGL
-- **Estado actual:** Prototipo base jugable con grafo narrativo, UI Toolkit y pantalla de inicio (menú + ingreso de nombre + opciones)
-- **Última actualización:** 2026-11-09
+- **Estado actual:** Guion "Ecos del Pacífico (1873 - 1883)" implementado: 35 nodos, decisiones de hasta 3 opciones, 3 finales con reinicio, arte integrado y pantalla de inicio operativa.
+- **Última actualización:** 2026-11-25
 
 ---
 
 ## 1. Resumen ejecutivo
 
-Se implementó la base completa del prototipo:
+El 2026-11-25 se reemplazó el guion original por **"Ecos del Pacífico (1873 - 1883)"**, el rework de 35 nodos y 3 finales. El prototipo queda así:
 
 - Sistema de grafos narrativos con `StoryNode` (ScriptableObject).
-- `GameManager` para recorrer el grafo y recibir decisiones binarias.
-- `UIManager` para renderizar diálogos, retratos, fondos, typewriter y botones con **UI Toolkit**.
-- 28 ScriptableObjects: 10 compartidos + 9 variantes `_SinFlota` + 9 variantes `_ConFlota`.
+- `GameManager` para recorrer el grafo y resolver decisiones de **1 a 3 opciones**.
+- `UIManager` con **UI Toolkit** para diálogos, retratos laterales, fondos, banderas, typewriter y botones A/B/C.
+- **35 ScriptableObjects** en `Assets/ScriptableObjects/Nodes`, organizados en 5 actos.
 - Escena `What_If_Peru` montada con `UI_Manager`, `Game_Manager` y `EventSystem`.
-- Grafo validado con las 8 combinaciones de decisiones posibles:
-  - **Iquique A (sin flota) + Tarapacá A + Alto A/B** → `FINAL_01_Historico`.
-  - **Iquique B (con flota) + Tarapacá A + Alto A** → `FINAL_01_Historico`.
-  - **Iquique B (con flota) + Tarapacá A + Alto B** → `FINAL_02_PazArmada` (única ruta).
-  - **Iquique A/B + Tarapacá B** → `FINAL_03_Desastre`.
+- Escena `MainInicio` con menú, ingreso de nombre, opciones y salto temporal.
+- Validador y reparador del grafo en el menú `Tools → ¿Y si...? Perú`.
 
-La historia no usa inventarios ni variables de reputación. La posesión de la *Independencia* se codifica mediante dos líneas paralelas de nodos (`_SinFlota` y `_ConFlota`), manteniendo el sistema puro de grafos.
+Los tres finales son:
+
+- `33_Final_Desastre_Prematuro` → FINAL 1: colapso temprano.
+- `34_Final_Ficticio` → FINAL 2: Armisticio del Pacífico (ucrónico).
+- `35_Final_Historico` → FINAL 3: memoria y reconstrucción (histórico).
+
+Cada final muestra un único botón para **reiniciar la historia** desde la Bahía de Iquique. La historia sigue sin inventarios ni stats: el estado de la partida es únicamente el nodo actual.
 
 ---
 
@@ -36,9 +39,10 @@ La historia no usa inventarios ni variables de reputación. La posesión de la *
 
 | Documento | Ruta | Información extraída |
 |---|---|---|
-| GDD Técnico | `Assets/Ordenes_OpenCode/GDD Principal/Game Design Document Técnico.md` | Arquitectura general, reglas de diseño, flujo, 3 escenarios, 3 finales, UI, regla de 2 opciones |
+| GDD Técnico | `Assets/Ordenes_OpenCode/GDD Principal/Game Design Document Técnico.md` | Arquitectura general, reglas de diseño, flujo, 3 escenarios, 3 finales, UI. Su regla de 2 opciones queda superada por el rework (máximo 3) |
 | Contexto Histórico | `Assets/Ordenes_OpenCode/ContextoHistorico/Contexto Historico.md` | Narrativa de Iquique, Tarapacá y Alto de la Alianza; decisiones históricas/ucrónicas; finales |
-| Guion Guerra del Pacífico | `Assets/Ordenes_OpenCode/ContextoHistorico/Guion_Guerra_Pacifico.md` | Guion definitivo con 19 nodos base (28 tras las variantes), diálogos, decisiones A/B y 3 finales |
+| Guion Guerra del Pacífico | `Assets/Ordenes_OpenCode/ContextoHistorico/Guion_Guerra_Pacifico.md` | Guion anterior (19 nodos base, 28 con variantes). Reemplazado el 2026-11-25 |
+| Guion Rework | `Assets/Ordenes_OpenCode/ContextoHistorico/Guion_Guerra_Pacifico_Rework.md` | **Guion vigente**: "Ecos del Pacífico (1873 - 1883)", 35 nodos, decisiones A/B/C y 3 finales |
 | Tarea de Estructura | `Assets/Ordenes_OpenCode/Tareas/Estructura.md` | Carpetas, scripts base, Dummy Data |
 | Tarea de UI | `Assets/Ordenes_OpenCode/Tareas/UI.md` | UXML, USS, jerarquía visual, adaptación del UIManager, setup de escena |
 
@@ -55,22 +59,17 @@ El GDD elimina inventarios, confianza, reputación y cualquier stat numérica. L
 
 No hay guardado de variables en `PlayerPrefs` ni en JSON todavía.
 
-### 3.2 Estado de la línea temporal mediante variantes `_SinFlota` / `_ConFlota`
+### 3.2 Ramas históricas y ficticias explícitas
 
-Para que la pérdida de la *Independencia* condicione el final sin usar variables, el camino de Tarapacá y Alto de la Alianza se duplicó en dos líneas paralelas:
+El rework ya no usa las líneas paralelas `_SinFlota` / `_ConFlota`. Cada decisión abre un nodo propio:
 
-- `_SinFlota`: se activa tras `05A_Pierde_Independencia`.
-- `_ConFlota`: se activa tras `05B_Salva_Independencia`.
+- Las opciones **históricas** llevan a nodos con el desenlace real (Iquique, Angamos, Tarapacá, Arica, Lima, La Breña).
+- Las opciones **ficticias** llevan a nodos con prefijo `Ficcion_` y desembocan en el final ucrónico.
+- Las opciones **desastrosas** llevan a nodos con prefijo `Desastre_` y desembocan en el final prematuro.
 
-Cada línea tiene sus propios nodos `06`–`14`. El nodo `10B_Ataque_Pisagua` y los tres finales son compartidos.
+Los tres finales son nodos con nombre `33_Final_…`, `34_Final_…` y `35_Final_…`. No son nodos sin salida: tienen una única opción ("Reiniciar la historia") que vuelve a `01_Iquique_Intro`, por lo que el grafo es un ciclo cerrado y no requiere guardar variables.
 
-Consecuencias:
-
-- En la línea `_SinFlota`, `14_Alto_Decision_SinFlota` lleva **ambas opciones** a `FINAL_01_Historico`: sin poder naval, la historia resiste.
-- En la línea `_ConFlota`, `14_Alto_Decision_ConFlota` lleva A → `FINAL_01_Historico` y B → `FINAL_02_PazArmada`.
-- Por tanto, **solo la ruta B-A-B** (salvar la *Independencia* + retirada a Arica + ataque nocturno) produce La Paz Armada.
-
-No se agregaron variables al `GameManager`: el estado sigue siendo el nodo actual, y la rama se deduce del sufijo del nodo.
+No se agregaron variables al `GameManager`: el estado sigue siendo el nodo actual. La naturaleza de la rama se deduce del nombre del nodo (`Ficcion_`, `Desastre_`, `Final_`).
 
 ### 3.3 Token global `{PLAYER_NAME}`
 
@@ -98,10 +97,11 @@ GameManager.Instance.SetPlayerName("NombreDelJugador");
 1. El nodo muestra el texto con efecto máquina de escribir.
 2. El primer clic completa el texto si aún se está escribiendo.
 3. El segundo clic:
-   - Avanza automáticamente si el nodo tiene 1 salida.
-   - Revela los botones A/B si el nodo tiene 2 salidas.
+   - Avanza automáticamente si el nodo tiene 1 salida y ningún texto de opción.
+   - Revela los botones A/B/C si el nodo tiene 2 o 3 salidas.
+   - Revela un único botón si el nodo tiene 1 salida con texto (finales: "Reiniciar").
    - Termina la ruta si el nodo no tiene salidas.
-4. En los Momentos Decisivos, la caja de diálogo se oculta y aparecen dos botones grandes centrados.
+4. En los Momentos Decisivos, la caja de diálogo se oculta y aparecen los botones grandes centrados.
 5. Al elegir, se oculta el contenedor de botones, se restaura la caja de diálogo y se carga el siguiente nodo.
 
 ### 3.5 UI Toolkit estricto
@@ -127,42 +127,57 @@ Assets/
 │   └── Managers/
 │       ├── GameManager.cs
 │       └── UIManager.cs
+├── Editor/
+│   ├── StoryGraphValidator.cs
+│   └── ReworkScriptBuilder.cs
 ├── ScriptableObjects/
-│   └── Nodes/
+│   └── Nodes/  (35 assets)
 │       ├── 01_Iquique_Intro.asset
-│       ├── 02_Iquique_Grau.asset
-│       ├── 03_Iquique_Reporte.asset
-│       ├── 04_Iquique_Decision.asset
-│       ├── 05A_Pierde_Independencia.asset
-│       ├── 05B_Salva_Independencia.asset
-│       ├── 06_Tarapaca_Intro_SinFlota.asset
-│       ├── 07_Tarapaca_Caceres_SinFlota.asset
-│       ├── 08_Tarapaca_Bolognesi_SinFlota.asset
-│       ├── 09_Tarapaca_Decision_SinFlota.asset
-│       ├── 10A_Retirada_Arica_SinFlota.asset
-│       ├── 11_Alto_Intro_SinFlota.asset
-│       ├── 12_Alto_Campero_SinFlota.asset
-│       ├── 13_Alto_Montero_SinFlota.asset
-│       ├── 14_Alto_Decision_SinFlota.asset
-│       ├── 06_Tarapaca_Intro_ConFlota.asset
-│       ├── 07_Tarapaca_Caceres_ConFlota.asset
-│       ├── 08_Tarapaca_Bolognesi_ConFlota.asset
-│       ├── 09_Tarapaca_Decision_ConFlota.asset
-│       ├── 10A_Retirada_Arica_ConFlota.asset
-│       ├── 11_Alto_Intro_ConFlota.asset
-│       ├── 12_Alto_Campero_ConFlota.asset
-│       ├── 13_Alto_Montero_ConFlota.asset
-│       ├── 14_Alto_Decision_ConFlota.asset
-│       ├── 10B_Ataque_Pisagua.asset
-│       ├── FINAL_01_Historico.asset
-│       ├── FINAL_02_PazArmada.asset
-│       └── FINAL_03_Desastre.asset
+│       ├── 02_Puente_Del_Huascar.asset
+│       ├── 03_Origen_Antofagasta.asset
+│       ├── 04_Mision_Lavalle_Crisis.asset
+│       ├── 05_Ficcion_Mediacion_Aduana.asset
+│       ├── 06_Desastre_Ruptura_Total.asset
+│       ├── 07_Ficcion_Escuadra_Alistada.asset
+│       ├── 08_Rescate_En_Iquique.asset
+│       ├── 09_Correrias_Del_Huascar.asset
+│       ├── 10_Desastre_Varadura_Iquique.asset
+│       ├── 11_Ficcion_Dominio_Naval.asset
+│       ├── 12_Angamos_Desenlace.asset
+│       ├── 13_Desierto_Y_Camarones.asset
+│       ├── 14_Desastre_Sed_Atacama.asset
+│       ├── 15_Ficcion_Tenaza_Tarapaca.asset
+│       ├── 16_Victoria_Quebrada_Tarapaca.asset
+│       ├── 17_Crisis_Politica_Lima.asset
+│       ├── 18_Alianza_En_Tacna.asset
+│       ├── 19_Batalla_Alto_Alianza.asset
+│       ├── 20_Ficcion_Contragolpe_Tacna.asset
+│       ├── 21_Desastre_Ruptura_Tacna.asset
+│       ├── 22_Sitio_Puerto_Arica.asset
+│       ├── 23_Ascenso_Morro_Arica.asset
+│       ├── 24_Ficcion_Bastion_Arica.asset
+│       ├── 25_Desembarco_En_Lurin.asset
+│       ├── 26_Defensas_Rumbo_A_Lima.asset
+│       ├── 27_Desastre_Caida_Inmediata_Lima.asset
+│       ├── 28_Ficcion_Sorpresa_Lurin.asset
+│       ├── 29_San_Juan_Y_Chorrillos.asset
+│       ├── 30_Batalla_De_Miraflores.asset
+│       ├── 31_Resistencia_De_La_Brena.asset
+│       ├── 32_Ficcion_Victoria_Miraflores.asset
+│       ├── 33_Final_Desastre_Prematuro.asset
+│       ├── 34_Final_Ficticio.asset
+│       └── 35_Final_Historico.asset
 ├── UI/
 │   ├── VisualNovelUI.uxml
 │   ├── VisualNovelStyles.uss
 │   ├── VisualNovelPanelSettings.asset
-│   └── WhatIfTheme.tss
+│   ├── WhatIfTheme.tss
+│   └── UIInicio/
+│       ├── IntroUI.uxml
+│       ├── IntroUIStyle.uss
+│       └── IntroUIController.cs
 └── Scenes/
+    ├── MainInicio.unity
     └── What_If_Peru.unity
 ```
 
@@ -188,17 +203,18 @@ Create > ¿Y si...? Perú > Narrativa > Nodo de Historia
 | `dialogueText` | `string` (`[TextArea]`) | Texto narrativo. Admite `{PLAYER_NAME}` |
 | `characterSprite` | `Sprite` | Retrato del interlocutor. Opcional |
 | `backgroundSprite` | `Sprite` | Fondo del escenario histórico. Opcional |
-| `nextNodes` | `List<StoryNode>` | 0 = final; 1 = avance automático; 2 = decisión binaria |
-| `choiceTexts` | `List<string>` | Textos de los botones A y B |
+| `nextNodes` | `List<StoryNode>` | 0 = final sin salida; 1 = avance automático o una opción; 2-3 = decisión |
+| `choiceTexts` | `List<string>` | Textos de los botones A, B y C. Su cantidad debe coincidir con `nextNodes` |
 
 **Propiedades de solo lectura:**
 
 | Propiedad | Regla |
 |---|---|
 | `IsEnding` | `nextNodes.Count == 0` |
-| `IsLinear` | `nextNodes.Count == 1` |
-| `HasChoices` | `nextNodes.Count >= 2` |
-| `ChoiceCount` | Cantidad de textos de opción, limitada a 2 |
+| `IsLinear` | `nextNodes.Count == 1` y sin textos de opción |
+| `HasChoices` | `ChoiceCount > 0` |
+| `IsFinalNode` | El nombre empieza por `FINAL_` o contiene `_Final_` |
+| `ChoiceCount` | Textos de opción útiles, limitados a 3 y nunca más que `nextNodes` |
 
 **Métodos:**
 
@@ -211,10 +227,10 @@ public static string ResolveTokens(string value, string playerName);
 **Validación de editor (`OnValidate`):**
 
 - Inicializa las listas si son `null`.
-- Recorta `nextNodes` a máximo 2 elementos.
-- Recorta `choiceTexts` a máximo 2 elementos.
+- Recorta `nextNodes` a máximo 3 elementos.
+- Recorta `choiceTexts` a máximo 3 elementos.
 
-Esto refuerza la regla de oro del GDD: exactamente 2 opciones por Momento Decisivo.
+Esto refuerza la regla del GDD rework: **de 1 a 3 opciones por Momento Decisivo** (los finales usan una sola).
 
 ---
 
@@ -254,7 +270,7 @@ public void StartGame();
 public void SetPlayerName(string newPlayerName);
 public void GoToNode(StoryNode node);
 public void Advance();
-public void SelectChoice(int index); // 0 = A, 1 = B
+public void SelectChoice(int index); // 0 = A, 1 = B, 2 = C
 ```
 
 **Flujo de `Advance()`:**
@@ -270,15 +286,19 @@ Si CurrentNode.IsEnding       -> EndStory()
 
 ```text
 Valida que el nodo actual tenga decisiones.
-Valida el índice 0/1.
+Valida el índice 0/1/2 contra nextNodes.
 Toma nextNodes[index].
 Si es nulo -> EndStory().
 Si existe -> GoToNode(nextNode).
 ```
 
+**Finales con reinicio:**
+
+Cuando `GoToNode` detecta un nodo final (`IsFinalNode`), registra el final y dispara `OnStoryEnded`. El nodo final tiene una salida con texto, así que `Advance()` muestra un único botón ("Reiniciar la historia") que vuelve a `01_Iquique_Intro`.
+
 **Arranque automático:**
 
-`Start()` llama a `StartGame()`. El prototipo entra directamente al Combate de Iquique. Todavía no existe pantalla de menú ni ingreso de nombre.
+`Start()` llama a `StartGame()`. Si la escena se abre directamente, el juego entra al Combate de Iquique; en el flujo normal se llega desde `MainInicio`, que transporta el nombre del jugador por `GameSessionManager`.
 
 ---
 
@@ -316,7 +336,8 @@ public bool ChoicesVisible { get; }
 public bool IsTyping { get; }
 
 public void ShowDialogue(string speaker, string text, Sprite characterSprite, Sprite bgSprite);
-public void ShowChoices(string choiceA, string choiceB, Action onChoiceA, Action onChoiceB);
+public void ShowChoices(IReadOnlyList<string> choiceTexts, Action<int> onChoice);
+public void ShowChoices(string choiceA, string choiceB, Action onChoiceA, Action onChoiceB); // compatibilidad
 public void HideChoices();
 ```
 
@@ -332,8 +353,9 @@ public void HideChoices();
 **Comportamiento de `ShowChoices`:**
 
 - Completa el typewriter si aún estaba escribiendo.
-- Asigna los textos a `BtnChoiceA` y `BtnChoiceB`.
-- Registra los callbacks en `clicked`.
+- Recorre los botones `BtnChoiceA`, `BtnChoiceB` y `BtnChoiceC`.
+- Muestra solo los botones necesarios (1, 2 o 3) y oculta el resto con `DisplayStyle.None`.
+- Asigna los textos de opción y registra un único callback por índice.
 - Muestra `ChoicesContainer` con `DisplayStyle.Flex`.
 - Oculta `DialoguePanel` con `DisplayStyle.None`.
 - Marca `choicesVisible = true`.
@@ -363,6 +385,7 @@ Los botones registran:
 ```csharp
 btnChoiceA.RegisterCallback<ClickEvent>(StopClickPropagation);
 btnChoiceB.RegisterCallback<ClickEvent>(StopClickPropagation);
+btnChoiceC.RegisterCallback<ClickEvent>(StopClickPropagation);
 ```
 
 `StopClickPropagation` ejecuta `evt.StopPropagation()` para que el clic del botón no llegue al `RootScreen` y dispare un avance adicional.
@@ -391,105 +414,138 @@ element.style.backgroundImage = sprite != null
 
 ### 6.1 Inventario de nodos
 
-**Nodos compartidos**
+**Acto I — Iquique y las raíces del conflicto**
 
 | # | Asset | Interlocutor | Tipo | Salidas |
 |---|---|---|---|---|
 | 01 | `01_Iquique_Intro` | Narrador | Lineal | → 02 |
-| 02 | `02_Iquique_Grau` | Miguel Grau | Lineal | → 03 |
-| 03 | `03_Iquique_Reporte` | Oficial de Señales | Lineal | → 04 |
-| 04 | `04_Iquique_Decision` | Miguel Grau | Decisión | A → 05A, B → 05B |
-| 05A | `05A_Pierde_Independencia` | Narrador | Lineal | → 06_SinFlota |
-| 05B | `05B_Salva_Independencia` | Narrador | Lineal | → 06_ConFlota |
-| 10B | `10B_Ataque_Pisagua` | Narrador | Lineal | → FINAL_03 |
-| F1 | `FINAL_01_Historico` | Narrador | Final | — |
-| F2 | `FINAL_02_PazArmada` | Narrador | Final | — |
-| F3 | `FINAL_03_Desastre` | Narrador | Final | — |
+| 02 | `02_Puente_Del_Huascar` | Miguel Grau | Lineal | → 03 |
+| 03 | `03_Origen_Antofagasta` | Hilarión Daza | Decisión (3) | A → 05, B → 04, C → 06 |
+| 04 | `04_Mision_Lavalle_Crisis` | Aníbal Pinto | Decisión (3) | A → 06, B → 07, C → 08 |
+| 05 | `05_Ficcion_Mediacion_Aduana` | José Antonio de Lavalle | Lineal | → 07 |
+| 06 | `06_Desastre_Ruptura_Total` | Mariano Ignacio Prado | Lineal | → 12 |
+| 07 | `07_Ficcion_Escuadra_Alistada` | Mariano Ignacio Prado | Lineal | → 08 |
 
-**Variantes de Tarapacá y Alto**
+**Acto II — Campaña naval (Iquique y Angamos)**
 
-| # | Asset `_SinFlota` | Asset `_ConFlota` | Interlocutor | Tipo |
+| # | Asset | Interlocutor | Tipo | Salidas |
 |---|---|---|---|---|
-| 06 | `06_Tarapaca_Intro_SinFlota` | `06_Tarapaca_Intro_ConFlota` | Narrador | Lineal |
-| 07 | `07_Tarapaca_Caceres_SinFlota` | `07_Tarapaca_Caceres_ConFlota` | Andrés Avelino Cáceres | Lineal |
-| 08 | `08_Tarapaca_Bolognesi_SinFlota` | `08_Tarapaca_Bolognesi_ConFlota` | Francisco Bolognesi | Lineal |
-| 09 | `09_Tarapaca_Decision_SinFlota` | `09_Tarapaca_Decision_ConFlota` | Belisario Suárez | Decisión |
-| 10A | `10A_Retirada_Arica_SinFlota` | `10A_Retirada_Arica_ConFlota` | Narrador | Lineal |
-| 11 | `11_Alto_Intro_SinFlota` | `11_Alto_Intro_ConFlota` | Narrador | Lineal |
-| 12 | `12_Alto_Campero_SinFlota` | `12_Alto_Campero_ConFlota` | Gral. Narciso Campero | Lineal |
-| 13 | `13_Alto_Montero_SinFlota` | `13_Alto_Montero_ConFlota` | Lizardo Montero | Lineal |
-| 14 | `14_Alto_Decision_SinFlota` | `14_Alto_Decision_ConFlota` | Francisco Bolognesi | Decisión |
+| 08 | `08_Rescate_En_Iquique` | Arturo Prat | Decisión (3) | A → 09, B → 10, C → 11 |
+| 09 | `09_Correrias_Del_Huascar` | Miguel Grau | Decisión (2) | A → 11, B → 12 |
+| 10 | `10_Desastre_Varadura_Iquique` | Miguel Grau | Lineal | → 33 |
+| 11 | `11_Ficcion_Dominio_Naval` | Miguel Grau | Lineal | → 15 |
+| 12 | `12_Angamos_Desenlace` | Miguel Grau | Lineal | → 13 |
 
-**Salidas de las variantes**
+**Acto III — Campaña de Tarapacá**
 
-| Nodo | Salidas |
-|---|---|
-| `06_*` | → `07_*` |
-| `07_*` | → `08_*` |
-| `08_*` | → `09_*` |
-| `09_*` | A → `10A_*`, B → `10B_Ataque_Pisagua` |
-| `10A_*` | → `11_*` |
-| `11_*` | → `12_*` |
-| `12_*` | → `13_*` |
-| `13_*` | → `14_*` |
-| `14_Alto_Decision_SinFlota` | A → `FINAL_01_Historico`, B → `FINAL_01_Historico` |
-| `14_Alto_Decision_ConFlota` | A → `FINAL_01_Historico`, B → `FINAL_02_PazArmada` |
+| # | Asset | Interlocutor | Tipo | Salidas |
+|---|---|---|---|---|
+| 13 | `13_Desierto_Y_Camarones` | Hilarión Daza | Decisión (3) | A → 15, B → 14, C → 16 |
+| 14 | `14_Desastre_Sed_Atacama` | Belisario Suárez | Lineal | → 33 |
+| 15 | `15_Ficcion_Tenaza_Tarapaca` | Belisario Suárez | Lineal | → 18 |
+| 16 | `16_Victoria_Quebrada_Tarapaca` | Belisario Suárez | Lineal | → 17 |
+| 17 | `17_Crisis_Politica_Lima` | Nicolás de Piérola | Lineal | → 18 |
+
+**Acto IV — Tacna y el Morro de Arica**
+
+| # | Asset | Interlocutor | Tipo | Salidas |
+|---|---|---|---|---|
+| 18 | `18_Alianza_En_Tacna` | Narciso Campero | Decisión (3) | A → 19, B → 20, C → 21 |
+| 19 | `19_Batalla_Alto_Alianza` | Lizardo Montero | Lineal | → 22 |
+| 20 | `20_Ficcion_Contragolpe_Tacna` | Lizardo Montero | Lineal | → 24 |
+| 21 | `21_Desastre_Ruptura_Tacna` | Narciso Campero | Lineal | → 33 |
+| 22 | `22_Sitio_Puerto_Arica` | Francisco Bolognesi | Decisión (2) | A → 24, B → 23 |
+| 23 | `23_Ascenso_Morro_Arica` | Francisco Bolognesi | Lineal | → 25 |
+| 24 | `24_Ficcion_Bastion_Arica` | Francisco Bolognesi | Lineal | → 34 |
+
+**Acto V — Defensa de Lima, resistencia y finales**
+
+| # | Asset | Interlocutor | Tipo | Salidas |
+|---|---|---|---|---|
+| 25 | `25_Desembarco_En_Lurin` | Nicolás de Piérola | Decisión (3) | A → 27, B → 26, C → 28 |
+| 26 | `26_Defensas_Rumbo_A_Lima` | Andrés Avelino Cáceres | Lineal | → 29 |
+| 27 | `27_Desastre_Caida_Inmediata_Lima` | Nicolás de Piérola | Lineal | → 33 |
+| 28 | `28_Ficcion_Sorpresa_Lurin` | Andrés Avelino Cáceres | Lineal | → 34 |
+| 29 | `29_San_Juan_Y_Chorrillos` | Andrés Avelino Cáceres | Lineal | → 30 |
+| 30 | `30_Batalla_De_Miraflores` | Andrés Avelino Cáceres | Decisión (2) | A → 31, B → 32 |
+| 31 | `31_Resistencia_De_La_Brena` | Andrés Avelino Cáceres | Lineal | → 35 |
+| 32 | `32_Ficcion_Victoria_Miraflores` | Andrés Avelino Cáceres | Lineal | → 34 |
+
+**Finales**
+
+| # | Asset | Interlocutor | Tipo | Salida |
+|---|---|---|---|---|
+| 33 | `33_Final_Desastre_Prematuro` | Narrador | Final (1 opción) | Reiniciar → 01 |
+| 34 | `34_Final_Ficticio` | Narrador | Final (1 opción) | Reiniciar → 01 |
+| 35 | `35_Final_Historico` | Narrador | Final (1 opción) | Reiniciar → 01 |
+
+Resumen: **35 nodos** = 23 lineales + 9 decisiones (4 de tres opciones y 5 de dos) + 3 finales.
 
 ### 6.2 Conexiones exactas
 
 ```text
-01_Iquique_Intro
-└── → 02_Iquique_Grau → 03_Iquique_Reporte → 04_Iquique_Decision
-    ├── A → 05A_Pierde_Independencia
-    │        → 06_Tarapaca_Intro_SinFlota
-    │        → 07_Tarapaca_Caceres_SinFlota
-    │        → 08_Tarapaca_Bolognesi_SinFlota
-    │        → 09_Tarapaca_Decision_SinFlota
-    │            ├── A → 10A_Retirada_Arica_SinFlota
-    │            │        → 11_Alto_Intro_SinFlota
-    │            │        → 12_Alto_Campero_SinFlota
-    │            │        → 13_Alto_Montero_SinFlota
-    │            │        → 14_Alto_Decision_SinFlota
-    │            │            ├── A → FINAL_01_Historico
-    │            │            └── B → FINAL_01_Historico
-    │            └── B → 10B_Ataque_Pisagua → FINAL_03_Desastre
-    └── B → 05B_Salva_Independencia
-             → 06_Tarapaca_Intro_ConFlota
-             → 07_Tarapaca_Caceres_ConFlota
-             → 08_Tarapaca_Bolognesi_ConFlota
-             → 09_Tarapaca_Decision_ConFlota
-                 ├── A → 10A_Retirada_Arica_ConFlota
-                 │        → 11_Alto_Intro_ConFlota
-                 │        → 12_Alto_Campero_ConFlota
-                 │        → 13_Alto_Montero_ConFlota
-                 │        → 14_Alto_Decision_ConFlota
-                 │            ├── A → FINAL_01_Historico
-                 │            └── B → FINAL_02_PazArmada
-                 └── B → 10B_Ataque_Pisagua → FINAL_03_Desastre
+01_Iquique_Intro → 02_Puente_Del_Huascar → 03_Origen_Antofagasta
+
+03_Origen_Antofagasta
+├── A → 05_Ficcion_Mediacion_Aduana → 07_Ficcion_Escuadra_Alistada
+│                                          ↳ 08_Rescate_En_Iquique
+├── B → 04_Mision_Lavalle_Crisis
+│        ├── A → 06_Desastre_Ruptura_Total → 12_Angamos_Desenlace
+│        ├── B → 07_Ficcion_Escuadra_Alistada
+│        └── C → 08_Rescate_En_Iquique
+└── C → 06_Desastre_Ruptura_Total → 12_Angamos_Desenlace
+
+08_Rescate_En_Iquique
+├── A → 09_Correrias_Del_Huascar
+│        ├── A → 11_Ficcion_Dominio_Naval → 15_Ficcion_Tenaza_Tarapaca
+│        └── B → 12_Angamos_Desenlace → 13_Desierto_Y_Camarones
+├── B → 10_Desastre_Varadura_Iquique → 33_Final_Desastre_Prematuro
+└── C → 11_Ficcion_Dominio_Naval → 15_Ficcion_Tenaza_Tarapaca → 18_Alianza_En_Tacna
+
+13_Desierto_Y_Camarones
+├── A → 15_Ficcion_Tenaza_Tarapaca → 18_Alianza_En_Tacna
+├── B → 14_Desastre_Sed_Atacama → 33_Final_Desastre_Prematuro
+└── C → 16_Victoria_Quebrada_Tarapaca → 17_Crisis_Politica_Lima → 18_Alianza_En_Tacna
+
+18_Alianza_En_Tacna
+├── A → 19_Batalla_Alto_Alianza → 22_Sitio_Puerto_Arica
+│        ├── A → 24_Ficcion_Bastion_Arica → 34_Final_Ficticio
+│        └── B → 23_Ascenso_Morro_Arica → 25_Desembarco_En_Lurin
+├── B → 20_Ficcion_Contragolpe_Tacna → 24_Ficcion_Bastion_Arica → 34_Final_Ficticio
+└── C → 21_Desastre_Ruptura_Tacna → 33_Final_Desastre_Prematuro
+
+25_Desembarco_En_Lurin
+├── A → 27_Desastre_Caida_Inmediata_Lima → 33_Final_Desastre_Prematuro
+├── B → 26_Defensas_Rumbo_A_Lima → 29_San_Juan_Y_Chorrillos → 30_Batalla_De_Miraflores
+│        ├── A → 31_Resistencia_De_La_Brena → 35_Final_Historico
+│        └── B → 32_Ficcion_Victoria_Miraflores → 34_Final_Ficticio
+└── C → 28_Ficcion_Sorpresa_Lurin → 34_Final_Ficticio
+
+Finales → 01_Iquique_Intro (reinicio)
 ```
 
 ### 6.3 Rutas verificadas
 
-La notación A/B corresponde, en orden, a las decisiones de **Iquique → Tarapacá → Alto de la Alianza**. El sufijo `_S` / `_C` indica la línea `_SinFlota` / `_ConFlota` activada por Iquique.
+Cada nodo de decisión tiene su propio conjunto de opciones (no hay una notación global A/B/C). Estas son las tres rutas representativas probadas en Play Mode:
 
-| Ruta | Línea | Secuencia | Final |
+| Ruta | Decisiones (nodo: opción) | Secuencia | Final |
 |---|---|---|---|
-| **A-A-A** | `_SinFlota` | 01 → 02 → 03 → 04 → 05A → 06_S → 07_S → 08_S → 09_S → 10A_S → 11_S → 12_S → 13_S → 14_S → FINAL_01 | El Curso Conocido |
-| **A-A-B** | `_SinFlota` | 01 → 02 → 03 → 04 → 05A → 06_S → 07_S → 08_S → 09_S → 10A_S → 11_S → 12_S → 13_S → 14_S → FINAL_01 | El Curso Conocido |
-| A-B-* | `_SinFlota` | 01 → 02 → 03 → 04 → 05A → 06_S → 07_S → 08_S → 09_S → 10B → FINAL_03 | El Desastre Prematuro |
-| **B-A-A** | `_ConFlota` | 01 → 02 → 03 → 04 → 05B → 06_C → 07_C → 08_C → 09_C → 10A_C → 11_C → 12_C → 13_C → 14_C → FINAL_01 | El Curso Conocido |
-| **B-A-B** | `_ConFlota` | 01 → 02 → 03 → 04 → 05B → 06_C → 07_C → 08_C → 09_C → 10A_C → 11_C → 12_C → 13_C → 14_C → FINAL_02 | La Paz Armada |
-| B-B-* | `_ConFlota` | 01 → 02 → 03 → 04 → 05B → 06_C → 07_C → 08_C → 09_C → 10B → FINAL_03 | El Desastre Prematuro |
+| **Desastre corto** | 03:C, 13:B | 01 → 02 → 03 → 06 → 12 → 13 → 14 → 33 | `33_Final_Desastre_Prematuro` |
+| **Ficticia** | 03:A, 08:C, 18:B | 01 → 02 → 03 → 05 → 07 → 08 → 11 → 15 → 18 → 20 → 24 → 34 | `34_Final_Ficticio` |
+| **Histórica** | 03:B, 04:C, 08:A, 09:B, 13:C, 18:A, 22:B, 25:B, 30:A | 01 → 02 → 03 → 04 → 08 → 09 → 12 → 13 → 16 → 17 → 18 → 19 → 22 → 23 → 25 → 26 → 29 → 30 → 31 → 35 | `35_Final_Historico` |
 
-Las 8 combinaciones fueron validadas: **solo B-A-B** llega a `FINAL_02_PazArmada`; **A-A-B** ahora llega a `FINAL_01_Historico`.
+Las tres rutas se recorrieron con `GameManager` en Play Mode y cada final reinició correctamente a `01_Iquique_Intro`.
+
+Con 9 decisiones (4 de tres opciones y 5 de dos), el grafo admite muchas combinaciones; las tres anteriores cubren cada uno de los finales y los caminos ficticios y desastrosos principales.
 
 ### 6.4 Notas de diseño del grafo
 
-- **La rama se elige en Iquique:** `05A_Pierde_Independencia` entra a la línea `_SinFlota`; `05B_Salva_Independencia` entra a `_ConFlota`.
-- **`_SinFlota` no puede ganar:** en `14_Alto_Decision_SinFlota`, A y B llevan a `FINAL_01_Historico`. Sin la fragata, incluso la táctica perfecta no cambia el resultado.
-- **`_ConFlota` solo gana con B:** en `14_Alto_Decision_ConFlota`, A → `FINAL_01_Historico` y B → `FINAL_02_PazArmada`.
-- **`10B_Ataque_Pisagua` es compartido:** ambas líneas pueden elegirlo en Tarapacá; siempre termina en `FINAL_03_Desastre`.
-- **Sin variables:** la línea activa se deduce del sufijo del nodo actual.
+- **Antofagasta abre tres caminos:** diplomacia (05), crisis con Lavalle (04) y ruptura inmediata (06).
+- **La campaña naval decide el resto:** el rescate humanitario en Iquique (08 A) mantiene la ruta histórica; la varadura (08 B) termina en desastre; el aviso a la *Independencia* (08 C) abre la rama ficticia.
+- **La rama ficticia no siempre gana:** solo el camino diplomático + naval + defensa coordinada llega a `34_Final_Ficticio`; una decisión ficticia aislada puede seguir llevando a desastre.
+- **La rama histórica desemboca en 35:** el camino real (Angamos, Tarapacá, Arica, San Juan y Miraflores, La Breña) llega a `35_Final_Historico`.
+- **Los finales se reinician:** tienen una salida con texto, no `nextNodes` vacío. Se reconocen por el segmento `_Final_`.
+- **Sin variables:** la línea activa se deduce del nodo actual y del prefijo `Ficcion_` / `Desastre_`.
 
 ---
 
@@ -514,6 +570,7 @@ Las 8 combinaciones fueron validadas: **solo B-A-B** llega a `FINAL_02_PazArmada
         <ui:VisualElement name="ChoicesContainer" class="choices-container">
             <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
             <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
+            <ui:Button name="BtnChoiceC" class="choice-button" text="Opción C" />
         </ui:VisualElement>
         <ui:VisualElement name="DialoguePanel" class="dialogue-panel">
             <ui:Label name="SpeakerNameText" class="speaker-name" text="Interlocutor" />
@@ -530,8 +587,8 @@ Las 8 combinaciones fueron validadas: **solo B-A-B** llega a `FINAL_02_PazArmada
 |---|---|
 | `.root-screen` | Ocupa el 100 %, fondo oscuro y `scale-and-crop` para el escenario |
 | `.character-container` | Retrato centrado, oculto por defecto |
-| `.choices-container` | Capa fullscreen centrada, oculta por defecto con `display: none` |
-| `.choice-button` | Botón grande, borde dorado, hover y active |
+| `.choices-container` | Capa fullscreen centrada, oculta por defecto con `display: none`. Aloja hasta 3 botones |
+| `.choice-button` | Botón grande, borde dorado, hover y active. Se muestran 1, 2 o 3 según el nodo |
 | `.dialogue-panel` | Panel inferior del 30 %, fondo semitransparente oscuro |
 | `.speaker-name` | Nombre en dorado, negrita, 27 px |
 | `.dialogue-text` | Texto claro, 22 px, wrap activo |
@@ -561,7 +618,7 @@ Sin este tema, un `PanelSettings` creado por código/MCP puede quedarse sin esti
 
 - `RootScreen`: 1920 × 1080.
 - `DialoguePanel`: 324 px de alto a 1080 px (30 %).
-- `BtnChoiceA` / `BtnChoiceB`: 920 × 88 px, centrados.
+- `BtnChoiceA` / `BtnChoiceB` / `BtnChoiceC`: 920 × 81 px, centrados. En una decisión de 3 opciones se ven los tres; en una de 2, el tercero se oculta; en un final se ve solo el A como "Reiniciar".
 - `SpeakerNameText`: 27 px, color `#D6B25E`.
 - `DialogueText`: 22 px, color `#E8E4D8`.
 - `NextIndicator`: 18 × 13 px, triángulo dorado.
@@ -618,6 +675,8 @@ PanelSettings.referenceResolution = (1920, 1080)
 
 ## 10. Validación realizada
 
+> **Nota:** esta sección documenta la validación del prototipo con el guion anterior (Días 1–6). La validación vigente del rework de 35 nodos está en la entrada del **Día 7** y en la sección 15.4.
+
 ### 10.1 Compilación
 
 - Unity compiló los tres scripts sin errores.
@@ -664,28 +723,29 @@ Se tomaron capturas de verificación en `Assets/Screenshots` y luego se eliminar
 
 1. ~~**Pantalla de menú / título** (Start, Load, Options, Exit).~~ → Resuelto (Día 6): pantalla `MainInicio` con menú, ingreso de nombre, opciones y salto temporal.
 2. ~~**Ingreso del nombre del jugador** antes de iniciar la historia.~~ → Resuelto (Día 6): `GameSessionManager` transporta el nombre y `GameManager.SetPlayerName` lo aplica.
-3. **Pantalla de resumen de final** con la "Línea Temporal Creada".
+3. **Pantalla de resumen de final** con la "Línea Temporal Creada" (hoy el final solo muestra el texto y el botón de reinicio).
 4. **Sistema de guardado/carga JSON** para explorar ramas.
 5. **Transiciones Fade to Black** entre escenas/niveles.
 6. **Menú de pausa** con guardar, cargar y opciones.
 7. ~~**Ajustes de velocidad de texto, volumen y pantalla completa**.~~ → Parcial (Día 6): la UI de opciones existe y guarda los valores en `GameSessionManager`, pero el juego aún no los consume.
 8. **Códice de finales / medallas**.
 9. **Audio** (música y SFX).
-10. **Arte**: retratos y fondos para los 28 nodos (pueden reutilizarse entre variantes).
+10. ~~**Arte**: retratos y fondos para los 28 nodos.~~ → Resuelto (Día 7): los 35 nodos del rework tienen fondo y banderas; 31 tienen retrato.
 11. ~~**Build Settings**: agregar `What_If_Peru` a la lista de escenas.~~ → Resuelto (Día 6): `MainInicio` (0) y `What_If_Peru` (1).
 12. **Tests automatizados** de rutas y UI.
+13. **Revisión de textos**: validar el guion rework con el diseñador antes de cerrar la narrativa.
 
 ### 11.2 Limitaciones técnicas conocidas
 
-- `GameManager.Start()` inicia la partida automáticamente; no hay menú.
-- Los nodos tienen `characterSprite` y `backgroundSprite` en `null`; se ve el fondo oscuro del USS.
-- `EndStory()` solo registra un log; no hay pantalla de fin dedicada.
-- `ShowChoices` está diseñado para exactamente 2 opciones, según el GDD.
-- Si `choiceTexts` tiene menos de 2 elementos, la UI usa `"Opción A"` y `"Opción B"` como respaldo.
+- `GameManager.Start()` inicia la partida automáticamente; el flujo normal pasa antes por `MainInicio`.
+- Los nodos tienen arte asignado según el inventario de `Assets/Sprites`; si un sprite faltara, se ve el fondo oscuro del USS.
+- `EndStory()` solo registra un log si un nodo queda sin salidas; los finales del rework no pasan por ahí porque ofrecen el botón de reinicio.
+- `ShowChoices` acepta de 1 a 3 opciones. Más de 3 requiere cambiar `StoryNode.MaxChoices`, la UI y el validador.
+- Si `choiceTexts` tiene menos textos que `nextNodes`, la UI usa `"Opción A"`, `"Opción B"` y `"Opción C"` como respaldo; el validador lo marca como problema.
 - El typewriter usa `WaitForSecondsRealtime` por carácter; es suficiente para el prototipo, pero se puede optimizar.
-- No hay validación de ciclos en el grafo (un nodo podría apuntar hacia atrás).
+- No hay validación de ciclos en el grafo (un nodo podría apuntar hacia atrás). Los finales usan el ciclo de reinicio de forma intencional.
 - No hay guardado del nodo actual.
-- **Resuelto:** la inconsistencia de La Paz Armada se corrigió con las líneas `_SinFlota` / `_ConFlota`. Ahora `FINAL_02_PazArmada` solo es alcanzable por la ruta B-A-B.
+- **Resuelto:** el guion anterior y sus variantes `_SinFlota` / `_ConFlota` fueron reemplazados por el rework de 35 nodos.
 
 ---
 
@@ -702,7 +762,7 @@ Se tomaron capturas de verificación en `Assets/Screenshots` y luego se eliminar
    - `characterSprite` (opcional)
    - `backgroundSprite` (opcional)
 5. Arrastrar los nodos hijos a `nextNodes`.
-6. Si hay 2 hijos, escribir los 2 textos en `choiceTexts`.
+6. Si hay 2 o 3 hijos, escribir la misma cantidad de textos en `choiceTexts` (A, B, C).
 
 ### 12.2 Asignar arte
 
@@ -747,34 +807,42 @@ GameManager.Instance.StartGame();
 | `Assets/Scripts/Managers/GameManager.cs` | Control del grafo y estado de partida |
 | `Assets/Scripts/Managers/UIManager.cs` | Puente entre grafo y UI Toolkit |
 | `Assets/Editor/StoryGraphValidator.cs` | Validador y reparador del grafo desde el menú `Tools` |
-| `Assets/ScriptableObjects/Nodes/01_Iquique_Intro.asset` | Introducción del Combate de Iquique |
-| `Assets/ScriptableObjects/Nodes/02_Iquique_Grau.asset` | Miguel Grau ordena el rescate de náufragos |
-| `Assets/ScriptableObjects/Nodes/03_Iquique_Reporte.asset` | Reporte de la persecución de la Covadonga |
-| `Assets/ScriptableObjects/Nodes/04_Iquique_Decision.asset` | Decisión: confiar en Moore o abortar la persecución |
-| `Assets/ScriptableObjects/Nodes/05A_Pierde_Independencia.asset` | Consecuencia histórica: encalla la Independencia |
-| `Assets/ScriptableObjects/Nodes/05B_Salva_Independencia.asset` | Consecuencia ucrónica: se salva la Independencia |
-| `Assets/ScriptableObjects/Nodes/06_Tarapaca_Intro_SinFlota.asset` | Tarapacá sin flota: introducción |
-| `Assets/ScriptableObjects/Nodes/07_Tarapaca_Caceres_SinFlota.asset` | Tarapacá sin flota: victoria de Cáceres |
-| `Assets/ScriptableObjects/Nodes/08_Tarapaca_Bolognesi_SinFlota.asset` | Tarapacá sin flota: crisis logística |
-| `Assets/ScriptableObjects/Nodes/09_Tarapaca_Decision_SinFlota.asset` | Tarapacá sin flota: decisión |
-| `Assets/ScriptableObjects/Nodes/10A_Retirada_Arica_SinFlota.asset` | Tarapacá sin flota: retirada a Arica |
-| `Assets/ScriptableObjects/Nodes/11_Alto_Intro_SinFlota.asset` | Alto sin flota: introducción |
-| `Assets/ScriptableObjects/Nodes/12_Alto_Campero_SinFlota.asset` | Alto sin flota: Campero |
-| `Assets/ScriptableObjects/Nodes/13_Alto_Montero_SinFlota.asset` | Alto sin flota: Montero |
-| `Assets/ScriptableObjects/Nodes/14_Alto_Decision_SinFlota.asset` | Alto sin flota: ambas opciones → FINAL_01 |
-| `Assets/ScriptableObjects/Nodes/06_Tarapaca_Intro_ConFlota.asset` | Tarapacá con flota: introducción |
-| `Assets/ScriptableObjects/Nodes/07_Tarapaca_Caceres_ConFlota.asset` | Tarapacá con flota: victoria de Cáceres |
-| `Assets/ScriptableObjects/Nodes/08_Tarapaca_Bolognesi_ConFlota.asset` | Tarapacá con flota: crisis logística |
-| `Assets/ScriptableObjects/Nodes/09_Tarapaca_Decision_ConFlota.asset` | Tarapacá con flota: decisión |
-| `Assets/ScriptableObjects/Nodes/10A_Retirada_Arica_ConFlota.asset` | Tarapacá con flota: retirada a Arica |
-| `Assets/ScriptableObjects/Nodes/11_Alto_Intro_ConFlota.asset` | Alto con flota: introducción |
-| `Assets/ScriptableObjects/Nodes/12_Alto_Campero_ConFlota.asset` | Alto con flota: Campero |
-| `Assets/ScriptableObjects/Nodes/13_Alto_Montero_ConFlota.asset` | Alto con flota: Montero |
-| `Assets/ScriptableObjects/Nodes/14_Alto_Decision_ConFlota.asset` | Alto con flota: B → FINAL_02 |
-| `Assets/ScriptableObjects/Nodes/10B_Ataque_Pisagua.asset` | Consecuencia ucrónica: desastre logístico (compartido) |
-| `Assets/ScriptableObjects/Nodes/FINAL_01_Historico.asset` | Final: El Curso Conocido |
-| `Assets/ScriptableObjects/Nodes/FINAL_02_PazArmada.asset` | Final: La Paz Armada |
-| `Assets/ScriptableObjects/Nodes/FINAL_03_Desastre.asset` | Final: El Desastre Prematuro |
+| `Assets/Editor/ReworkScriptBuilder.cs` | Generador idempotente de los 35 nodos del guion Rework |
+| `Assets/ScriptableObjects/Nodes/01_Iquique_Intro.asset` | Acto I: introducción en la Bahía de Iquique |
+| `Assets/ScriptableObjects/Nodes/02_Puente_Del_Huascar.asset` | Acto I: Grau y el abordaje de Prat |
+| `Assets/ScriptableObjects/Nodes/03_Origen_Antofagasta.asset` | Acto I: embargo del salitre y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/04_Mision_Lavalle_Crisis.asset` | Acto I: ultimátum de Pinto y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/05_Ficcion_Mediacion_Aduana.asset` | Acto I: mediación diplomática (ficticia) |
+| `Assets/ScriptableObjects/Nodes/06_Desastre_Ruptura_Total.asset` | Acto I: ruptura total (desastre) |
+| `Assets/ScriptableObjects/Nodes/07_Ficcion_Escuadra_Alistada.asset` | Acto I: escuadra alistada (ficticia) |
+| `Assets/ScriptableObjects/Nodes/08_Rescate_En_Iquique.asset` | Acto II: rescate y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/09_Correrias_Del_Huascar.asset` | Acto II: correrías del Huáscar |
+| `Assets/ScriptableObjects/Nodes/10_Desastre_Varadura_Iquique.asset` | Acto II: varadura y pérdida de la escuadra |
+| `Assets/ScriptableObjects/Nodes/11_Ficcion_Dominio_Naval.asset` | Acto II: dominio naval (ficticio) |
+| `Assets/ScriptableObjects/Nodes/12_Angamos_Desenlace.asset` | Acto II: muerte de Grau en Angamos |
+| `Assets/ScriptableObjects/Nodes/13_Desierto_Y_Camarones.asset` | Acto III: marcha por Atacama y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/14_Desastre_Sed_Atacama.asset` | Acto III: dispersión en el desierto |
+| `Assets/ScriptableObjects/Nodes/15_Ficcion_Tenaza_Tarapaca.asset` | Acto III: defensa coordinada (ficticia) |
+| `Assets/ScriptableObjects/Nodes/16_Victoria_Quebrada_Tarapaca.asset` | Acto III: victoria de Tarapacá |
+| `Assets/ScriptableObjects/Nodes/17_Crisis_Politica_Lima.asset` | Acto III: crisis política de 1879 |
+| `Assets/ScriptableObjects/Nodes/18_Alianza_En_Tacna.asset` | Acto IV: defensa aliada y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/19_Batalla_Alto_Alianza.asset` | Acto IV: batalla del Alto de la Alianza |
+| `Assets/ScriptableObjects/Nodes/20_Ficcion_Contragolpe_Tacna.asset` | Acto IV: contragolpe aliado (ficticio) |
+| `Assets/ScriptableObjects/Nodes/21_Desastre_Ruptura_Tacna.asset` | Acto IV: ruptura del frente |
+| `Assets/ScriptableObjects/Nodes/22_Sitio_Puerto_Arica.asset` | Acto IV: sitio de Arica y decisiones A/B |
+| `Assets/ScriptableObjects/Nodes/23_Ascenso_Morro_Arica.asset` | Acto IV: asalto al Morro |
+| `Assets/ScriptableObjects/Nodes/24_Ficcion_Bastion_Arica.asset` | Acto IV: Arica resiste (ficticio) |
+| `Assets/ScriptableObjects/Nodes/25_Desembarco_En_Lurin.asset` | Acto V: desembarco en Lurín y decisiones A/B/C |
+| `Assets/ScriptableObjects/Nodes/26_Defensas_Rumbo_A_Lima.asset` | Acto V: líneas de defensa |
+| `Assets/ScriptableObjects/Nodes/27_Desastre_Caida_Inmediata_Lima.asset` | Acto V: caída inmediata de Lima |
+| `Assets/ScriptableObjects/Nodes/28_Ficcion_Sorpresa_Lurin.asset` | Acto V: sorpresa en Lurín (ficticia) |
+| `Assets/ScriptableObjects/Nodes/29_San_Juan_Y_Chorrillos.asset` | Acto V: San Juan y Chorrillos |
+| `Assets/ScriptableObjects/Nodes/30_Batalla_De_Miraflores.asset` | Acto V: Miraflores y decisiones A/B |
+| `Assets/ScriptableObjects/Nodes/31_Resistencia_De_La_Brena.asset` | Acto V: Campaña de la Breña |
+| `Assets/ScriptableObjects/Nodes/32_Ficcion_Victoria_Miraflores.asset` | Acto V: victoria en Miraflores (ficticia) |
+| `Assets/ScriptableObjects/Nodes/33_Final_Desastre_Prematuro.asset` | FINAL 1: Desastre Prematuro |
+| `Assets/ScriptableObjects/Nodes/34_Final_Ficticio.asset` | FINAL 2: Armisticio del Pacífico |
+| `Assets/ScriptableObjects/Nodes/35_Final_Historico.asset` | FINAL 3: Memoria y Reconstrucción |
 | `Assets/UI/VisualNovelUI.uxml` | Árbol visual |
 | `Assets/UI/VisualNovelStyles.uss` | Estilos de la novela visual |
 | `Assets/UI/VisualNovelPanelSettings.asset` | Configuración del panel runtime |
@@ -1105,6 +1173,96 @@ Integrar los fondos, banderas y retratos ya presentes en `Assets/Sprites` en los
 
 ---
 
+### 2026-11-25 — Día 7: guion "Ecos del Pacífico" (35 nodos, 3 opciones)
+
+**Objetivo:** reemplazar el guion anterior por `Guion_Guerra_Pacifico_Rework.md`, adaptando el sistema de nodos y la UI para decisiones de hasta 3 opciones y finales con reinicio.
+
+**Realizado:**
+
+- `StoryNode.cs`
+  - Nuevo máximo `MaxChoices = 3`; `OnValidate` recorta `nextNodes` y `choiceTexts` a 3.
+  - `HasChoices` ahora depende de los textos útiles (`ChoiceCount > 0`), no solo de la cantidad de salidas.
+  - `IsLinear` exige una salida y ningún texto de opción.
+  - Nuevo `IsFinalNode`: detecta `FINAL_*` y también `*_Final_*` (nombres del rework).
+  - `ValidateLinks` del Inspector entiende 1, 2 y 3 opciones.
+- `GameManager.cs`
+  - `SelectChoice` acepta índices 0, 1 y 2.
+  - `PresentChoices` construye la lista de textos resueltos y la envía a la UI.
+  - `GoToNode` registra el final y dispara `OnStoryEnded` al mostrar un nodo final.
+- `UIManager.cs`
+  - `ShowChoices(IReadOnlyList<string>, Action<int>)` muestra 1, 2 o 3 botones y oculta los sobrantes.
+  - Se conserva la sobrecarga A/B por compatibilidad.
+  - Nuevo `BtnChoiceC`, callback único por índice y limpieza al ocultar.
+- `VisualNovelUI.uxml` y `VisualNovelStyles.uss`
+  - Tercer botón `BtnChoiceC`.
+  - Botones ajustados a 74 px mínimos, 20 px de fuente y márgenes de 10 px para que tres opciones quepan sin desbordar.
+- `StoryGraphValidator.cs`
+  - Grafo esperado reescrito con los 35 nodos y sus 50 enlaces.
+  - Regla de finales: 1 salida al nodo 01 y 1 texto de reinicio.
+  - Regla de decisiones: 2 o 3 salidas con la misma cantidad de textos.
+- `ReworkScriptBuilder.cs` (nuevo)
+  - Genera los 35 ScriptableObjects desde una tabla de datos, asigna fondo, retrato, lado, bandera y enlaces.
+  - Borra los nodos anteriores de la carpeta y reapunta `GameManager.startingNode` de `What_If_Peru` al nuevo `01_Iquique_Intro`.
+  - Menú: `Tools → ¿Y si...? Perú → Construir guion Rework`.
+- Contenido del guion:
+  - 5 actos: Antofagasta/Iquique, campaña naval, Tarapacá, Tacna/Arica y defensa de Lima.
+  - 23 nodos lineales, 9 decisiones (4 de tres opciones y 5 de dos) y 3 finales.
+  - 50 enlaces en total.
+  - Arte: 35/35 con fondo y bandera; 31 con retrato (los 4 narradores sin personaje no lo usan).
+
+**Archivos modificados/creados:**
+
+- `Assets/Scripts/Narrative/StoryNode.cs` — máximo 3 opciones y detección de finales.
+- `Assets/Scripts/Managers/GameManager.cs` — selección 0/1/2 y finales con reinicio.
+- `Assets/Scripts/Managers/UIManager.cs` — botones A/B/C.
+- `Assets/UI/VisualNovelUI.uxml` — `BtnChoiceC`.
+- `Assets/UI/VisualNovelStyles.uss` — botones para 3 opciones.
+- `Assets/Editor/StoryGraphValidator.cs` — grafo de 35 nodos.
+- `Assets/Editor/ReworkScriptBuilder.cs` — nuevo generador idempotente.
+- `Assets/ScriptableObjects/Nodes/` — 28 assets anteriores eliminados; 35 nuevos creados.
+- `Assets/Scenes/What_If_Peru.unity` — `startingNode` reapuntado al nuevo nodo 01.
+- `Assets/Ordenes_OpenCode/Avances_Realizados/Bitacora_Avances.md` — esta entrada y actualización de secciones.
+
+**Decisiones tomadas:**
+
+- Las decisiones pueden tener 1, 2 o 3 opciones; la regla de "exactamente 2" queda reemplazada por "máximo 3" para respetar el rework.
+- Los finales no son nodos sin salida: tienen una opción de reinicio. Esto mantiene el grafo cerrado y permite volver a jugar sin recargar escena.
+- Se eliminaron los 28 nodos antiguos para evitar duplicados y referencias huérfanas. El historial queda en git.
+- Los retratos se asignan con un lado fijo por personaje (Grau, Piérola, Montero y Cáceres a la izquierda; Daza, Pinto, Lavalle, Prado, Prat, Suárez, Campero y Bolognesi a la derecha).
+- El arte se toma del inventario existente en `Assets/Sprites`; no se agregaron sprites nuevos.
+
+**Incidencias y soluciones:**
+
+- El validador marcaba los tres finales como "lineales con textos de opción" porque `IsFinalNode` solo reconocía el prefijo `FINAL_`. Se amplió para reconocer el segmento `_Final_` de los nombres del rework.
+- Unity no recompiló automáticamente tras los primeros cambios de scripts; se forzó con `Assets/Refresh` desde el MCP antes de continuar.
+- El builder reasigna `startingNode` después de recrear los assets porque la recreación cambia los GUID.
+
+**Verificación:**
+
+- `Tools → ¿Y si...? Perú → Validar enlaces del grafo` → `Grafo OK: 35 nodos (3 finales, 23 lineales, 9 decisiones).`
+- Play Mode:
+  - `01_Iquique_Intro` se muestra con su texto, fondo, bandera peruana y bloqueo de FPS.
+  - `03_Origen_Antofagasta` muestra los tres botones con sus textos completos y la caja de diálogo oculta.
+  - Las rutas de los tres finales se recorrieron con `GameManager`:
+    - `33_Final_Desastre_Prematuro` → reinicia a `01`.
+    - `34_Final_Ficticio` → reinicia a `01`.
+    - `35_Final_Historico` → reinicia a `01`.
+  - Consola sin errores ni advertencias.
+- Inventario de arte verificado por código: 35/35 fondos, 35/35 banderas, 31 retratos y 0 problemas.
+
+**Pendientes para el siguiente día:**
+
+- Pantalla de resumen de final con la "Línea Temporal Creada".
+- Guardado/carga JSON y menú de pausa.
+- Fade to black entre escenas.
+- Consumir las preferencias de volumen/velocidad en `UIManager` y audio.
+- Audio y códice de finales.
+- Revisión de textos del rework con el diseñador.
+
+**Estado al cierre:** guion "Ecos del Pacífico" implementado con 35 nodos, decisiones de hasta 3 opciones, 3 finales con reinicio, arte integrado y grafo validado; compilación limpia y Play Mode verificado.
+
+---
+
 ### Plantilla para nuevas entradas
 
 Copiar al final del archivo y completar:
@@ -1152,76 +1310,56 @@ Verificar:
 ### 15.2 Probar rutas por código en Play Mode
 
 ```csharp
-// Ruta histórica: Iquique A → Tarapacá A → Alto A  (_SinFlota)
-GameManager.Instance.StartGame();     // 01_Iquique_Intro
-GameManager.Instance.Advance();       // 01 → 02
-GameManager.Instance.Advance();       // 02 → 03
-GameManager.Instance.Advance();       // 03 → 04
-GameManager.Instance.SelectChoice(0); // 04: Iquique A (pierde la Independencia)
-GameManager.Instance.Advance();       // 05A → 06_Tarapaca_Intro_SinFlota
-GameManager.Instance.Advance();       // 06 → 07_Tarapaca_Caceres_SinFlota
-GameManager.Instance.Advance();       // 07 → 08_Tarapaca_Bolognesi_SinFlota
-GameManager.Instance.Advance();       // 08 → 09_Tarapaca_Decision_SinFlota
-GameManager.Instance.SelectChoice(0); // 09: Tarapacá A (retirada a Arica)
-GameManager.Instance.Advance();       // 10A → 11_Alto_Intro_SinFlota
-GameManager.Instance.Advance();       // 11 → 12_Alto_Campero_SinFlota
-GameManager.Instance.Advance();       // 12 → 13_Alto_Montero_SinFlota
-GameManager.Instance.Advance();       // 13 → 14_Alto_Decision_SinFlota
-GameManager.Instance.SelectChoice(0); // 14: Alto A
-// Debe quedar en FINAL_01_Historico
+// Ruta Desastre corto: 03 C → 06, 13 B → 14
+GameManager.Instance.StartGame();     // 01
+GameManager.Instance.Advance();       // 02
+GameManager.Instance.Advance();       // 03
+GameManager.Instance.SelectChoice(2); // 03 C → 06
+GameManager.Instance.Advance();       // 06 → 12
+GameManager.Instance.Advance();       // 12 → 13
+GameManager.Instance.SelectChoice(1); // 13 B → 14
+GameManager.Instance.Advance();       // 14 → 33_Final_Desastre_Prematuro
 
-// Validación clave: A-A-B (_SinFlota) NO debe dar La Paz Armada
+// Ruta Ficticia: 03 A → 05, 08 C → 11, 18 B → 20
 GameManager.Instance.StartGame();
-GameManager.Instance.Advance();       // 01 → 02
-GameManager.Instance.Advance();       // 02 → 03
-GameManager.Instance.Advance();       // 03 → 04
-GameManager.Instance.SelectChoice(0); // 04: Iquique A (sin flota)
-GameManager.Instance.Advance();       // 05A → 06_SinFlota
-GameManager.Instance.Advance();       // 06 → 07_SinFlota
-GameManager.Instance.Advance();       // 07 → 08_SinFlota
-GameManager.Instance.Advance();       // 08 → 09_SinFlota
-GameManager.Instance.SelectChoice(0); // 09: Tarapacá A
-GameManager.Instance.Advance();       // 10A → 11_SinFlota
-GameManager.Instance.Advance();       // 11 → 12_SinFlota
-GameManager.Instance.Advance();       // 12 → 13_SinFlota
-GameManager.Instance.Advance();       // 13 → 14_SinFlota
-GameManager.Instance.SelectChoice(1); // 14: Alto B
-// Debe quedar en FINAL_01_Historico (no en FINAL_02)
+GameManager.Instance.Advance();       // 02
+GameManager.Instance.Advance();       // 03
+GameManager.Instance.SelectChoice(0); // 03 A → 05
+GameManager.Instance.Advance();       // 05 → 07
+GameManager.Instance.Advance();       // 07 → 08
+GameManager.Instance.SelectChoice(2); // 08 C → 11
+GameManager.Instance.Advance();       // 11 → 15
+GameManager.Instance.Advance();       // 15 → 18
+GameManager.Instance.SelectChoice(1); // 18 B → 20
+GameManager.Instance.Advance();       // 20 → 24
+GameManager.Instance.Advance();       // 24 → 34_Final_Ficticio
 
-// Ruta La Paz Armada: Iquique B → Tarapacá A → Alto B  (_ConFlota)
-GameManager.Instance.StartGame();     // 01_Iquique_Intro
-GameManager.Instance.Advance();       // 01 → 02
-GameManager.Instance.Advance();       // 02 → 03
-GameManager.Instance.Advance();       // 03 → 04
-GameManager.Instance.SelectChoice(1); // 04: Iquique B (salva la Independencia)
-GameManager.Instance.Advance();       // 05B → 06_Tarapaca_Intro_ConFlota
-GameManager.Instance.Advance();       // 06 → 07_Tarapaca_Caceres_ConFlota
-GameManager.Instance.Advance();       // 07 → 08_Tarapaca_Bolognesi_ConFlota
-GameManager.Instance.Advance();       // 08 → 09_Tarapaca_Decision_ConFlota
-GameManager.Instance.SelectChoice(0); // 09: Tarapacá A (retirada a Arica)
-GameManager.Instance.Advance();       // 10A → 11_Alto_Intro_ConFlota
-GameManager.Instance.Advance();       // 11 → 12_Alto_Campero_ConFlota
-GameManager.Instance.Advance();       // 12 → 13_Alto_Montero_ConFlota
-GameManager.Instance.Advance();       // 13 → 14_Alto_Decision_ConFlota
-GameManager.Instance.SelectChoice(1); // 14: Alto B (ataque nocturno)
-// Debe quedar en FINAL_02_PazArmada (única ruta)
+// Ruta Histórica completa
+GameManager.Instance.StartGame();
+GameManager.Instance.Advance();       // 02
+GameManager.Instance.Advance();       // 03
+GameManager.Instance.SelectChoice(1); // 03 B → 04
+GameManager.Instance.SelectChoice(2); // 04 C → 08
+GameManager.Instance.SelectChoice(0); // 08 A → 09
+GameManager.Instance.SelectChoice(1); // 09 B → 12
+GameManager.Instance.Advance();       // 12 → 13
+GameManager.Instance.SelectChoice(2); // 13 C → 16
+GameManager.Instance.Advance();       // 16 → 17
+GameManager.Instance.Advance();       // 17 → 18
+GameManager.Instance.SelectChoice(0); // 18 A → 19
+GameManager.Instance.Advance();       // 19 → 22
+GameManager.Instance.SelectChoice(1); // 22 B → 23
+GameManager.Instance.Advance();       // 23 → 25
+GameManager.Instance.SelectChoice(1); // 25 B → 26
+GameManager.Instance.Advance();       // 26 → 29
+GameManager.Instance.Advance();       // 29 → 30
+GameManager.Instance.SelectChoice(0); // 30 A → 31
+GameManager.Instance.Advance();       // 31 → 35_Final_Historico
 
-// Ruta Desastre: Tarapacá B termina la partida en Pisagua
-GameManager.Instance.StartGame();     // 01_Iquique_Intro
-GameManager.Instance.Advance();       // 01 → 02
-GameManager.Instance.Advance();       // 02 → 03
-GameManager.Instance.Advance();       // 03 → 04
-GameManager.Instance.SelectChoice(1); // 04: Iquique B (ConFlota)
-GameManager.Instance.Advance();       // 05B → 06_ConFlota
-GameManager.Instance.Advance();       // 06 → 07_ConFlota
-GameManager.Instance.Advance();       // 07 → 08_ConFlota
-GameManager.Instance.Advance();       // 08 → 09_ConFlota
-GameManager.Instance.SelectChoice(1); // 09: Tarapacá B (ataque a Pisagua)
-GameManager.Instance.Advance();       // 10B_Ataque_Pisagua → FINAL_03
-// Debe quedar en FINAL_03_Desastre
+// En cualquier final, SelectChoice(0) reinicia a 01_Iquique_Intro.
 ```
 
-> `10B_Ataque_Pisagua` es compartido: el resultado es el mismo desde cualquiera de las dos líneas.
+> Los índices de opción son locales a cada nodo (0 = A, 1 = B, 2 = C).
 
 ### 15.3 Inspeccionar la UI en Play Mode
 
@@ -1240,18 +1378,20 @@ Verificar:
 
 ### 15.4 Validar y reparar el grafo narrativo
 
-El proyecto incluye un validador de Editor que revisa los 28 nodos:
+El proyecto incluye un validador de Editor que revisa los 35 nodos:
 
 ```text
 Tools → ¿Y si...? Perú → Validar enlaces del grafo
 Tools → ¿Y si...? Perú → Reparar enlaces del grafo
+Tools → ¿Y si...? Perú → Construir guion Rework
 ```
 
-- **Validar** recorre `Assets/ScriptableObjects/Nodes`, comprueba que cada nodo no final tenga al menos una salida, que los finales tengan 0, que no haya referencias nulas y que las decisiones tengan exactamente 2 textos.
+- **Validar** recorre `Assets/ScriptableObjects/Nodes`, comprueba que no haya referencias nulas, que cada nodo no final tenga de 1 a 3 salidas con la misma cantidad de textos y que los finales tengan 1 salida al nodo 01 con 1 texto de reinicio.
 - **Reparar** reaplica el grafo esperado definido en `StoryGraphValidator.ExpectedLinks`. Es idempotente y sirve para recuperar los enlaces si se pierden al reserializar.
+- **Construir guion Rework** regenera los 35 assets desde `ReworkScriptBuilder`, reasigna arte y reapunta la escena al nodo 01.
 - Al cargar el Editor, una validación silenciosa escribe en consola **solo si encuentra problemas**.
 
-Además, cada asset individual tiene `Validate Links` en su menú contextual de Inspector, y `GameManager.EndStory()` registra un `LogError` si una ruta termina en un nodo que no empieza por `FINAL_`.
+Además, cada asset individual tiene `Validate Links` en su menú contextual de Inspector, y `GameManager.EndStory()` registra un `LogError` si una ruta termina en un nodo sin salida que no es final.
 
 ### 15.5 Herramientas MCP usadas en este proyecto
 
@@ -1272,11 +1412,11 @@ Además, cada asset individual tiene `Validate Links` en su menú contextual de 
 
 ## 16. Reglas de oro del proyecto
 
-1. **Máximo 2 opciones por Momento Decisivo.** No agregar una tercera opción sin actualizar el GDD y la UI.
+1. **De 1 a 3 opciones por Momento Decisivo.** El rework usa decisiones de 2 y 3 opciones; los finales usan una sola. No agregar una cuarta opción sin actualizar el GDD, `StoryNode.MaxChoices`, la UI y el validador.
 2. **Sin inventarios ni stats.** Si se necesita recordar una decisión, reflejarla en el texto y en el nodo de destino; no agregar variables.
 3. **Toda la UI es UI Toolkit.** No introducir uGUI/Canvas.
 4. **El nombre del jugador siempre usa `{PLAYER_NAME}`.** No hardcodear nombres en los diálogos.
-5. **Los nodos finales tienen `nextNodes` vacío.** No agregar salidas a un final sin una razón narrativa.
+5. **Los finales tienen una única opción de reinicio.** Su salida vuelve a `01_Iquique_Intro`; no agregar salidas narrativas a un final sin una razón de diseño.
 6. **Los textos deben ser breves y dinámicos.** Evitar “muros de texto” académicos.
 7. **Cada decisión debe tener consecuencia lógica.** Las opciones ucrónicas deben ser plausibles.
 8. **Documentar cada avance en este archivo.** Es la memoria del proyecto.

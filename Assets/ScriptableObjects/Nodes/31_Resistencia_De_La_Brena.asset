@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 31_Resistencia_De_La_Brena
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Andr\xE9s Avelino C\xE1ceres"
+  dialogueText: "1881 - 1883. Conocido como \u201CEl Brujo de los Andes\u201D, el
+    general Andr\xE9s Avelino C\xE1ceres mantiene en jaque al ej\xE9rcito de ocupaci\xF3n
+    en la sierra central con victorias en Pucar\xE1, Marcavalle y Concepci\xF3n,
+    hasta la agotadora batalla de Huamachuco en julio de 1883."
+  characterSprite: {fileID: 1890414658684662313, guid: 4b72dd073425bc14484fba4463515ff9, type: 3}
+  backgroundSprite: {fileID: -8529293601590809536, guid: f346b7e4d3aefed43b5664fb75ae1155, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 73214a14d43508040acecff77aeea5aa, type: 2}
+  choiceTexts: []

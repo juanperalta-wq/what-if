@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 35_Final_Historico
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Narrador
+  dialogueText: "FINAL 3 \u2014 HIST\xD3RICO (MEMORIA Y RECONSTRUCCI\xD3N): Tras
+    el Tratado de Anc\xF3n en octubre de 1883, el Per\xFA inicia una larga reconstrucci\xF3n
+    nacional, logrando d\xE9cadas despu\xE9s la reincorporaci\xF3n de Tacna en 1929.
+    El legado inmortal de Miguel Grau en Iquique, Francisco Bolognesi en Arica y
+    Andr\xE9s Avelino C\xE1ceres en la resistencia queda grabado para siempre en
+    la historia. (Fin de la partida)."
+  characterSprite: {fileID: 0}
+  backgroundSprite: {fileID: -297882678095056474, guid: 5a4773ea12594d74cb50a87e9454e267, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 4f8c994e1fd30ba45a3162c15c144387, type: 2}
+  choiceTexts:
+  - "Reiniciar la historia desde la Bah\xEDa de Iquique (21 de mayo de 1879)."

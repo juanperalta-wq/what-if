@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 05_Ficcion_Mediacion_Aduana
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Jos\xE9 Antonio de Lavalle"
+  dialogueText: "Aprovechando la suspensi\xF3n del embargo en Antofagasta, el diplom\xE1tico
+    Jos\xE9 Antonio de Lavalle negocia un estatuto comercial trinacional en Atacama.
+    Aunque la tensi\xF3n persiste en la frontera, el Per\xFA evita ser sorprendido
+    sin preparaci\xF3n naval."
+  characterSprite: {fileID: 2254838817125590553, guid: 451f6f45977187346ad6bb839a535b18, type: 3}
+  backgroundSprite: {fileID: -7607182983991150035, guid: 8abf598947cc9be4993e74e2470c2c61, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 4cae67570d4d2fb438f55acdcb6e1f34, type: 2}
+  choiceTexts: []

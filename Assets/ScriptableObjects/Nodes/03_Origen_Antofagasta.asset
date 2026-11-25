@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 03_Origen_Antofagasta
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Hilari\xF3n Daza"
+  dialogueText: "Retrocedemos a febrero de 1879 en el puerto de Antofagasta. Ante
+    la negativa de la compa\xF1\xEDa salitrera a pagar el impuesto de 10 centavos
+    decretado por Bolivia, el presidente Hilari\xF3n Daza ordena embargar sus bienes.
+    El 14 de febrero, tropas chilenas ocupan el puerto. Bolivia exige entonces al
+    Per\xFA activar el Tratado Secreto de Alianza Defensiva de 1873."
+  characterSprite: {fileID: -8038735614283676731, guid: 107e6ba09a5186e49ad7283980e65dc7, type: 3}
+  backgroundSprite: {fileID: -7607182983991150035, guid: 8abf598947cc9be4993e74e2470c2c61, type: 3}
+  characterSide: 1
+  flagSprites:
+  - {fileID: 3327108387176955669, guid: a79079695b124044591d9b1725d60d96, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: d08611dd778ff8f43a3761304e7110d1, type: 2}
+  - {fileID: 11400000, guid: eeafe02f22e2d194b92f998372789869, type: 2}
+  - {fileID: 11400000, guid: 08e3d30e127a70f498431062eac1e450, type: 2}
+  choiceTexts:
+  - "Suspender el embargo en Antofagasta y aceptar una comisi\xF3n internacional
+    de arbitraje antes de movilizar tropas."
+  - "Mantener la reivindicaci\xF3n sobre el salitre y exigir a Lima cumplir de inmediato
+    el Tratado Secreto de 1873."
+  - "Ordenar la destrucci\xF3n inmediata de los tel\xE9grafos y muelles salitreros
+    sin coordinar previamente con Lima."

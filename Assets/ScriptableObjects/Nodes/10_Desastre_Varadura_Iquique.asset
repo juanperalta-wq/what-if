@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 10_Desastre_Varadura_Iquique
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Miguel Grau
+  dialogueText: "Al forzar la marcha en aguas poco profundas sin cartas n\xE1uticas,
+    tanto la Independencia como el Hu\xE1scar quedan encallados y bajo fuego de la
+    artiller\xEDa costera enemiga. El Per\xFA pierde toda su escuadra en un solo
+    d\xEDa."
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: -326679476388971597, guid: 5367e201e42c74546b4b807e6813d23d, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: 8805aa347526c434d8faf196ed26d268, type: 2}
+  choiceTexts: []

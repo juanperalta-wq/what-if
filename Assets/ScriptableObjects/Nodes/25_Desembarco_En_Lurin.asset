@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 25_Desembarco_En_Lurin
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: "Nicol\xE1s de Pi\xE9rola"
+  dialogueText: "Diciembre de 1880. Conquistado el sur, el ej\xE9rcito chileno desembarca
+    en Lur\xEDn, al sur de la capital. Nicol\xE1s de Pi\xE9rola asume personalmente
+    la direcci\xF3n de la defensa de Lima."
+  characterSprite: {fileID: 9164251873766945469, guid: 84719f3f93b012a4fb3401762cbaaf25, type: 3}
+  backgroundSprite: {fileID: 2221402701985807562, guid: 4e161256b105bc84289a7d52c37e7222, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: d4e45c0362346ae45a0c2d9e9f8e2694, type: 2}
+  - {fileID: 11400000, guid: bcad9636d49b8814a94ffd74b0788b8e, type: 2}
+  - {fileID: 11400000, guid: 8de946b7b8756bf449eeb3881d6c5a70, type: 2}
+  choiceTexts:
+  - "Dejar sin guarnici\xF3n los caminos costeros y concentrar toda la poblaci\xF3n
+    en el centro de Lima sin trincheras exteriores."
+  - "Construir dos largas l\xEDneas de defensa est\xE1tica en San Juan y Miraflores
+    esperando el ataque frontal enemigo."
+  - "Aceptar el plan de Andr\xE9s Avelino C\xE1ceres de lanzar un ataque nocturno
+    sorpresa sobre Lur\xEDn antes de que desembarque la artiller\xEDa pesada."

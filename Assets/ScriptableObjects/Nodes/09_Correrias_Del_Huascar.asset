@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fe4cb866c73b46b3211fa6ec817f9, type: 3}
+  m_Name: 09_Correrias_Del_Huascar
+  m_EditorClassIdentifier: Assembly-CSharp::StoryNode
+  speakerName: Miguel Grau
+  dialogueText: "Perdida la Independencia, el Hu\xE1scar sostiene en solitario la
+    campa\xF1a naval durante cinco meses frente a las costas de Atacama. Burla bloqueos,
+    corta comunicaciones y captura al transporte chileno R\xEDmac, gan\xE1ndose el
+    respeto mundial como \u201CEl Caballero de los Mares\u201D."
+  characterSprite: {fileID: -7154137307972793482, guid: 88463020b38fdaf49bc3e69e1e9c25fd, type: 3}
+  backgroundSprite: {fileID: -8133628048760076440, guid: e3cbc1356b3bcc3448d335629819e460, type: 3}
+  characterSide: 0
+  flagSprites:
+  - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  nextNodes:
+  - {fileID: 11400000, guid: dbfd5ffa6797d0e43b78f21b245ba02c, type: 2}
+  - {fileID: 11400000, guid: b4753a4bb8dfad24783c5250ae2628b3, type: 2}
+  choiceTexts:
+  - "Replegar el Hu\xE1scar al Callao tras capturar el R\xEDmac para limpiar sus
+    fondos y evitar un cerco de la escuadra chilena."
+  - "Continuar las correr\xEDas frente a Atacama hasta octubre de 1879, enfrentando
+    el cerco de los blindados chilenos en Punta Angamos."
