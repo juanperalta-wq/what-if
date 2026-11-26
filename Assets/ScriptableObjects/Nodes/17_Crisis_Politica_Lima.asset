@@ -22,6 +22,10 @@ MonoBehaviour:
   characterSide: 0
   flagSprites:
   - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  voiceAudio: {fileID: 8300000, guid: 536e0afd1e4de8641b17c8e10716e265, type: 3}
+  actNumber: 3
+  actTitle: "La Campa\xF1a de Tarapac\xE1"
+  isActStart: 0
   nextNodes:
   - {fileID: 11400000, guid: da51e7f7d070e444ebbb876bda9a4c3d, type: 2}
   choiceTexts: []

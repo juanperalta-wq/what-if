@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Primer nodo de la historia (21 de mayo de 1879, Bahía de Iquique).")]
     [SerializeField] private StoryNode startingNode;
 
+    [Tooltip("Catálogo completo de nodos. Se usa para cargar partidas guardadas por nombre.")]
+    [SerializeField] private List<StoryNode> allNodes = new List<StoryNode>();
+
     [Header("Jugador")]
     [Tooltip("Nombre que reemplaza el token {PLAYER_NAME} en los diálogos.")]
     [SerializeField] private string playerName = "Estratega";
@@ -24,6 +27,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
 
     public StoryNode CurrentNode { get; private set; }
+
+    public StoryNode StartingNode => startingNode;
+
+    public IReadOnlyList<StoryNode> AllNodes => allNodes;
 
     public string PlayerName =>
         string.IsNullOrWhiteSpace(playerName) ? "Estratega" : playerName.Trim();
@@ -57,6 +64,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (GameSessionManager.Instance != null && GameSessionManager.Instance.loadFromSave)
+        {
+            GameSessionManager.Instance.loadFromSave = false;
+
+            if (TryContinueSavedGame())
+                return;
+        }
+
         StartGame();
     }
 
@@ -69,7 +84,17 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        CurrentNode = null;
         GoToNode(startingNode);
+    }
+
+    /// <summary>Reinicia la campaña limpiando el estado de audio del nodo anterior.</summary>
+    public void RestartCampaign()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopVoice();
+
+        StartGame();
     }
 
     /// <summary>Permite que la pantalla de ingreso de nombre actualice el token global.</summary>
@@ -77,6 +102,61 @@ public class GameManager : MonoBehaviour
     {
         if (!string.IsNullOrWhiteSpace(newPlayerName))
             playerName = newPlayerName.Trim();
+    }
+
+    /// <summary>Reemplaza el catálogo completo de nodos (usado por herramientas de Editor).</summary>
+    public void SetNodeCatalogue(List<StoryNode> nodes)
+    {
+        allNodes = nodes != null ? new List<StoryNode>(nodes) : new List<StoryNode>();
+    }
+
+    /// <summary>Busca un nodo del catálogo por nombre exacto.</summary>
+    public StoryNode GetNodeByName(string nodeName)
+    {
+        if (string.IsNullOrEmpty(nodeName))
+            return null;
+
+        for (int i = 0; i < allNodes.Count; i++)
+        {
+            if (allNodes[i] != null && allNodes[i].name == nodeName)
+                return allNodes[i];
+        }
+
+        return null;
+    }
+
+    /// <summary>Carga el nodo guardado (usado por el botón Continuar).</summary>
+    public bool TryContinueSavedGame()
+    {
+        if (!SaveManager.TryLoad(out SaveData data))
+        {
+            Debug.LogWarning("[GameManager] No hay partida guardada válida.");
+            return false;
+        }
+
+        StoryNode node = GetNodeByName(data.currentNodeName);
+
+        if (node == null)
+        {
+            Debug.LogWarning(
+                $"[GameManager] El guardado apunta a '{data.currentNodeName}', que no está en el catálogo. " +
+                "Se iniciará una campaña nueva.");
+            return false;
+        }
+
+        SetPlayerName(data.playerName);
+        CurrentNode = null;
+        GoToNode(node);
+        return true;
+    }
+
+    /// <summary>Guarda manualmente la partida actual (botón Guardar Partida).</summary>
+    public bool SaveCurrentGame()
+    {
+        if (CurrentNode == null)
+            return false;
+
+        return SaveManager.SaveGame(CurrentNode, PlayerName);
     }
 
     /// <summary>Muestra un nodo concreto y actualiza la UI.</summary>
@@ -88,20 +168,39 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        StoryNode previousNode = CurrentNode;
         CurrentNode = node;
+
+        bool actChanged = previousNode == null || previousNode.actNumber != node.actNumber;
+        bool showActCard = node.isActStart || actChanged;
+
+        // La voz anterior nunca debe seguir sonando bajo el cartel de acto.
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopVoice();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayMusicForAct(node.actNumber);
+
+        // Autoguardado en cada avance.
+        SaveManager.SaveGame(node, PlayerName);
 
         if (uiManager != null)
         {
             uiManager.ShowNode(
                 node,
                 node.ResolveSpeaker(PlayerName),
-                node.ResolveDialogue(PlayerName));
+                node.ResolveDialogue(PlayerName),
+                showActCard,
+                () =>
+                {
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlayVoice(node.voiceAudio);
+                });
         }
 
         OnNodeChanged?.Invoke(node);
 
-        // Los finales del rework muestran la pantalla de cierre con la opción
-        // de reiniciar, pero la ruta ya se considera terminada.
+        // Los finales muestran el panel de cierre cuando terminan texto y voz.
         if (node.IsFinalNode)
         {
             Debug.Log($"[GameManager] Final alcanzado: {node.name}");
@@ -115,13 +214,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Advance()
     {
+        if (uiManager != null && uiManager.IsInputBlocked)
+            return;
+
         if (CurrentNode == null)
         {
             StartGame();
             return;
         }
 
-        if (CurrentNode.HasChoices)
+        if (CurrentNode.HasChoices && !CurrentNode.IsFinalNode)
         {
             if (uiManager == null || !uiManager.ChoicesVisible)
                 PresentChoices();

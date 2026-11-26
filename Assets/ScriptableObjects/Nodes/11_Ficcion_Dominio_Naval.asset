@@ -21,6 +21,10 @@ MonoBehaviour:
   characterSide: 0
   flagSprites:
   - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  voiceAudio: {fileID: 8300000, guid: 74d07e1172c77f5498789a97822a7a62, type: 3}
+  actNumber: 2
+  actTitle: "La Campa\xF1a Naval: Iquique y Angamos"
+  isActStart: 0
   nextNodes:
   - {fileID: 11400000, guid: 9f90107f76f6dd34c8f6fdde8fd2b619, type: 2}
   choiceTexts: []

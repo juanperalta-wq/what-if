@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 /// <summary>
 /// Controla la UI de inicio (MainInicio) mediante UI Toolkit.
-/// Flujo: Título -> Ingreso de nombre -> Opciones -> Salto temporal -> What_If_Peru.
+/// Flujo: Título -> Continuar / Nueva campaña -> Ingreso de nombre -> Opciones
+/// -> Salto temporal -> What_If_Peru.
 /// </summary>
 public class IntroUIController : MonoBehaviour
 {
@@ -25,13 +26,15 @@ public class IntroUIController : MonoBehaviour
     private VisualElement introAnimationView;
 
     // Elementos
+    private Button continueButton;
     private TextField playerNameField;
     private Label introText;
     private Label introChronoText;
     private Slider musicSlider;
-    private Slider sfxSlider;
+    private Slider voiceSlider;
     private Slider textSpeedSlider;
     private Toggle fullscreenToggle;
+    private Label deleteSaveStatus;
 
     private bool transitioning;
 
@@ -54,8 +57,12 @@ public class IntroUIController : MonoBehaviour
         CacheReferences();
         BindEvents();
         LoadPreferences();
+        UpdateContinueButtonState();
 
         ShowView(mainMenuView);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayMenuMusic();
     }
 
     private void OnDisable()
@@ -70,13 +77,15 @@ public class IntroUIController : MonoBehaviour
         optionsView = root.Q<VisualElement>("OptionsView");
         introAnimationView = root.Q<VisualElement>("IntroAnimationView");
 
+        continueButton = root.Q<Button>("ContinueButton");
         playerNameField = root.Q<TextField>("PlayerNameField");
         introText = root.Q<Label>("IntroText");
         introChronoText = root.Q<Label>("IntroChronoText");
         musicSlider = root.Q<Slider>("MusicSlider");
-        sfxSlider = root.Q<Slider>("SfxSlider");
+        voiceSlider = root.Q<Slider>("VoiceSlider");
         textSpeedSlider = root.Q<Slider>("TextSpeedSlider");
         fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
+        deleteSaveStatus = root.Q<Label>("DeleteSaveStatus");
     }
 
     private void BindEvents()
@@ -87,13 +96,25 @@ public class IntroUIController : MonoBehaviour
         Button confirmNameButton = root.Q<Button>("ConfirmNameButton");
         Button backFromNameButton = root.Q<Button>("BackFromNameButton");
         Button backFromOptionsButton = root.Q<Button>("BackFromOptionsButton");
+        Button deleteSaveButton = root.Q<Button>("DeleteSaveButton");
 
-        if (startButton != null) startButton.clicked += () => ShowView(nameInputView);
+        if (continueButton != null) continueButton.clicked += ContinueSavedGame;
+        if (startButton != null) startButton.clicked += StartNewCampaign;
         if (optionsButton != null) optionsButton.clicked += () => ShowView(optionsView);
         if (exitButton != null) exitButton.clicked += QuitGame;
         if (confirmNameButton != null) confirmNameButton.clicked += StartTimeJump;
         if (backFromNameButton != null) backFromNameButton.clicked += () => ShowView(mainMenuView);
         if (backFromOptionsButton != null) backFromOptionsButton.clicked += OnBackFromOptions;
+        if (deleteSaveButton != null) deleteSaveButton.clicked += OnDeleteSaveClicked;
+
+        if (musicSlider != null) musicSlider.RegisterValueChangedCallback(OnMusicVolumeChanged);
+        if (voiceSlider != null) voiceSlider.RegisterValueChangedCallback(OnVoiceVolumeChanged);
+    }
+
+    private void UnbindEvents()
+    {
+        if (musicSlider != null) musicSlider.UnregisterValueChangedCallback(OnMusicVolumeChanged);
+        if (voiceSlider != null) voiceSlider.UnregisterValueChangedCallback(OnVoiceVolumeChanged);
     }
 
     private void OnBackFromOptions()
@@ -102,25 +123,75 @@ public class IntroUIController : MonoBehaviour
         ShowView(mainMenuView);
     }
 
-    private void UnbindEvents()
+    private void OnMusicVolumeChanged(ChangeEvent<float> evt)
     {
-        // La interfaz se destruye al cambiar de escena; no es necesario desregistrar,
-        // pero se mantiene limpio por seguridad.
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(evt.newValue);
+
+        GameSessionManager session = GameSessionManager.Instance;
+        if (session != null)
+            session.musicVolume = evt.newValue;
+    }
+
+    private void OnVoiceVolumeChanged(ChangeEvent<float> evt)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetVoiceVolume(evt.newValue);
+
+        GameSessionManager session = GameSessionManager.Instance;
+        if (session != null)
+            session.sfxVolume = evt.newValue;
+    }
+
+    private void OnDeleteSaveClicked()
+    {
+        SaveManager.DeleteSave();
+        UpdateContinueButtonState();
+
+        if (deleteSaveStatus != null)
+        {
+            deleteSaveStatus.text = "Datos guardados eliminados.";
+            deleteSaveStatus.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    private void UpdateContinueButtonState()
+    {
+        if (continueButton == null)
+            return;
+
+        bool hasSave = SaveManager.HasSaveData();
+        continueButton.SetEnabled(hasSave);
+        continueButton.style.opacity = hasSave ? 1f : 0.45f;
     }
 
     private void LoadPreferences()
     {
         GameSessionManager session = GameSessionManager.Instance;
-        if (session == null)
-            return;
 
-        if (playerNameField != null && !string.IsNullOrEmpty(session.playerName))
+        if (playerNameField != null && session != null && !string.IsNullOrEmpty(session.playerName))
             playerNameField.value = session.playerName;
 
-        if (musicSlider != null) musicSlider.value = session.musicVolume;
-        if (sfxSlider != null) sfxSlider.value = session.sfxVolume;
-        if (textSpeedSlider != null) textSpeedSlider.value = session.textSpeed;
-        if (fullscreenToggle != null) fullscreenToggle.value = session.fullscreen;
+        if (musicSlider != null)
+            musicSlider.SetValueWithoutNotify(AudioManager.GetSavedMusicVolume());
+
+        if (voiceSlider != null)
+            voiceSlider.SetValueWithoutNotify(AudioManager.GetSavedVoiceVolume());
+
+        if (textSpeedSlider != null && session != null)
+            textSpeedSlider.SetValueWithoutNotify(session.textSpeed);
+
+        if (fullscreenToggle != null && session != null)
+            fullscreenToggle.SetValueWithoutNotify(session.fullscreen);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusicVolume(AudioManager.GetSavedMusicVolume());
+            AudioManager.Instance.SetVoiceVolume(AudioManager.GetSavedVoiceVolume());
+        }
+
+        if (deleteSaveStatus != null)
+            deleteSaveStatus.style.display = DisplayStyle.None;
     }
 
     private void SavePreferences()
@@ -130,9 +201,44 @@ public class IntroUIController : MonoBehaviour
             return;
 
         if (musicSlider != null) session.musicVolume = musicSlider.value;
-        if (sfxSlider != null) session.sfxVolume = sfxSlider.value;
+        if (voiceSlider != null) session.sfxVolume = voiceSlider.value;
         if (textSpeedSlider != null) session.textSpeed = textSpeedSlider.value;
         if (fullscreenToggle != null) session.fullscreen = fullscreenToggle.value;
+    }
+
+    private void ContinueSavedGame()
+    {
+        if (transitioning)
+            return;
+
+        if (!SaveManager.TryLoad(out SaveData data))
+        {
+            UpdateContinueButtonState();
+            return;
+        }
+
+        GameSessionManager session = GameSessionManager.Instance;
+        if (session != null)
+        {
+            session.loadFromSave = true;
+            session.pendingNodeName = data.currentNodeName;
+            session.SetPlayerName(data.playerName);
+        }
+
+        SavePreferences();
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    private void StartNewCampaign()
+    {
+        GameSessionManager session = GameSessionManager.Instance;
+        if (session != null)
+        {
+            session.loadFromSave = false;
+            session.pendingNodeName = null;
+        }
+
+        ShowView(nameInputView);
     }
 
     private void ShowView(VisualElement view)
@@ -162,7 +268,10 @@ public class IntroUIController : MonoBehaviour
 
         GameSessionManager session = GameSessionManager.Instance;
         if (session != null)
+        {
             session.SetPlayerName(name);
+            session.loadFromSave = false;
+        }
 
         SavePreferences();
         ShowView(introAnimationView);

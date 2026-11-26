@@ -1423,4 +1423,121 @@ Además, cada asset individual tiene `Validate Links` en su menú contextual de 
 
 ---
 
+## 17. Avance: Visual, Sonido y Música (UI Toolkit + Audio)
+
+Fecha: 25 de noviembre de 2026 · Unity `6000.3.23f1` URP · Proyecto `¿Y si...? Perú`.
+
+Se implementó la capa de presentación (voz, música, actos, transiciones, guardado y opciones) **sin crear, borrar, duplicar ni recrear ninguno de los 35 `StoryNode`**. Todos los cambios sobre los nodos fueron de campos nuevos, conservando sprites, fondos, banderas y enlaces existentes.
+
+### 17.1 Voz / narración por nodo y bloqueo anti-salto
+
+- `StoryNode.cs` agrega `public AudioClip voiceAudio;` (por defecto `null`, compatible con assets previos).
+- `Assets/Editor/AssignNodeAudios.cs` recorre `Assets/Audio/` (excluyendo `Musica` y `Sounds`), empareja cada `Nodo NN_...mp3` con su `StoryNode` por prefijo numérico y asigna `voiceAudio`. Resultado: **35 de 35 nodos con audio**.
+- `AudioManager.cs` incorpora un `voiceSource` dedicado (`loop = false`). Cada `GoToNode` detiene la voz anterior y, cuando termina el cartel de acto, reproduce `node.voiceAudio`.
+- La velocidad del efecto máquina de escribir se calcula con `Mathf.Max(15f, texto.Length / voiceAudio.length)` cuando el nodo tiene voz.
+- **Anti-salto:** `UIManager.OnRootScreenClicked` y `GameManager.Advance` ignoran el clic mientras `isTyping` sea verdadero o `AudioManager.IsVoicePlaying` sea verdadero. `NextIndicator` permanece oculto hasta que **ambos** terminan. El indicador se reevalúa en `Update()` para cubrir el caso en que la voz dura más que el texto.
+
+### 17.2 Música por escena y por acto
+
+- `AudioManager` es un singleton persistente (`DontDestroyOnLoad`) con dos `AudioSource` musicales en bucle y crossfade de `1.2 s`.
+- Pistas enlazadas desde `Assets/Audio/Musica/`:
+  - Menú: `MainInicio.ogg` (el archivo real del proyecto; el prompt lo llamaba `MenuInicio.ogg`).
+  - Acto 1: `ACTO I Iquique y las Raíces del Conflicto.ogg`.
+  - Acto 2: `ACTO II La Campaña Naval (Iquique y Angamos).ogg`.
+  - Acto 3: `ACTO III La Campaña de Tarapacá.ogg`.
+  - Acto 4: `ACTO IV Tacna y el Morro de Arica.ogg`.
+  - Acto 5: `ACTO V Defensa de Lima, la Resistencia y los Tres Finales.ogg`.
+- `GameManager` llama a `PlayMusicForAct(node.actNumber)` en cada nodo; la pista **solo** cambia cuando cambia el acto.
+
+### 17.3 Actos y cartel de transición
+
+- Nuevos campos en `StoryNode`: `actNumber` (1–5), `actTitle` e `isActStart`.
+- Asignación aplicada a los 35 nodos:
+
+| Acto | Nodos | Título |
+|---|---|---|
+| 1 | 01–08 | Las Raíces del Conflicto (1879) |
+| 2 | 09–12 | La Campaña Naval: Iquique y Angamos |
+| 3 | 13–17 | La Campaña de Tarapacá |
+| 4 | 18–24 | Tacna y el Morro de Arica |
+| 5 | 25–35 | Defensa de Lima y la Resistencia |
+
+- `isActStart = true` en `01`, `09`, `13`, `18` y `25`.
+- `VisualNovelUI.uxml` / `VisualNovelStyles.uss` incorporan `ActTransitionOverlay` con `ActNumberLabel` (ACTO I…V) y `ActTitleLabel`. El flujo es `fade-in` (0.55 s) → pausa de 2 s → `fade-out` (0.55 s). El escenario, el personaje, la caja de diálogo y la voz aparecen **después** del cartel.
+- El cartel se muestra al iniciar campaña o al cambiar de `actNumber` (incluidos los saltos directos a los finales, que pertenecen al Acto 5).
+
+### 17.4 Transiciones de escenario/personaje y decisiones limpias
+
+- El fondo vive ahora en `BackgroundLayer`, un `VisualElement` independiente con `-unity-background-scale-mode: scale-and-crop` y transición de opacidad declarada en el USS; el código hace el fundido al cambiar de `backgroundSprite`.
+- Al cambiar de nodo se hace `fade-out` del retrato anterior, se limpia por completo (`StyleKeyword.None` + `DisplayStyle.None`) y recién entonces se hace `fade-in` del nuevo. Cuando habla `Narrador` (`characterSprite == null`) el personaje queda totalmente oculto y sin textura residual.
+- `ShowChoices()` oculta `DialoguePanel`, `CharacterContainer`, `FlagStrip`, `NextIndicator`, FPS y botones de HUD: durante una decisión solo se ven el escenario y los botones. `HideChoices()` restaura la caja de diálogo y el HUD; el personaje se muestra únicamente si el nodo entrante tiene `characterSprite`.
+
+### 17.5 Auditoría de los 3 finales y panel de cierre
+
+El script de Editor ejecutó una auditoría de alcanzabilidad desde `01_Iquique_Intro`:
+
+```text
+[Auditoría] 35 nodos · 35 alcanzables desde 01_Iquique_Intro.
+ - OK: '33_Final_Desastre_Prematuro' es alcanzable.
+ - OK: '34_Final_Ficticio' es alcanzable.
+ - OK: '35_Final_Historico' es alcanzable.
+ - OK: ruta '10_Desastre_Varadura_Iquique' → '33_Final_Desastre_Prematuro'.
+ - OK: ruta '28_Ficcion_Sorpresa_Lurin' → '34_Final_Ficticio'.
+ - OK: ruta '31_Resistencia_De_La_Brena' → '35_Final_Historico'.
+```
+
+No se modificó ningún enlace. Al terminar el texto **y** la voz de cualquiera de los tres finales, aparece `EndingPanel` con `Volver al Menú Principal` (carga `MainInicio`) y `Reiniciar Campaña` (vuelve a `01_Iquique_Intro`).
+
+### 17.6 Guardado, Continuar y Opciones
+
+- `SaveManager.cs` guarda `SaveData { currentNodeName, playerName, actNumber }` en `Application.persistentDataPath/savegame.json` con respaldo en `PlayerPrefs` (`WhatIf_SaveGame`). `HasSaveData()`, `TryLoad()` y `DeleteSave()` son estáticos.
+- `GameManager` autoguarda en cada `GoToNode`. El botón `Guardar` del HUD (esquina superior derecha) guarda manualmente y muestra el aviso `"Partida guardada"`.
+- `GameManager.allNodes` contiene el catálogo de los 35 nodos y se usa para resolver el nodo guardado por nombre.
+- **Continuar (MainInicio):** botón habilitado solo si `SaveManager.HasSaveData()`. Carga `What_If_Peru`, restaura `playerName`, el `StoryNode`, el acto, la música y la voz.
+- **Iniciar Campaña:** inicia en `01_Iquique_Intro` y limpia la bandera de continuación.
+- **Opciones (menú y pausa):** sliders de Volumen de Música y Volumen de Voces/Personajes, aplicados en tiempo real y persistidos en `PlayerPrefs` (`WhatIf_MusicVolume`, `WhatIf_VoiceVolume`). Incluye `Borrar Datos Guardados`, que elimina el JSON, limpia `PlayerPrefs` y deshabilita `Continuar`.
+- El panel de pausa en partida ofrece `Continuar Partida`, `Reiniciar Campaña`, `Borrar Datos Guardados` y `Volver al Menú Principal`.
+
+### 17.7 Validación en Play Mode
+
+Comprobado con el MCP de Unity, sin errores ni advertencias en consola:
+
+- Los 35 nodos tienen `voiceAudio` asignado; los 35 son alcanzables.
+- El cartel de acto aparece antes que escenario/personaje/diálogo/voz (probado en Acto II y Acto V).
+- Con texto o voz en curso, `IsInputBlocked` es verdadero y el clic/`Advance()` no cambia de nodo.
+- Al terminar la voz, `NextIndicator` aparece; en nodos finales se abre `EndingPanel`.
+- El retrato anterior se limpia al pasar a `Narrador` (sin sprites superpuestos).
+- En decisiones se ocultan diálogo, personaje, banderas, FPS y HUD; al elegir se restauran.
+- `Continuar` carga el nodo y el nombre guardados; los sliders y el borrado de datos funcionan en caliente.
+- La música cambia al Acto II y se mantiene entre nodos del mismo acto.
+
+### 17.8 Archivos creados / modificados
+
+| Archivo | Cambio |
+|---|---|
+| `Assets/Scripts/Narrative/StoryNode.cs` | `voiceAudio`, `actNumber`, `actTitle`, `isActStart` |
+| `Assets/Scripts/Managers/AudioManager.cs` | **Nuevo**: música con crossfade, voces, volúmenes |
+| `Assets/Scripts/Managers/SaveManager.cs` | **Nuevo**: guardado JSON + respaldo PlayerPrefs |
+| `Assets/Scripts/Managers/GameManager.cs` | Actos, música, voz, autoguardado, Continuar, catálogo |
+| `Assets/Scripts/Managers/UIManager.cs` | Capas, fundidos, cartel de acto, anti-salto, HUD, opciones, cierre |
+| `Assets/UI/VisualNovelUI.uxml` | `BackgroundLayer`, HUD, cartel, opciones y panel de cierre |
+| `Assets/UI/VisualNovelStyles.uss` | Estilos de capas, HUD, cartel y modales |
+| `Assets/UI/UIInicio/IntroUI.uxml` | `Continuar`, slider de voces, borrar datos |
+| `Assets/UI/UIInicio/IntroUIController.cs` | Continuar, volúmenes, borrado, música de menú |
+| `Assets/UI/UIInicio/GameSessionManager.cs` | `loadFromSave`, `pendingNodeName` |
+| `Assets/Editor/AssignNodeAudios.cs` | **Nuevo**: audios, actos, auditoría y configuración de escenas |
+| `Assets/Scenes/MainInicio.unity` | `AudioManager` + pistas |
+| `Assets/Scenes/What_If_Peru.unity` | `AudioManager` en `Music` + catálogo de 35 nodos |
+
+Herramientas de Editor disponibles en `Tools/What If Peru/`:
+
+```text
+1. Asignar Audios y Actos a los 35 Nodos
+2. Auditar Conexiones hacia los 3 Finales
+3. Configurar Escenas (AudioManager y catálogo)
+Configurar todo (Audios + Actos + Escenas)
+```
+
+---
+
 *Fin del documento.*

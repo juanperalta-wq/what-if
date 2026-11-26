@@ -21,6 +21,10 @@ MonoBehaviour:
   characterSide: 1
   flagSprites:
   - {fileID: 3327108387176955669, guid: a79079695b124044591d9b1725d60d96, type: 3}
+  voiceAudio: {fileID: 8300000, guid: 7d1be44527fabcd4b99a9983e887c139, type: 3}
+  actNumber: 4
+  actTitle: Tacna y el Morro de Arica
+  isActStart: 1
   nextNodes:
   - {fileID: 11400000, guid: 3c0e6b1d36261be4895666ed634c4a36, type: 2}
   - {fileID: 11400000, guid: b75f317308790b348b8f3b8e3fb38807, type: 2}

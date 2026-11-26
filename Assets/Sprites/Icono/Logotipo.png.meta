@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: b635ddb997189f842914e5c75e00df33
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4421427605493734001
+    second: Logotipo_0
+  - first:
+      213: 7350342423513597064
+    second: Logotipo_1
+  - first:
+      213: 8383565821417214336
+    second: Logotipo_2
+  - first:
+      213: 1705866375864705460
+    second: Logotipo_3
+  - first:
+      213: -6309689908962824241
+    second: Logotipo_4
+  - first:
+      213: -7805000388372723332
+    second: Logotipo_5
+  - first:
+      213: 8147934820246246766
+    second: Logotipo_6
+  - first:
+      213: 6479234594076111705
+    second: Logotipo_7
+  - first:
+      213: 4595146446668789082
+    second: Logotipo_8
+  - first:
+      213: 8435673944514530805
+    second: Logotipo_9
+  - first:
+      213: 564674910377683840
+    second: Logotipo_10
+  - first:
+      213: 2983018677270964281
+    second: Logotipo_11
+  - first:
+      213: -8668940915914735003
+    second: Logotipo_12
+  - first:
+      213: -7211977332564139366
+    second: Logotipo_13
+  - first:
+      213: -1852818558512406898
+    second: Logotipo_14
+  - first:
+      213: -1068769185208477566
+    second: Logotipo_15
+  - first:
+      213: 4002020646994957209
+    second: Logotipo_16
+  - first:
+      213: 186206630949083439
+    second: Logotipo_17
+  - first:
+      213: -1852120397220829500
+    second: Logotipo_18
+  - first:
+      213: 4807852875341974537
+    second: Logotipo_19
+  - first:
+      213: -8801575048516747354
+    second: Logotipo_20
+  - first:
+      213: 8746827374807153894
+    second: Logotipo_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logotipo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2012
+        height: 2048
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a5f814bf01c5d30800000000000000
+      internalID: 4421427605493734001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_1
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 1968
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 884030b8d79a10660800000000000000
+      internalID: 7350342423513597064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_2
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 1039
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 081dda052b8685470800000000000000
+      internalID: 8383565821417214336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_3
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 933
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1e2b74e647ca710800000000000000
+      internalID: 1705866375864705460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_4
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 921
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcf676d357a7f68a0800000000000000
+      internalID: -6309689908962824241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_5
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 906
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79024bdf711fa390800000000000000
+      internalID: -7805000388372723332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_6
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 897
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6550d5ac87431170800000000000000
+      internalID: 8147934820246246766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_7
+      rect:
+        serializedVersion: 2
+        x: 1986
+        y: 110
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 953345ce88ddae950800000000000000
+      internalID: 6479234594076111705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_8
+      rect:
+        serializedVersion: 2
+        x: 2004
+        y: 88
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a55779cd85d35cf30800000000000000
+      internalID: 4595146446668789082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_9
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 81
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd8ec722c8811570800000000000000
+      internalID: 8435673944514530805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_10
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 65
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08b23a6d6d026d700800000000000000
+      internalID: 564674910377683840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_11
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 78
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9386719aeafc56920800000000000000
+      internalID: 2983018677270964281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_12
+      rect:
+        serializedVersion: 2
+        x: 2006
+        y: 70
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5628d00ca2cb1b780800000000000000
+      internalID: -8668940915914735003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_13
+      rect:
+        serializedVersion: 2
+        x: 1914
+        y: 71
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a926854a3d8e9eb90800000000000000
+      internalID: -7211977332564139366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_14
+      rect:
+        serializedVersion: 2
+        x: 1986
+        y: 50
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8edd9276577946e0800000000000000
+      internalID: -1852818558512406898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_15
+      rect:
+        serializedVersion: 2
+        x: 2013
+        y: 0
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 288d3c0b618fa21f0800000000000000
+      internalID: -1068769185208477566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_16
+      rect:
+        serializedVersion: 2
+        x: 2038
+        y: 14
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993d9e723980a8730800000000000000
+      internalID: 4002020646994957209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_17
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 1
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f29da8cb1f9859200800000000000000
+      internalID: 186206630949083439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_18
+      rect:
+        serializedVersion: 2
+        x: 1973
+        y: 0
+        width: 13
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c6a56acf42fb46e0800000000000000
+      internalID: -1852120397220829500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_19
+      rect:
+        serializedVersion: 2
+        x: 1992
+        y: 0
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c491f87bce8b240800000000000000
+      internalID: 4807852875341974537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_20
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 0
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6afb73940268ad580800000000000000
+      internalID: -8801575048516747354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logotipo_21
+      rect:
+        serializedVersion: 2
+        x: 2040
+        y: 0
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ecfa0b9729f26970800000000000000
+      internalID: 8746827374807153894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Logotipo_0: 4421427605493734001
+      Logotipo_1: 7350342423513597064
+      Logotipo_10: 564674910377683840
+      Logotipo_11: 2983018677270964281
+      Logotipo_12: -8668940915914735003
+      Logotipo_13: -7211977332564139366
+      Logotipo_14: -1852818558512406898
+      Logotipo_15: -1068769185208477566
+      Logotipo_16: 4002020646994957209
+      Logotipo_17: 186206630949083439
+      Logotipo_18: -1852120397220829500
+      Logotipo_19: 4807852875341974537
+      Logotipo_2: 8383565821417214336
+      Logotipo_20: -8801575048516747354
+      Logotipo_21: 8746827374807153894
+      Logotipo_3: 1705866375864705460
+      Logotipo_4: -6309689908962824241
+      Logotipo_5: -7805000388372723332
+      Logotipo_6: 8147934820246246766
+      Logotipo_7: 6479234594076111705
+      Logotipo_8: 4595146446668789082
+      Logotipo_9: 8435673944514530805
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

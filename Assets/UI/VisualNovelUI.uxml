@@ -1,22 +1,75 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="VisualNovelStyles.uss" />
     <ui:VisualElement name="RootScreen" class="root-screen">
+
+        <!-- Capa de escenario independiente: permite fundidos suaves. -->
+        <ui:VisualElement name="BackgroundLayer" class="background-layer" />
+
+        <!-- Retrato del interlocutor. -->
         <ui:VisualElement name="CharacterContainer" class="character-container" />
-        <ui:VisualElement name="ChoicesContainer" class="choices-container">
-            <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
-            <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
-            <ui:Button name="BtnChoiceC" class="choice-button" text="Opción C" />
-        </ui:VisualElement>
+
+        <!-- Banderas de la campaña. -->
         <ui:VisualElement name="FlagStrip" class="flag-strip">
             <ui:VisualElement name="FlagImageA" class="flag-image" />
             <ui:VisualElement name="FlagImageB" class="flag-image" />
             <ui:VisualElement name="FlagImageC" class="flag-image" />
         </ui:VisualElement>
+
         <ui:Label name="FpsText" class="fps-text" text="-- FPS" />
+
+        <!-- HUD superior derecho: guardar y pausa. -->
+        <ui:Button name="BtnPause" class="hud-button pause-button" text="II" />
+        <ui:Button name="BtnSaveGame" class="hud-button save-button" text="Guardar" />
+        <ui:Label name="SaveToast" class="toast-label" text="Partida guardada" />
+
+        <!-- Caja de diálogo. -->
         <ui:VisualElement name="DialoguePanel" class="dialogue-panel">
             <ui:Label name="SpeakerNameText" class="speaker-name" text="Interlocutor" />
             <ui:Label name="DialogueText" class="dialogue-text" text="..." />
             <ui:VisualElement name="NextIndicator" class="next-indicator" />
         </ui:VisualElement>
+
+        <!-- Momento Decisivo: solo escenario y botones. -->
+        <ui:VisualElement name="ChoicesContainer" class="choices-container">
+            <ui:Button name="BtnChoiceA" class="choice-button" text="Opción A" />
+            <ui:Button name="BtnChoiceB" class="choice-button" text="Opción B" />
+            <ui:Button name="BtnChoiceC" class="choice-button" text="Opción C" />
+        </ui:VisualElement>
+
+        <!-- Cartel previo de acto. -->
+        <ui:VisualElement name="ActTransitionOverlay" class="act-overlay">
+            <ui:Label name="ActNumberLabel" class="act-number" text="ACTO I" />
+            <ui:Label name="ActTitleLabel" class="act-title" text="Las Raíces del Conflicto (1879)" />
+        </ui:VisualElement>
+
+        <!-- Panel de opciones / pausa. -->
+        <ui:VisualElement name="PausePanel" class="modal-overlay">
+            <ui:VisualElement class="modal-card">
+                <ui:Label text="Opciones" class="modal-title" />
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Volumen de Música" class="option-label" />
+                    <ui:Slider name="MusicSliderGame" low-value="0" high-value="1" value="0.8" class="option-slider" />
+                </ui:VisualElement>
+                <ui:VisualElement class="option-row">
+                    <ui:Label text="Volumen de Voces / Personajes" class="option-label" />
+                    <ui:Slider name="VoiceSliderGame" low-value="0" high-value="1" value="0.9" class="option-slider" />
+                </ui:VisualElement>
+                <ui:Button name="BtnResume" text="Continuar Partida" class="modal-button" />
+                <ui:Button name="BtnRestartGame" text="Reiniciar Campaña" class="modal-button" />
+                <ui:Button name="BtnDeleteSaveGame" text="Borrar Datos Guardados" class="modal-button danger" />
+                <ui:Button name="BtnBackToMenuGame" text="Volver al Menú Principal" class="modal-button secondary" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Panel de cierre de los 3 finales. -->
+        <ui:VisualElement name="EndingPanel" class="modal-overlay">
+            <ui:VisualElement class="modal-card">
+                <ui:Label name="EndingTitleLabel" class="modal-title" text="Final" />
+                <ui:Label name="EndingSubtitleLabel" class="modal-subtitle" text="" />
+                <ui:Button name="BtnEndingMenu" text="Volver al Menú Principal" class="modal-button" />
+                <ui:Button name="BtnEndingRestart" text="Reiniciar Campaña" class="modal-button secondary" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
     </ui:VisualElement>
 </ui:UXML>

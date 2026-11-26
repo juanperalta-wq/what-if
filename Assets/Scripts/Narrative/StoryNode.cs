@@ -52,6 +52,21 @@ public class StoryNode : ScriptableObject
     [Tooltip("Banderas visibles en la esquina superior izquierda (máximo 3).")]
     public List<Sprite> flagSprites = new List<Sprite>();
 
+    [Header("Audio")]
+    [Tooltip("Voz / narración del nodo. Si está vacío, el texto avanza sin bloquear.")]
+    public AudioClip voiceAudio;
+
+    [Header("Acto")]
+    [Tooltip("Número de acto al que pertenece el nodo (1 a 5).")]
+    [Range(1, 5)]
+    public int actNumber = 1;
+
+    [Tooltip("Título limpio del acto que aparece en el cartel de transición.")]
+    public string actTitle;
+
+    [Tooltip("Marca el primer nodo de cada acto para mostrar el cartel de entrada.")]
+    public bool isActStart;
+
     [Header("Grafo de decisiones")]
     [Tooltip("0 = final; 1 = avance automático o una sola opción; 2-3 = decisión.")]
     public List<StoryNode> nextNodes = new List<StoryNode>();

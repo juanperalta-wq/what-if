@@ -22,6 +22,10 @@ MonoBehaviour:
   characterSide: 0
   flagSprites:
   - {fileID: -1880223407946808807, guid: 704e7bc514063744a899e7b656346137, type: 3}
+  voiceAudio: {fileID: 8300000, guid: 1cf0dd98a82748e4a81ea79c5a8cf825, type: 3}
+  actNumber: 1
+  actTitle: "Las Ra\xEDces del Conflicto (1879)"
+  isActStart: 0
   nextNodes:
   - {fileID: 11400000, guid: 08e3d30e127a70f498431062eac1e450, type: 2}
   - {fileID: 11400000, guid: 4cae67570d4d2fb438f55acdcb6e1f34, type: 2}

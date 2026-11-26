@@ -1,8 +1,20 @@
 .root-screen {
     flex-grow: 1;
     background-color: rgb(14, 19, 24);
-    -unity-background-scale-mode: scale-and-crop;
     overflow: hidden;
+}
+
+/* Escenario: capa propia para poder fundir entre fondos. */
+.background-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 1;
+    -unity-background-scale-mode: scale-and-crop;
+    transition-property: opacity;
+    transition-duration: 0.35s;
 }
 
 /* Retrato del interlocutor: apoyado a un costado, nunca en el centro. */
@@ -24,6 +36,75 @@
 .character-right {
     right: 3%;
     left: auto;
+}
+
+/* HUD superior derecho. */
+.hud-button {
+    position: absolute;
+    top: 18px;
+    height: 38px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: rgba(8, 12, 16, 0.82);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: rgb(232, 228, 216);
+    font-size: 15px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.hud-button:hover {
+    background-color: rgba(52, 70, 84, 0.95);
+    border-left-color: rgb(224, 190, 110);
+    border-right-color: rgb(224, 190, 110);
+    border-top-color: rgb(224, 190, 110);
+    border-bottom-color: rgb(224, 190, 110);
+}
+
+.save-button {
+    right: 26px;
+    width: 108px;
+}
+
+.pause-button {
+    right: 146px;
+    width: 50px;
+}
+
+.toast-label {
+    position: absolute;
+    top: 66px;
+    right: 26px;
+    display: none;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: rgba(8, 12, 16, 0.9);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    color: rgb(214, 178, 94);
+    font-size: 16px;
+    -unity-font-style: bold;
 }
 
 /* Momento Decisivo: capa centrada que atenúa el escenario. */
@@ -147,11 +228,11 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-/* Contador de FPS: esquina superior derecha. */
+/* Contador de FPS: esquina superior izquierda, bajo las banderas. */
 .fps-text {
     position: absolute;
-    top: 20px;
-    right: 26px;
+    top: 70px;
+    left: 26px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 4px;
@@ -176,4 +257,163 @@
     border-left-color: transparent;
     border-right-color: transparent;
     border-top-color: rgb(214, 178, 94);
+}
+
+/* Cartel previo de acto: overlay oscuro a pantalla completa. */
+.act-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(4, 7, 10, 0.97);
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.act-number {
+    font-size: 26px;
+    color: rgb(214, 178, 94);
+    letter-spacing: 8px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.act-title {
+    margin-top: 16px;
+    font-size: 46px;
+    color: rgb(240, 234, 218);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    max-width: 900px;
+}
+
+/* Paneles modales (opciones y cierre). */
+.modal-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(4, 7, 10, 0.84);
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.modal-card {
+    width: 640px;
+    max-width: 92%;
+    flex-direction: column;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background-color: rgb(16, 22, 28);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.modal-title {
+    font-size: 32px;
+    color: rgb(214, 178, 94);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 12px;
+    white-space: normal;
+}
+
+.modal-subtitle {
+    font-size: 19px;
+    color: rgb(232, 228, 216);
+    -unity-text-align: middle-center;
+    white-space: normal;
+    margin-bottom: 18px;
+}
+
+.option-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.option-label {
+    font-size: 17px;
+    color: rgb(232, 228, 216);
+    width: 250px;
+    white-space: normal;
+}
+
+.option-slider {
+    width: 300px;
+}
+
+.modal-button {
+    min-height: 54px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(28, 39, 48, 0.97);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(176, 141, 62);
+    border-right-color: rgb(176, 141, 62);
+    border-top-color: rgb(176, 141, 62);
+    border-bottom-color: rgb(176, 141, 62);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: rgb(240, 234, 218);
+    font-size: 19px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.modal-button:hover {
+    background-color: rgb(52, 70, 84);
+    border-left-color: rgb(224, 190, 110);
+    border-right-color: rgb(224, 190, 110);
+    border-top-color: rgb(224, 190, 110);
+    border-bottom-color: rgb(224, 190, 110);
+}
+
+.modal-button.secondary {
+    background-color: rgba(20, 27, 34, 0.97);
+    border-left-color: rgba(176, 141, 62, 0.6);
+    border-right-color: rgba(176, 141, 62, 0.6);
+    border-top-color: rgba(176, 141, 62, 0.6);
+    border-bottom-color: rgba(176, 141, 62, 0.6);
+}
+
+.modal-button.danger {
+    border-left-color: rgb(190, 80, 70);
+    border-right-color: rgb(190, 80, 70);
+    border-top-color: rgb(190, 80, 70);
+    border-bottom-color: rgb(190, 80, 70);
+    color: rgb(238, 190, 184);
 }

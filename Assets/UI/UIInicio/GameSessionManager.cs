@@ -14,9 +14,14 @@ public class GameSessionManager : MonoBehaviour
 
     [Header("Preferencias")]
     [Range(0f, 1f)] public float musicVolume = 0.8f;
-    [Range(0f, 1f)] public float sfxVolume = 0.8f;
+    [Range(0f, 1f)] public float sfxVolume = 0.9f;
     [Range(0.01f, 0.1f)] public float textSpeed = 0.05f;
     public bool fullscreen = true;
+
+    [Header("Continuar partida")]
+    [Tooltip("Cuando es true, GameManager carga el nodo guardado al iniciar la escena.")]
+    public bool loadFromSave;
+    public string pendingNodeName;
 
     private const string PlayerPrefsNameKey = "WhatIf_PlayerName";
 

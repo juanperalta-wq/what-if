@@ -13,6 +13,7 @@
             <ui:Label name="TaglineText" text="Una novela visual de historia alternativa" class="tagline-text"/>
 
             <ui:VisualElement class="button-column">
+                <ui:Button name="ContinueButton" text="Continuar" class="menu-button"/>
                 <ui:Button name="StartButton" text="Iniciar Campaña" class="menu-button"/>
                 <ui:Button name="OptionsButton" text="Opciones" class="menu-button secondary"/>
                 <ui:Button name="ExitButton" text="Salir" class="menu-button secondary"/>
@@ -42,8 +43,8 @@
                     <ui:Slider name="MusicSlider" low-value="0" high-value="1" value="0.8" class="option-slider"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="option-row">
-                    <ui:Label text="Volumen de SFX" class="option-label"/>
-                    <ui:Slider name="SfxSlider" low-value="0" high-value="1" value="0.8" class="option-slider"/>
+                    <ui:Label text="Volumen de Voces / Personajes" class="option-label"/>
+                    <ui:Slider name="VoiceSlider" low-value="0" high-value="1" value="0.9" class="option-slider"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="option-row">
                     <ui:Label text="Velocidad del Texto" class="option-label"/>
@@ -54,6 +55,9 @@
                     <ui:Toggle name="FullscreenToggle" value="true" class="option-toggle"/>
                 </ui:VisualElement>
             </ui:VisualElement>
+
+            <ui:Button name="DeleteSaveButton" text="Borrar Datos Guardados" class="menu-button secondary"/>
+            <ui:Label name="DeleteSaveStatus" text="" class="panel-hint"/>
 
             <ui:Button name="BackFromOptionsButton" text="Volver al Menú" class="menu-button"/>
         </ui:VisualElement>

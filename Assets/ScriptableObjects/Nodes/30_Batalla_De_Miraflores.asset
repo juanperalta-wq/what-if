@@ -21,6 +21,10 @@ MonoBehaviour:
   characterSide: 0
   flagSprites:
   - {fileID: -4460099539602854879, guid: 113f1f25baaebaf419a4e08c2bddf7bb, type: 3}
+  voiceAudio: {fileID: 8300000, guid: 00bfc347419f55b4188846722a93bcf7, type: 3}
+  actNumber: 5
+  actTitle: Defensa de Lima y la Resistencia
+  isActStart: 0
   nextNodes:
   - {fileID: 11400000, guid: 018c4d75035b57f4c96bcebef5793942, type: 2}
   - {fileID: 11400000, guid: 423f0be3c8e10994fb17ceaf75fb5cf8, type: 2}
